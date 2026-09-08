@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canada squad board — 2026 World Cup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maple:#CE1126;
+    --maple-deep:#8E0B1B;
+    --ink:#14181D;
+    --muted:#71767E;
+    --stone:#E5E2DD;
+    --paper:#FFFFFF;
+    --pitch:#1B4332;
+    --pitch-line:rgba(255,255,255,.22);
+    --display:"Barlow Condensed","Arial Narrow",Haettenschweiler,system-ui,sans-serif;
+    --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:15px;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+
+  /* ---------- masthead ---------- */
+  .masthead{background:var(--maple);color:#fff;padding:22px 18px 18px}
+  .masthead h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:44px;
+    line-height:.94;
+    letter-spacing:-.01em;
+    margin:0 0 6px;
+  }
+  .masthead p{margin:0;font-size:13.5px;color:rgba(255,255,255,.94);max-width:46ch}
+  .tally{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:16px}
+  @media (min-width:520px){.tally{display:flex;gap:26px}}
+  .tally div{line-height:1.1}
+  .tally b{font-family:var(--display);font-weight:700;font-size:clamp(22px,6.2vw,30px);display:block}
+  .tally span{display:block;font-size:11px;line-height:1.2;color:rgba(255,255,255,.92)}
+
+  /* ---------- controls ---------- */
+  .controls{
+    position:sticky;top:0;z-index:5;
+    background:var(--paper);
+    border-bottom:1px solid var(--stone);
+    padding:10px 14px 9px;
+  }
+  .row1{display:flex;gap:8px;margin-bottom:8px}
+  input[type=search],select{
+    font-family:var(--body);font-size:14px;color:var(--ink);
+    border:1px solid var(--stone);border-radius:4px;
+    padding:8px 10px;background:#fff;min-width:0;
+  }
+  input[type=search]{flex:1}
+  select{flex:0 0 auto;max-width:44%}
+  input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--maple);outline-offset:1px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--body);font-size:12.5px;font-weight:500;
+    border:1px solid var(--stone);background:#fff;color:var(--muted);
+    padding:7px 12px;border-radius:999px;cursor:pointer;min-height:32px;
+  }
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip.view[aria-pressed="true"]{background:var(--maple);border-color:var(--maple)}
+  .spacer{flex:1}
+
+  /* ---------- player rows ---------- */
+  .list{list-style:none;margin:0;padding:0}
+  .player{border-bottom:1px solid var(--stone)}
+  .bar{
+    width:100%;display:flex;align-items:center;gap:12px;
+    background:none;border:0;padding:12px 14px;text-align:left;cursor:pointer;
+    font-family:var(--body);color:inherit;
+  }
+  .kit{
+    font-family:var(--display);font-weight:700;font-size:30px;line-height:1;
+    color:var(--maple);min-width:38px;text-align:right;font-variant-numeric:tabular-nums;
+  }
+  .who{flex:1;min-width:0}
+  .name{display:block;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.05;overflow-wrap:anywhere}
+  .meta{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+  .keystat{text-align:right;line-height:1.1}
+  .keystat b{font-family:var(--display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+  .keystat span{display:block;font-size:11px;color:var(--muted)}
+  .player.dnp .kit{color:var(--stone)}
+  .player.dnp .name{color:var(--muted)}
+
+  .detail{display:none;padding:2px 14px 16px 64px;background:#FBFAF9}
+  @media (max-width:380px){.detail{padding-left:14px}}
+  .player.open .detail{display:block}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:10px}
+  .grid div{border-top:1px solid var(--stone);padding-top:5px}
+  .grid b{font-family:var(--display);font-size:20px;font-weight:600;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+  .grid span{font-size:11px;color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);margin:10px 0 0}
+  .sec,.club h3{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 0 0}
+  .club{margin-top:16px;border-top:2px solid var(--stone);padding-top:10px}
+  .detail .club:first-child,.card .club:first-child{margin-top:8px;border-top:0;padding-top:0}
+  .club.intl h3,.club.wc h3{font-size:16px}
+  .note.ret{color:var(--ink)}
+  .note.ret b{font-weight:600}
+  .badge i{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0}
+  .club h3{margin:0;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:0;text-transform:none;color:var(--ink)}
+  .club h3 span{font-family:var(--body);font-weight:400;font-size:12px;color:var(--muted);margin-left:6px}
+  .grid-club{margin-top:8px}
+  .grid b small{font-size:12px;font-weight:500;color:var(--muted)}
+  .badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:1px}
+  .badge.inj{background:#FBE3E6;color:var(--maple-deep)}
+  .badge.new{background:#E3EEF9;color:#1F4E79}
+  .shirt.inj em{color:var(--maple-deep);text-decoration:line-through}
+
+  /* ---------- pitch ---------- */
+  .pitch{
+    display:none;background:var(--pitch);padding:16px 12px 20px;
+    background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.03) 0 46px,transparent 46px 92px);
+  }
+  body.pitchview .pitch{display:block}
+  body.pitchview .list{display:none}
+  .band{border-top:1px solid var(--pitch-line);padding:10px 0 14px}
+  .band:first-child{border-top:0}
+  .band h2{
+    font-family:var(--body);font-weight:500;font-size:11.5px;
+    color:rgba(255,255,255,.85);margin:0 0 9px;
+  }
+  .shirts{display:flex;flex-wrap:wrap;gap:7px}
+  .shirt{
+    display:flex;align-items:baseline;gap:6px;
+    background:rgba(255,255,255,.94);border:0;border-radius:3px;
+    padding:6px 9px;cursor:pointer;font-family:var(--body);color:var(--ink);
+  }
+  .shirt em{font-family:var(--display);font-weight:700;font-size:16px;font-style:normal;color:var(--maple);font-variant-numeric:tabular-nums}
+  .shirt strong{font-family:var(--display);font-weight:600;font-size:16px}
+  .shirt small{font-size:11px;color:var(--muted)}
+  .shirt.dnp{background:rgba(255,255,255,.72)}
+  .shirt.dnp em{color:var(--muted)}
+  .shirt[aria-pressed="true"]{box-shadow:0 0 0 2px #fff}
+  .card{background:#fff;margin-top:14px;padding:14px}
+  .card .name{font-size:26px}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .synced{margin-top:10px !important;font-size:12.5px !important;color:rgba(255,255,255,.94) !important}
+  .synced b{font-weight:600}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--maple);margin-right:7px;vertical-align:middle;position:relative;top:-2px}
+  .synced .dot,.chip .dot{margin-right:5px;top:-1px}
+  .synced .dot{background:#fff}
+  .chip.upd[aria-pressed="true"]{background:var(--maple);border-color:var(--maple);color:#fff}
+  .chip.upd[aria-pressed="true"] .dot{background:#fff}
+  .player.upd{box-shadow:inset 3px 0 0 var(--maple)}
+  .shirt.upd{box-shadow:inset 0 -3px 0 var(--maple)}
+  .shirt.upd[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,inset 0 -3px 0 var(--maple)}
+  .stamp{display:block;font-family:var(--body);font-weight:400;font-size:11px;color:var(--muted);margin-top:2px}
+  .howto{padding:18px 14px 6px;border-top:1px solid var(--stone);font-size:13px;color:var(--ink)}
+  .howto h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0 0 6px}
+  .howto p{margin:0 0 8px;max-width:60ch;color:var(--muted)}
+  .howto p b{color:var(--ink);font-weight:600}
+  .bubble{border-top:6px solid var(--ink);margin-top:6px}
+  .bubble h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;margin:18px 14px 4px}
+  .bubble .lede{margin:0 14px 10px;font-size:13px;color:var(--muted);max-width:52ch}
+  .bar.static{cursor:default;align-items:flex-start}
+  .kit.pos{font-size:16px;font-weight:600;color:var(--muted);padding-top:6px;letter-spacing:.04em}
+  .bnote{display:block;font-size:12.5px;color:var(--ink);margin-top:4px;line-height:1.4}
+  .player.bub .name{font-size:19px}
+  .empty{padding:34px 16px;color:var(--muted);font-size:14px}
+  footer{padding:18px 14px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--stone)}
+  footer a{color:var(--muted)}
+  @media (prefers-reduced-motion:no-preference){
+    .detail{animation:open .16s ease-out}
+    @keyframes open{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>Canada&rsquo;s 26</h1>
+    <p>The World Cup squad and how each player is doing at his club this season. Tap a player for club form, Canada games since the World Cup, and his group-stage line.</p>
+    <p class="synced" id="synced"></p>
+    <div class="tally">
+      <div><b id="tGoals">0</b><span>goals</span></div>
+      <div><b id="tUsed">0</b><span>players used</span></div>
+      <div><b id="tAge">0</b><span>average age</span></div>
+      <div><b id="tInj">0</b><span>out injured</span></div>
+      <div><b id="tUpd">0</b><span>changed in last sync</span></div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="row1">
+      <input type="search" id="q" placeholder="Find a player" aria-label="Find a player">
+      <select id="sort" aria-label="Sort by">
+        <option value="num">Shirt number</option>
+        <option value="name">Name</option>
+        <option value="rating">Club form (FotMob)</option>
+        <option value="age">Age</option>
+        <optgroup label="World Cup group stage">
+          <option value="goals">Goals</option>
+          <option value="assists">Assists</option>
+          <option value="apps">Appearances</option>
+          <option value="shots">Shots</option>
+          <option value="fa">Fouls suffered</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="chips">
+      <button class="chip" data-pos="all" aria-pressed="true">All</button>
+      <button class="chip" data-pos="G" aria-pressed="false">Keepers</button>
+      <button class="chip" data-pos="D" aria-pressed="false">Defenders</button>
+      <button class="chip" data-pos="M" aria-pressed="false">Midfield</button>
+      <button class="chip" data-pos="F" aria-pressed="false">Forwards</button>
+      <button class="chip upd" id="onlyUpd" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Updated</button>
+      <span class="spacer"></span>
+      <button class="chip view" id="toggleView" aria-pressed="false">Pitch view</button>
+    </div>
+  </div>
+
+  <p class="sr" id="status" aria-live="polite"></p>
+  <ul class="list" id="list"></ul>
+  <div class="pitch" id="pitch"></div>
+
+  <section class="bubble" aria-labelledby="bubbleH">
+    <h2 id="bubbleH">On the bubble</h2>
+    <p class="lede">Canadians outside the 26 who are tracked in the same weekly post. Same club-form numbers; no World Cup line.</p>
+    <ul class="list" id="bubbleList"></ul>
+  </section>
+
+  <section class="howto" aria-labelledby="howH">
+    <h2 id="howH">How this page updates</h2>
+    <p><b>Schedule.</b> A check runs every day at 4:00 a.m. Eastern. It looks for the newest
+    &ldquo;Canadian Men National Team &hellip; Summary&rdquo; post on r/CanadaSoccer (the author
+    posts roughly weekly), so most mornings there is nothing new and the page is left alone.</p>
+    <p><b>What changes.</b> The club-form layer &mdash; club, league games and starts, FotMob
+    rating, status badges, the weekly note, and the bubble list &mdash; and, after Canada plays,
+    the &ldquo;since the World Cup&rdquo; section. The World Cup group-stage numbers are fixed.</p>
+    <p><b>Injury returns.</b> The &ldquo;back &hellip;&rdquo; tag on an injured player is an estimate
+    from club or press reports at the time of the sync, not a medical timeline; the card gives the
+    source and date. &ldquo;No date&rdquo; means nothing has been reported.</p>
+    <p><b>Spotting changes.</b> Any player whose club line changed in the most recent sync gets a
+    red dot by his name and a red edge on his row; the masthead counts them and the
+    <b>Updated</b> chip shows only those players. The stamp inside a player&rsquo;s club block
+    gives the date his line last changed. Dots clear on the next sync that finds no change for him.</p>
+    <p><b>Last sync.</b> <span id="howLast"></span></p>
+  </section>
+
+  <footer>
+    Squad and match numbers from ESPN&rsquo;s Canada squad page, covering the three group-stage
+    matches. Canada went on to beat South Africa 1&ndash;0 in the round of 32 and lost 3&ndash;0 to
+    Morocco in the round of 16 &mdash; those two games are not in these totals yet.
+    Club form (team, league games, FotMob rating, weekly note) is compiled from the r/CanadaSoccer
+    &ldquo;Sept 1&ndash;7 Summary&rdquo; post by u/jewsdoitbest, whose numbers come from the FotMob app; the bubble list is that post&rsquo;s second table.
+    Injury return estimates come from club statements and Canadian soccer press reports; the fall
+    fixture list is from Canada Soccer.
+  </footer>
+</div>
+
+<script>
+/* Shirt numbers, bio and group-stage stats. Edit this list to update the board. */
+const SQUAD = [
+  {n:1, name:"Dayne St. Clair",     pos:"G", age:29, ht:"6'3\"",  apps:0, sub:0, sv:0, ga:0},
+  {n:16,name:"Maxime Crépeau", pos:"G", age:32, ht:"5'11\"", apps:3, sub:0, sv:4, ga:3},
+  {n:18,name:"Owen Goodman",        pos:"G", age:22, ht:"6'4\"",  apps:0, sub:0, sv:0, ga:0},
+
+  {n:2, name:"Alistair Johnston",   pos:"D", age:27, ht:"5'11\"", apps:3, sub:0, g:0, a:0, sh:4, sog:2, fc:4, fa:4, yc:1, rc:0},
+  {n:3, name:"Alfie Jones",         pos:"D", age:28, ht:"6'3\"",  apps:0, sub:0, g:0, a:0, sh:0, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:4, name:"Luc de Fougerolles",  pos:"D", age:20, ht:"6'0\"",  apps:3, sub:0, g:0, a:0, sh:1, sog:1, fc:5, fa:6, yc:1, rc:0},
+  {n:5, name:"Joel Waterman",       pos:"D", age:30, ht:"6'2\"",  apps:0, sub:0, g:0, a:0, sh:0, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:13,name:"Derek Cornelius",     pos:"D", age:28, ht:"6'2\"",  apps:3, sub:0, g:0, a:0, sh:4, sog:0, fc:4, fa:2, yc:1, rc:0},
+  {n:15,name:"Moïse Bombito",  pos:"D", age:26, ht:"6'3\"",  apps:1, sub:1, g:0, a:0, sh:0, sog:0, fc:1, fa:0, yc:0, rc:0},
+  {n:19,name:"Alphonso Davies",     pos:"D", age:25, ht:"6'1\"",  apps:0, sub:0, g:0, a:0, sh:0, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:22,name:"Richie Laryea",       pos:"D", age:31, ht:"5'9\"",  apps:3, sub:0, g:0, a:0, sh:2, sog:1, fc:2, fa:9, yc:0, rc:0},
+
+  {n:6, name:"Mathieu Choinière", pos:"M", age:27, ht:"5'9\"",  apps:1, sub:0, g:0, a:0, sh:0, sog:0, fc:1, fa:1, yc:0, rc:0},
+  {n:7, name:"Stephen Eustáquio", pos:"M", age:29, ht:"5'10\"", apps:3, sub:1, g:0, a:0, sh:2, sog:0, fc:2, fa:4, yc:0, rc:0},
+  {n:8, name:"Ismaël Koné",  pos:"M", age:24, ht:"6'2\"",  apps:2, sub:0, g:0, a:0, sh:2, sog:0, fc:1, fa:3, yc:0, rc:0},
+  {n:20,name:"Ali Ahmed",           pos:"M", age:25, ht:"5'11\"", apps:3, sub:1, g:0, a:0, sh:2, sog:1, fc:0, fa:3, yc:0, rc:0},
+  {n:21,name:"Jonathan Osorio",     pos:"M", age:34, ht:"5'9\"",  apps:1, sub:1, g:0, a:0, sh:0, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:23,name:"Niko Sigur",          pos:"M", age:22, ht:"5'11\"", apps:1, sub:1, g:0, a:0, sh:1, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:25,name:"Nathan Saliba",       pos:"M", age:22, ht:"5'11\"", apps:2, sub:1, g:1, a:2, sh:3, sog:1, fc:2, fa:0, yc:0, rc:0},
+
+  {n:9, name:"Cyle Larin",          pos:"F", age:31, ht:"6'2\"",  apps:3, sub:1, g:2, a:0, sh:9, sog:4, fc:3, fa:1, yc:1, rc:0},
+  {n:10,name:"Jonathan David",      pos:"F", age:26, ht:"5'10\"", apps:3, sub:0, g:3, a:0, sh:13,sog:6, fc:0, fa:4, yc:0, rc:0},
+  {n:11,name:"Liam Millar",         pos:"F", age:26, ht:"5'11\"", apps:2, sub:1, g:0, a:0, sh:1, sog:0, fc:2, fa:1, yc:1, rc:0},
+  {n:12,name:"Tani Oluwaseyi",      pos:"F", age:26, ht:"6'2\"",  apps:3, sub:2, g:0, a:0, sh:3, sog:1, fc:2, fa:2, yc:0, rc:0},
+  {n:14,name:"Jacob Shaffelburg",   pos:"F", age:26, ht:"5'11\"", apps:3, sub:3, g:0, a:0, sh:3, sog:0, fc:0, fa:0, yc:0, rc:0},
+  {n:17,name:"Tajon Buchanan",      pos:"F", age:27, ht:"6'0\"",  apps:3, sub:0, g:0, a:0, sh:4, sog:1, fc:1, fa:8, yc:0, rc:0},
+  {n:24,name:"Promise David",       pos:"F", age:24, ht:"6'5\"",  apps:2, sub:2, g:1, a:1, sh:4, sog:3, fc:2, fa:1, yc:0, rc:0},
+  {n:26,name:"Jayden Nelson",       pos:"F", age:23, ht:"5'7\"",  apps:0, sub:0, g:0, a:0, sh:0, sog:0, fc:0, fa:0, yc:0, rc:0}
+];
+
+/* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
+   CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
+const SYNC = {
+  last: "2026-09-08",            // date of the most recent successful sync (ET)
+  source: "Sept 1\u20137 weekly summary",   // which r/CanadaSoccer post the club data reflects
+  changed: 0,                    // how many players changed in that sync
+  schedule: "Checked daily at 4:00 a.m. Eastern"
+};
+
+/* Club form, week of Sept 1-7 (r/CanadaSoccer weekly summary; ratings via FotMob).
+   la/ls = season league appearances/starts; r = FotMob season rating; st = "inj" | "new" | null. */
+const CLUB = {
+  1: {team:"Inter Miami", lg:"MLS", la:18, ls:18, r:6.80, note:"One start, two conceded, picked up a yellow."},
+  16:{team:"Orlando City", lg:"MLS", la:22, ls:22, r:6.71, note:"One start and a clean sheet."},
+  18:{team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded."},
+  2: {team:"Celtic", lg:"Scottish Premiership", la:2, ls:2, r:7.26, st:"inj", eta:"Oct", ret:"Some time in October, per Celtic manager Martin O'Neill (Aug 24). Hurt v Kilmarnock in August.", note:"Out with a hamstring injury."},
+  3: {team:"Middlesbrough", lg:"Championship", la:4, ls:1, r:6.93, note:"Back from the injury that kept him out of the World Cup: started v Burnley, 19 minutes off the bench v QPR."},
+  4: {team:"Real Salt Lake", lg:"MLS", st:"new", note:"Joined on a season-long loan; no MLS debut yet."},
+  5: {team:"Portland Timbers", lg:"MLS", la:16, ls:11, r:6.84, st:"new", note:"Moved from Chicago on Sept 2; nine-minute debut v Minnesota."},
+  13:{team:"Marseille", lg:"Ligue 1", la:2, ls:0, r:6.06, note:"17 minutes off the bench v Paris FC. A move to Rayo Vallecano fell through."},
+  15:{team:"Nice", lg:"Ligue 1", st:"inj", eta:"months", ret:"Months; no date set. Second surgery on the left tibia announced Aug 26 after playing through pain at the World Cup.", note:"Out with a leg injury."},
+  19:{team:"Bayern Munich", lg:"Bundesliga", la:2, ls:2, r:8.16, note:"Full league start in a 0-0 v Schalke (8.5 rating), then 28 minutes in the DFB-Pokal."},
+  22:{team:"Toronto FC", lg:"MLS", la:18, ls:18, r:6.9, note:"One start, a rough 5.2 rating."},
+  6: {team:"LAFC", lg:"MLS", la:24, ls:16, r:7.05, g:2, a:3, note:"Full 90 v Real Salt Lake (7.6 rating)."},
+  7: {team:"Swansea City", lg:"Championship", la:3, ls:2, r:7.23, a:1, note:"Two full 90s v Watford and Wrexham; looks like a locked-in starter."},
+  8: {team:"Sassuolo", lg:"Serie A", st:"inj", eta:"late 2026", ret:"Several months, no date set. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.", note:"Out with an ankle injury."},
+  20:{team:"Norwich City", lg:"Championship", st:"inj", eta:"2027", ret:"Likely 2027 \u2014 ACL ruptured in a pre-season friendly on Aug 1 and set for surgery; the club has not given a date, and ACL recoveries usually run nine months or more.", note:"Out long-term with an ACL injury."},
+  21:{team:"Toronto FC", lg:"MLS", la:17, ls:17, r:6.94, a:3, st:"inj", eta:"TBD", ret:"No date given. Hurt his knee in training in mid-August; TFC said it was not expected to be long-term but he has missed every game since.", note:"Out with a knee injury."},
+  23:{team:"Toulouse", lg:"Ligue 1", st:"new", note:"Signed Sept 1; on the bench v Lille, no debut yet."},
+  25:{team:"Villarreal", lg:"LaLiga", la:1, ls:1, r:7.66, note:"LaLiga debut: started and played the full 90 v Deportivo (7.7 rating)."},
+  9: {team:"Southampton", lg:"Championship", la:5, ls:5, r:7.34, g:4, note:"Two starts, v Lincoln and Birmingham. His four league goals have him second in the Championship scoring race, and five in all competitions with an EFL Cup goal at Colchester (via the comments)."},
+  10:{team:"Atl\u00e9tico Madrid", lg:"LaLiga", st:"new", note:"Unused sub v Athletic Bilbao; still waiting on a LaLiga debut."},
+  11:{team:"Birmingham City", lg:"Championship", la:1, ls:1, r:7.01, st:"new", note:"Loaned from Hull; started and played 69 minutes in a 2-2 v Wolves."},
+  12:{team:"Villarreal", lg:"LaLiga", la:3, ls:0, r:5.7, note:"13 minutes off the bench v Deportivo."},
+  14:{team:"LAFC", lg:"MLS", la:13, ls:7, r:6.48, a:2, note:"Started and played 82 minutes in a 2-2 v Real Salt Lake."},
+  17:{team:"Villarreal", lg:"LaLiga", la:4, ls:1, r:6.61, note:"28 minutes off the bench v Deportivo, booked."},
+  24:{team:"Brighton", lg:"Premier League", la:2, ls:0, r:5.86, note:"13 minutes off the bench v Leeds, booked."},
+  26:{team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:6.34, note:"Nine minutes v Sheffield United; unused in the 0-4 at Millwall."}
+};
+SQUAD.forEach(p => { p.club = CLUB[p.n] || {}; });
+const STATUS = {inj:"Injured", new:"New club"};
+
+/* International football since the World Cup. Canada has not played since the round of 16;
+   the updater fills INTL[n] = {apps, starts, g, a, mins, note} once the fall friendlies happen. */
+const INTL = {};
+const NEXT_MATCHES = [
+  {date:"2026-09-26", opp:"Chile", where:"BMO Field, Toronto", comp:"Friendly"},
+  {date:"2026-10-03", opp:"Peru",  where:"Stade Saputo, Montr\u00e9al", comp:"Friendly"}
+];
+
+/* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
+const BUBBLE = [
+  {name:"James Pantemis",        pos:"G", team:"Portland Timbers", lg:"MLS", la:23, ls:23, r:7.00, note:"Conceded four v Minnesota."},
+  {name:"Luka Gavran",           pos:"G", team:"Toronto FC", lg:"MLS", la:23, ls:23, r:6.70, note:"Conceded four v Chicago."},
+  {name:"Jayden Hibbert",        pos:"G", team:"Atlanta United", lg:"MLS", note:"Atlanta's backup keeper."},
+  {name:"Tom McGill",            pos:"G", team:"Brighton U21", lg:"", note:"With the under-21s; no first-team involvement this week."},
+  {name:"Zorhan Bassong",        pos:"D", team:"Sporting KC", lg:"MLS", la:12, ls:10, r:6.60, st:"inj", eta:"TBD", ret:"No timeline reported.", note:"Out with a calf injury."},
+  {name:"Sam Adekugbe",          pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:4, ls:0, r:6.50, note:"Unused v St. Louis; started the 1-1 v Montreal in the Canadian Championship."},
+  {name:"Ralph Priso",           pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:10, ls:7, r:7.12, g:1, st:"inj", eta:"TBD", ret:"No timeline reported. Had only just returned from a hamstring problem in early August.", note:"Out with an ankle injury."},
+  {name:"Jamie Knight-Lebel",    pos:"D", team:"Motherwell", lg:"Scottish Premiership", la:4, ls:3, r:6.90, note:"45 minutes v Dundee United; unused v Rangers."},
+  {name:"Kamal Miller",          pos:"D", team:"Portland Timbers", lg:"MLS", la:19, ls:16, r:6.73, note:"Full 90 v Minnesota, a rough 4.8 rating."},
+  {name:"Jahkeele Marshall-Rutty",pos:"D", team:"New York Red Bulls", lg:"MLS", la:22, ls:15, r:6.59, note:"Full 90 v Seattle."},
+  {name:"Marcelo Flores",        pos:"F", team:"Tigres", lg:"Liga MX", st:"inj", eta:"2027", ret:"Likely spring 2027 at the earliest \u2014 tore his ACL at the end of May, which cost him the World Cup.", note:"Out long-term with an ACL injury."},
+  {name:"Junior Hoilett",        pos:"F", team:"Without a club", lg:"", note:"Still unattached."},
+  {name:"Jacen Russell-Rowe",    pos:"F", team:"Toulouse", lg:"Ligue 1", la:3, ls:2, r:6.63, g:1, note:"Started and played 65 minutes v Lille."},
+  {name:"Daniel Jebbison",       pos:"F", team:"Bournemouth", lg:"Premier League", la:2, ls:0, r:6.31, note:"One minute off the bench v Newcastle."},
+  {name:"Theo Bair",             pos:"F", team:"Bolton Wanderers", lg:"Championship", la:1, ls:0, r:5.88, st:"new", note:"Joined Jayden Nelson at Bolton; 30-minute Championship debut off the bench v Millwall."},
+  {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:5, ls:4, r:6.57, g:1, note:"Scored in a start v Doncaster, then 29 minutes off the bench v Leicester."}
+];
+BUBBLE.forEach(b => { b.club = b; });
+
+const isUpd = x => (x.club || x).upd === SYNC.last;
+function fmtDate(iso){
+  const [y,m,d] = iso.split("-").map(Number);
+  return new Date(y, m-1, d).toLocaleDateString("en-CA", {month:"short", day:"numeric", year:"numeric"});
+}
+const POSNAME = {G:"Goalkeeper", D:"Defender", M:"Midfielder", F:"Forward"};
+const BANDS = [["G","Goalkeepers"],["D","Defenders"],["M","Midfielders"],["F","Forwards"]];
+const num = v => (v === undefined ? 0 : v);
+const PARTICLES = new Set(["de","da","di","du","van","von","der","del","st.","la","le"]);
+function surname(p){
+  const parts = p.name.split(" ");
+  let i = parts.length - 1;
+  while (i > 0 && PARTICLES.has(parts[i-1].toLowerCase())) i--;
+  return parts.slice(i).join(" ");
+}
+const surnameCount = {};
+SQUAD.forEach(p => { const k = surname(p); surnameCount[k] = (surnameCount[k] || 0) + 1; });
+/* "J. David" / "P. David" when two players share a surname */
+const last = p => surnameCount[surname(p)] > 1 ? `${p.name[0]}. ${surname(p)}` : surname(p);
+const fold = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+let filter = "all", query = "", sortKey = "num", open = null, onlyUpd = false;
+
+/* header tallies */
+function tallies(){
+document.getElementById("tGoals").textContent = SQUAD.reduce((s,p)=>s+num(p.g),0);
+document.getElementById("tUsed").textContent  = SQUAD.filter(p=>p.apps>0).length;
+document.getElementById("tAge").textContent   =
+  (SQUAD.reduce((s,p)=>s+p.age,0)/SQUAD.length).toFixed(1);
+document.getElementById("tInj").textContent   = SQUAD.filter(p=>p.club.st==="inj").length;
+const updCount = SQUAD.filter(isUpd).length + BUBBLE.filter(isUpd).length;
+document.getElementById("tUpd").textContent   = updCount;
+document.getElementById("howLast").textContent = `${fmtDate(SYNC.last)}, from the ${SYNC.source}. ${SYNC.schedule}.`;
+document.getElementById("synced").innerHTML   =
+  `Last synced <b>${fmtDate(SYNC.last)}</b> from the ${SYNC.source}. ` +
+  (updCount ? `<b>${updCount}</b> player${updCount===1?"":"s"} changed \u2014 look for the ${'<span class="dot" aria-hidden="true"></span>'} dot.` : "No changes since the previous sync.");
+}
+
+function visible(){
+  const q = fold(query.trim());
+  let out = SQUAD.filter(p =>
+    (filter === "all" || p.pos === filter) &&
+    (!onlyUpd || isUpd(p)) &&
+    (q === "" || fold(p.name).includes(q) || String(p.n) === q));
+  const by = {
+    num:  (a,b)=>a.n-b.n,
+    name: (a,b)=>surname(a).localeCompare(surname(b)) || a.name.localeCompare(b.name),
+    age:  (a,b)=>b.age-a.age,
+    apps: (a,b)=>b.apps-a.apps || a.n-b.n,
+    goals:(a,b)=>num(b.g)-num(a.g) || a.n-b.n,
+    assists:(a,b)=>num(b.a)-num(a.a) || a.n-b.n,
+    shots:(a,b)=>num(b.sh)-num(a.sh) || a.n-b.n,
+    fa:   (a,b)=>num(b.fa)-num(a.fa) || a.n-b.n,
+    rating:(a,b)=>(b.club.r ?? -1)-(a.club.r ?? -1) || a.n-b.n
+  };
+  return out.sort(by[sortKey]);
+}
+
+function keyStat(p){
+  const games = [p.apps, p.apps === 1 ? "WC game" : "WC games"];
+  const form  = [p.club.r === undefined ? "\u2013" : p.club.r.toFixed(2), "FotMob"];
+  if (sortKey === "num" || sortKey === "name" || sortKey === "rating") return form;
+  if (sortKey === "apps")    return games;
+  if (sortKey === "age")     return [p.age, "years old"];
+  if (p.pos === "G")         return games;
+  if (sortKey === "assists") return [num(p.a), num(p.a) === 1 ? "WC assist" : "WC assists"];
+  if (sortKey === "shots")   return [num(p.sh), num(p.sh) === 1 ? "WC shot" : "WC shots"];
+  if (sortKey === "fa")      return [num(p.fa), "fouled (WC)"];
+  return [num(p.g), num(p.g) === 1 ? "WC goal" : "WC goals"];
+}
+
+function statGrid(p){
+  const cells = p.pos === "G"
+    ? [["Appearances",p.apps],["Saves",num(p.sv)],["Goals against",num(p.ga)]]
+    : [["Appearances",p.apps],["Off the bench",num(p.sub)],["Goals",num(p.g)],
+       ["Assists",num(p.a)],["Shots",num(p.sh)],["On target",num(p.sog)],
+       ["Fouls made",num(p.fc)],["Fouls drawn",num(p.fa)],["Yellow cards",num(p.yc)]];
+  return `<div class="grid">${cells.map(c =>
+    `<div><b>${c[1]}</b><span>${c[0]}</span></div>`).join("")}</div>`;
+}
+
+function badge(p){
+  const c = p.club, st = c.st; if (!st) return "";
+  const eta = st === "inj" && c.eta ? ` <i>\u00b7 ${c.eta === "TBD" ? "no date" : "back " + c.eta}</i>` : "";
+  return ` <span class="badge ${st}">${STATUS[st]}${eta}</span>`;
+}
+function clubBlock(p){
+  const c = p.club; if (!c.team) return "";
+  const cells = [];
+  cells.push(["League games", c.la === undefined ? "\u2013" : `${c.la} <small>(${c.ls} st)</small>`]);
+  cells.push(["FotMob rating", c.r === undefined ? "\u2013" : c.r.toFixed(2)]);
+  if (c.g !== undefined || c.a !== undefined) cells.push(["G + A", `${num(c.g)} + ${num(c.a)}`]);
+  return `<div class="club">
+    <h3>${c.team} <span>${c.lg}</span>${c.upd ? `<span class="stamp">updated ${fmtDate(c.upd)}</span>` : ""}</h3>
+    <div class="grid grid-club">${cells.map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join("")}</div>
+    ${c.note ? `<p class="note">${c.note}</p>` : ""}
+    ${c.st === "inj" && c.ret ? `<p class="note ret"><b>Estimated return.</b> ${c.ret}</p>` : ""}
+  </div>`;
+}
+function intlBlock(p){
+  const i = INTL[p.n];
+  const upcoming = NEXT_MATCHES.filter(m => m.date >= SYNC.last);
+  const next = upcoming.length
+    ? `<p class="note">Next: ${upcoming.map(m => `${m.opp}, ${fmtDate(m.date)} (${m.where})`).join("; ")}.</p>` : "";
+  if (!i) return `<div class="club intl"><h3>Canada since the World Cup</h3>
+    <p class="note">No matches yet \u2014 Canada has not played since the round of 16.</p>${next}</div>`;
+  const cells = [["Caps", `${i.apps} <small>(${i.starts} st)</small>`],["Minutes", i.mins],
+                 p.pos === "G" ? ["Goals against", num(i.ga)] : ["G + A", `${num(i.g)} + ${num(i.a)}`]];
+  return `<div class="club intl"><h3>Canada since the World Cup</h3>
+    <div class="grid grid-club">${cells.map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join("")}</div>
+    ${i.note ? `<p class="note">${i.note}</p>` : ""}${next}</div>`;
+}
+function detailBody(p){
+  const dnp = p.apps === 0
+    ? `<p class="note">Did not appear in the group stage.</p>` : "";
+  const wc = `<div class="club wc"><h3>World Cup group stage</h3>` + statGrid(p) + dnp + `</div>`;
+  const club = clubBlock(p) || `<div class="club"><h3>Club form</h3><p class="note">No club line yet.</p></div>`;
+  return club + intlBlock(p) + wc;
+}
+
+function renderList(){
+  const rows = visible();
+  const el = document.getElementById("list");
+  if (!rows.length){ el.innerHTML = `<li class="empty">${onlyUpd && !query ? "Nothing in the 26 changed in the last sync." : "No player by that name in this squad."}</li>`; return; }
+  el.innerHTML = rows.map(p => {
+    const [v,label] = keyStat(p);
+    return `<li class="player ${p.apps===0?"dnp":""} ${open===p.n?"open":""} ${isUpd(p)?"upd":""}">
+      <button class="bar" data-n="${p.n}" aria-expanded="${open===p.n}" aria-controls="d${p.n}">
+        <span class="kit">${p.n}</span>
+        <span class="who">
+          <span class="name">${isUpd(p)?'<span class="dot" role="img" aria-label="Updated in the last sync"></span>':""}${p.name}</span>
+          <span class="meta">${POSNAME[p.pos]} &nbsp;&middot;&nbsp; ${p.age} &nbsp;&middot;&nbsp; ${p.club.team || p.ht}${badge(p)}</span>
+        </span>
+        <span class="keystat"><b>${v}</b><span>${label}</span></span>
+      </button>
+      <div class="detail" id="d${p.n}">${open===p.n ? detailBody(p) : ""}</div>
+    </li>`;
+  }).join("");
+}
+
+function renderPitch(){
+  const rows = visible();
+  const el = document.getElementById("pitch");
+  const bands = BANDS.filter(b => rows.some(p => p.pos === b[0])).map(([code,title]) => {
+    const men = rows.filter(p => p.pos === code).sort((a,b)=>a.n-b.n);
+    return `<div class="band"><h2>${title}</h2><div class="shirts">${men.map(p =>
+      `<button class="shirt ${p.apps===0?"dnp":""} ${p.club.st==="inj"?"inj":""} ${isUpd(p)?"upd":""}" data-n="${p.n}" aria-pressed="${open===p.n}">
+        <em>${p.n}</em><strong>${last(p)}</strong><small>${p.club.r === undefined ? "\u2013" : p.club.r.toFixed(2)}</small>
+      </button>`).join("")}</div></div>`;
+  }).join("");
+  const sel = SQUAD.find(p => p.n === open);
+  const card = sel ? `<div class="card">
+      <div class="name">${sel.name}</div>
+      <div class="meta">${POSNAME[sel.pos]} &nbsp;&middot;&nbsp; number ${sel.n} &nbsp;&middot;&nbsp; ${sel.age} &nbsp;&middot;&nbsp; ${sel.ht}${badge(sel)}</div>
+      ${detailBody(sel)}</div>` : "";
+  el.innerHTML = (bands || `<div class="band"><h2>No players match that filter.</h2></div>`) + card;
+}
+
+function renderBubble(){
+  const q = fold(query.trim());
+  let rows = BUBBLE.filter(b =>
+    (filter === "all" || b.pos === filter) &&
+    (!onlyUpd || isUpd(b)) &&
+    (q === "" || fold(b.name).includes(q) || fold(b.team).includes(q)));
+  if (sortKey === "rating") rows = rows.slice().sort((a,b)=>(b.r ?? -1)-(a.r ?? -1));
+  else if (sortKey === "name") rows = rows.slice().sort((a,b)=>surname(a).localeCompare(surname(b)));
+  const el = document.getElementById("bubbleList");
+  if (!rows.length){ el.innerHTML = `<li class="empty">${onlyUpd && !query ? "Nothing on the bubble changed in the last sync." : "No bubble player matches."}</li>`; return; }
+  el.innerHTML = rows.map(b => `<li class="player bub ${isUpd(b)?"upd":""}">
+      <div class="bar static">
+        <span class="kit pos">${b.pos}</span>
+        <span class="who">
+          <span class="name">${isUpd(b)?'<span class="dot" role="img" aria-label="Updated in the last sync"></span>':""}${b.name}</span>
+          <span class="meta">${b.team}${b.lg ? " &nbsp;&middot;&nbsp; " + b.lg : ""}${badge(b)}</span>
+          <span class="bnote">${b.note || ""}</span>
+        </span>
+        <span class="keystat"><b>${b.r === undefined ? "\u2013" : b.r.toFixed(2)}</b><span>${b.la === undefined ? "FotMob" : `${b.la} gp / ${b.ls} st`}</span></span>
+      </div>
+    </li>`).join("");
+}
+
+function render(){
+  const focused = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.n : null;
+  renderList(); renderPitch(); renderBubble();
+  const n = visible().length;
+  document.getElementById("status").textContent = n === 1 ? "1 player shown" : `${n} players shown`;
+  if (focused){
+    const sel = document.body.classList.contains("pitchview") ? `.shirt[data-n="${focused}"]` : `.bar[data-n="${focused}"]`;
+    const el = document.querySelector(sel); if (el) el.focus();
+  }
+}
+
+document.addEventListener("click", e => {
+  const bar = e.target.closest(".bar, .shirt");
+  if (bar){
+    const n = +bar.dataset.n; open = (open === n ? null : n); render();
+    if (open !== null && bar.classList.contains("shirt")){
+      const card = document.querySelector("#pitch .card");
+      if (card) card.scrollIntoView({block:"nearest", behavior:"smooth"});
+    }
+    return;
+  }
+  const chip = e.target.closest(".chip[data-pos]");
+  if (chip){
+    filter = chip.dataset.pos;
+    document.querySelectorAll(".chip[data-pos]").forEach(c =>
+      c.setAttribute("aria-pressed", String(c === chip)));
+    render();
+  }
+});
+
+document.getElementById("onlyUpd").addEventListener("click", e => {
+  onlyUpd = !onlyUpd;
+  e.currentTarget.setAttribute("aria-pressed", String(onlyUpd));
+  render();
+});
+document.getElementById("toggleView").addEventListener("click", e => {
+  const on = document.body.classList.toggle("pitchview");
+  e.currentTarget.setAttribute("aria-pressed", String(on));
+  e.currentTarget.textContent = on ? "List view" : "Pitch view";
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && open !== null){ open = null; render(); } });
+document.getElementById("q").addEventListener("input", e => { query = e.target.value; render(); });
+document.getElementById("sort").addEventListener("change", e => { sortKey = e.target.value; render(); });
+
+tallies();
+render();
+</script>
+</body>
+</html>
