@@ -148,6 +148,29 @@
   .card{background:#fff;margin-top:14px;padding:14px}
   .card .name{font-size:26px}
 
+  .today{padding:14px 14px 12px;background:#FBFAF9;border-bottom:1px solid var(--stone)}
+  .today-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .today h2{font-family:var(--display);font-weight:700;font-size:24px;line-height:1;margin:0}
+  .today h2 small{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--muted);margin-top:3px}
+  .chip.week{white-space:nowrap}
+  .chip.week[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .mlist{list-style:none;margin:0;padding:0}
+  .m{display:grid;grid-template-columns:auto 1fr;gap:0 10px;padding:8px 0;border-top:1px solid var(--stone)}
+  .m:first-child{border-top:0}
+  .m .when{min-width:64px;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .m .when small{display:block;font-family:var(--body);font-weight:500;font-size:10.5px;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+  .m .tie{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15}
+  .m .tie b{color:var(--maple)}
+  .m .tie .sc{white-space:nowrap;font-variant-numeric:tabular-nums;margin:0 6px;padding:0 5px;background:var(--ink);color:#fff;border-radius:3px;font-size:14px;vertical-align:1px}
+  .m .comp{font-size:11.5px;color:var(--muted)}
+  .m .who{display:block;font-size:12.5px;margin-top:2px;line-height:1.4}
+  .m .who i{font-style:normal;color:var(--muted)}
+  .m .mnote{font-size:12px;color:var(--ink);margin:3px 0 0;line-height:1.4}
+  .today .none{font-size:13px;color:var(--muted);margin:0;padding:2px 0 4px}
+  .today .none b{color:var(--ink);font-weight:600}
+  .week h3{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:14px 0 2px}
+  .tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:1px;background:var(--ink);color:#fff}
+  .tag.ft{background:var(--stone);color:var(--ink)}
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .synced{margin-top:10px !important;font-size:12.5px !important;color:rgba(255,255,255,.94) !important}
   .synced b{font-weight:600}
@@ -196,6 +219,15 @@
     </div>
   </header>
 
+  <section class="today" id="today" aria-labelledby="todayH">
+    <div class="today-head">
+      <h2 id="todayH">Playing today</h2>
+      <button class="chip week" id="toggleWeek" aria-pressed="false">This week</button>
+    </div>
+    <div id="todayBody"></div>
+    <div id="weekBody" hidden></div>
+  </section>
+
   <div class="controls">
     <div class="row1">
       <input type="search" id="q" placeholder="Find a player" aria-label="Find a player">
@@ -240,8 +272,12 @@
     <p><b>Schedule.</b> A check runs every day at 4:00 a.m. Eastern. It looks for the newest
     &ldquo;Canadian Men National Team &hellip; Summary&rdquo; post on r/CanadaSoccer (the author
     posts roughly weekly), so most mornings there is nothing new and the page is left alone.</p>
+    <p><b>Playing today.</b> The strip under the masthead lists every club match involving one of
+    these players today, with kickoff in Eastern time, and turns into the score once it is played.
+    <b>This week</b> opens recent results and the next few days. Player rows carry a matching tag.</p>
     <p><b>What changes.</b> The club-form layer &mdash; club, league games and starts, FotMob
-    rating, status badges, the weekly note, and the bubble list &mdash; and, after Canada plays,
+    rating, status badges, the weekly note, and the bubble list &mdash; plus the match list and
+    each player&rsquo;s note after his club plays &mdash; and, after Canada plays,
     the &ldquo;since the World Cup&rdquo; section. The World Cup group-stage numbers are fixed.</p>
     <p><b>Injury returns.</b> The &ldquo;back &hellip;&rdquo; tag on an injured player is an estimate
     from club or press reports at the time of the sync, not a medical timeline; the card gives the
@@ -259,8 +295,8 @@
     Morocco in the round of 16 &mdash; those two games are not in these totals yet.
     Club form (team, league games, FotMob rating, weekly note) is compiled from the r/CanadaSoccer
     &ldquo;Sept 1&ndash;7 Summary&rdquo; post by u/jewsdoitbest, whose numbers come from the FotMob app; the bubble list is that post&rsquo;s second table.
-    Injury return estimates come from club statements and Canadian soccer press reports; the fall
-    fixture list is from Canada Soccer.
+    Injury return estimates come from club statements and Canadian soccer press reports; club fixtures
+    and results are from ESPN and club sites, and the fall Canada fixture list is from Canada Soccer.
   </footer>
 </div>
 
@@ -301,9 +337,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-09-08",            // date of the most recent successful sync (ET)
+  last: "2026-09-09",            // date of the most recent successful sync (ET)
   source: "Sept 1\u20137 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 0,                    // how many players changed in that sync
+  changed: 9,                    // how many players changed in that sync
   schedule: "Checked daily at 4:00 a.m. Eastern"
 };
 
@@ -313,8 +349,8 @@ const CLUB = {
   1: {team:"Inter Miami", lg:"MLS", la:18, ls:18, r:6.80, note:"One start, two conceded, picked up a yellow."},
   16:{team:"Orlando City", lg:"MLS", la:22, ls:22, r:6.71, note:"One start and a clean sheet."},
   18:{team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded."},
-  2: {team:"Celtic", lg:"Scottish Premiership", la:2, ls:2, r:7.26, st:"inj", eta:"Oct", ret:"Some time in October, per Celtic manager Martin O'Neill (Aug 24). Hurt v Kilmarnock in August.", note:"Out with a hamstring injury."},
-  3: {team:"Middlesbrough", lg:"Championship", la:4, ls:1, r:6.93, note:"Back from the injury that kept him out of the World Cup: started v Burnley, 19 minutes off the bench v QPR."},
+  2: {team:"Celtic", lg:"Scottish Premiership", la:2, ls:2, r:7.26, st:"inj", eta:"Oct", ret:"October, with the Oct 11 trip to Motherwell after the international break the target, per Celtic coverage (Sept 8); he is back training on his own at Lennoxtown. Hurt v Kilmarnock on Aug 9.", note:"Out with a hamstring injury.", upd:"2026-09-09"},
+  3: {team:"Middlesbrough", lg:"Championship", la:4, ls:1, r:6.93, note:"Back from the injury that kept him out of the World Cup: started v Burnley, 19 minutes off the bench v QPR, then a full 90 in the 3-0 EFL Cup loss at Crystal Palace on Sept 8.", upd:"2026-09-09"},
   4: {team:"Real Salt Lake", lg:"MLS", st:"new", note:"Joined on a season-long loan; no MLS debut yet."},
   5: {team:"Portland Timbers", lg:"MLS", la:16, ls:11, r:6.84, st:"new", note:"Moved from Chicago on Sept 2; nine-minute debut v Minnesota."},
   13:{team:"Marseille", lg:"Ligue 1", la:2, ls:0, r:6.06, note:"17 minutes off the bench v Paris FC. A move to Rayo Vallecano fell through."},
@@ -322,20 +358,20 @@ const CLUB = {
   19:{team:"Bayern Munich", lg:"Bundesliga", la:2, ls:2, r:8.16, note:"Full league start in a 0-0 v Schalke (8.5 rating), then 28 minutes in the DFB-Pokal."},
   22:{team:"Toronto FC", lg:"MLS", la:18, ls:18, r:6.9, note:"One start, a rough 5.2 rating."},
   6: {team:"LAFC", lg:"MLS", la:24, ls:16, r:7.05, g:2, a:3, note:"Full 90 v Real Salt Lake (7.6 rating)."},
-  7: {team:"Swansea City", lg:"Championship", la:3, ls:2, r:7.23, a:1, note:"Two full 90s v Watford and Wrexham; looks like a locked-in starter."},
+  7: {team:"Swansea City", lg:"Championship", la:4, ls:2, r:7.23, a:1, note:"Two full 90s v Watford and Wrexham, then only 27 minutes off the bench in the 3-1 loss at Southampton on Sept 8.", upd:"2026-09-09"},
   8: {team:"Sassuolo", lg:"Serie A", st:"inj", eta:"late 2026", ret:"Several months, no date set. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.", note:"Out with an ankle injury."},
   20:{team:"Norwich City", lg:"Championship", st:"inj", eta:"2027", ret:"Likely 2027 \u2014 ACL ruptured in a pre-season friendly on Aug 1 and set for surgery; the club has not given a date, and ACL recoveries usually run nine months or more.", note:"Out long-term with an ACL injury."},
   21:{team:"Toronto FC", lg:"MLS", la:17, ls:17, r:6.94, a:3, st:"inj", eta:"TBD", ret:"No date given. Hurt his knee in training in mid-August; TFC said it was not expected to be long-term but he has missed every game since.", note:"Out with a knee injury."},
   23:{team:"Toulouse", lg:"Ligue 1", st:"new", note:"Signed Sept 1; on the bench v Lille, no debut yet."},
-  25:{team:"Villarreal", lg:"LaLiga", la:1, ls:1, r:7.66, note:"LaLiga debut: started and played the full 90 v Deportivo (7.7 rating)."},
-  9: {team:"Southampton", lg:"Championship", la:5, ls:5, r:7.34, g:4, note:"Two starts, v Lincoln and Birmingham. His four league goals have him second in the Championship scoring race, and five in all competitions with an EFL Cup goal at Colchester (via the comments)."},
+  25:{team:"Villarreal", lg:"LaLiga", la:1, ls:1, r:7.66, note:"LaLiga debut: started and played the full 90 v Deportivo (7.7 rating). Then started the Champions League opener at Dortmund on Sept 8, off on 59 in a 3-2 loss (6.7).", upd:"2026-09-09"},
+  9: {team:"Southampton", lg:"Championship", la:6, ls:6, r:7.34, g:6, note:"Two more on Sept 8 in a 3-1 over Swansea (25', 33'), off on 85. Six league goals now, having been second in the Championship scoring race on four (via the comments); seven in all competitions with an EFL Cup goal at Colchester.", upd:"2026-09-09"},
   10:{team:"Atl\u00e9tico Madrid", lg:"LaLiga", st:"new", note:"Unused sub v Athletic Bilbao; still waiting on a LaLiga debut."},
   11:{team:"Birmingham City", lg:"Championship", la:1, ls:1, r:7.01, st:"new", note:"Loaned from Hull; started and played 69 minutes in a 2-2 v Wolves."},
-  12:{team:"Villarreal", lg:"LaLiga", la:3, ls:0, r:5.7, note:"13 minutes off the bench v Deportivo."},
+  12:{team:"Villarreal", lg:"LaLiga", la:3, ls:0, r:5.7, note:"13 minutes off the bench v Deportivo. Started the Champions League opener at Dortmund on Sept 8, off on 59 in a 3-2 loss (6.3).", upd:"2026-09-09"},
   14:{team:"LAFC", lg:"MLS", la:13, ls:7, r:6.48, a:2, note:"Started and played 82 minutes in a 2-2 v Real Salt Lake."},
-  17:{team:"Villarreal", lg:"LaLiga", la:4, ls:1, r:6.61, note:"28 minutes off the bench v Deportivo, booked."},
+  17:{team:"Villarreal", lg:"LaLiga", la:4, ls:1, r:6.61, note:"28 minutes off the bench v Deportivo, booked. Started the Champions League opener at Dortmund on Sept 8 and went 75 minutes in a 3-2 loss (7.1).", upd:"2026-09-09"},
   24:{team:"Brighton", lg:"Premier League", la:2, ls:0, r:5.86, note:"13 minutes off the bench v Leeds, booked."},
-  26:{team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:6.34, note:"Nine minutes v Sheffield United; unused in the 0-4 at Millwall."}
+  26:{team:"Bolton Wanderers", lg:"Championship", la:3, ls:0, r:6.34, note:"Nine minutes v Sheffield United, unused in the 0-4 at Millwall, then 17 minutes off the bench in the 2-3 v West Ham on Sept 8.", upd:"2026-09-09"}
 };
 SQUAD.forEach(p => { p.club = CLUB[p.n] || {}; });
 const STATUS = {inj:"Injured", new:"New club"};
@@ -346,6 +382,60 @@ const INTL = {};
 const NEXT_MATCHES = [
   {date:"2026-09-26", opp:"Chile", where:"BMO Field, Toronto", comp:"Friendly"},
   {date:"2026-10-03", opp:"Peru",  where:"Stade Saputo, Montr\u00e9al", comp:"Friendly"}
+];
+
+/* Club matches: results from the last couple of days and fixtures for the week ahead.
+   date = Eastern-time date of kickoff; et = 24h Eastern kickoff ("HH:MM") or null; score = "H-A" once played;
+   note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
+   CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
+const MATCHES = [
+  {date:"2026-09-08", et:"14:45", home:"Crystal Palace", away:"Middlesbrough", comp:"EFL Cup", score:"3-0", note:"Jones started and played the full 90."},
+  {date:"2026-09-08", et:"14:45", home:"Southampton", away:"Swansea City", comp:"Championship", score:"3-1", note:"Larin scored twice (25', 33') before coming off on 85; Eust\u00e1quio came on for Swansea on 63."},
+  {date:"2026-09-08", et:"15:00", home:"Bolton Wanderers", away:"West Ham United", comp:"Championship", score:"2-3", note:"Nelson on as a sub on 73; Bair an unused sub."},
+  {date:"2026-09-08", et:"15:00", home:"Borussia Dortmund", away:"Villarreal", comp:"Champions League", score:"3-2", note:"All three Canadians started: Saliba (off 59, rated 6.7), Buchanan (off 75, 7.1), Oluwaseyi (off 59, 6.3). Villarreal led 2-0 before Guirassy scored twice and a late own goal finished it."},
+  {date:"2026-09-08", et:"14:45", home:"Bournemouth", away:"Lincoln City", comp:"EFL Cup", score:"4-0", note:""},
+  {date:"2026-09-09", et:"14:45", home:"Norwich City", away:"Birmingham City", comp:"Championship", score:null},
+  {date:"2026-09-09", et:"15:00", home:"St Johnstone", away:"Celtic", comp:"Scottish Premiership", score:null},
+  {date:"2026-09-09", et:"15:00", home:"Liverpool", away:"Atl\u00e9tico Madrid", comp:"Champions League", score:null},
+  {date:"2026-09-09", et:"19:30", home:"Toronto FC", away:"Nashville SC", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"19:30", home:"Atlanta United", away:"Orlando City", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"20:30", home:"Chicago Fire", away:"Inter Miami", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"20:30", home:"Houston Dynamo", away:"Real Salt Lake", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"22:30", home:"Portland Timbers", away:"St. Louis City", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"22:30", home:"LAFC", away:"New York Red Bulls", comp:"MLS", score:null},
+  {date:"2026-09-09", et:"22:30", home:"Vancouver Whitecaps", away:"LA Galaxy", comp:"MLS", score:null},
+  {date:"2026-09-10", et:"15:00", home:"Bayern Munich", away:"Bod\u00f8/Glimt", comp:"Champions League", score:null},
+  {date:"2026-09-11", et:"14:45", home:"Rennes", away:"Marseille", comp:"Ligue 1", score:null},
+  {date:"2026-09-12", et:"07:30", home:"Derby County", away:"Birmingham City", comp:"Championship", score:null},
+  {date:"2026-09-12", et:"07:30", home:"Bolton Wanderers", away:"Cardiff City", comp:"Championship", score:null},
+  {date:"2026-09-12", et:"10:00", home:"Middlesbrough", away:"Norwich City", comp:"Championship", score:null},
+  {date:"2026-09-12", et:"10:00", home:"Southampton", away:"Bristol City", comp:"Championship", score:null},
+  {date:"2026-09-12", et:"10:00", home:"Burnley", away:"Swansea City", comp:"Championship", score:null},
+  {date:"2026-09-12", et:"10:00", home:"Bournemouth", away:"Brentford", comp:"Premier League", score:null},
+  {date:"2026-09-12", et:"10:00", home:"Plymouth Argyle", away:"Barnsley", comp:"League One", score:null},
+  {date:"2026-09-12", et:"14:45", home:"Auxerre", away:"Nice", comp:"Ligue 1", score:null},
+  {date:"2026-09-12", et:"14:45", home:"Lorient", away:"Toulouse", comp:"Ligue 1", score:null},
+  {date:"2026-09-12", et:"19:30", home:"Inter Miami", away:"Nashville SC", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"19:30", home:"Orlando City", away:"Toronto FC", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"19:30", home:"DC United", away:"Atlanta United", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"19:30", home:"Columbus Crew", away:"New York Red Bulls", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"20:30", home:"FC Dallas", away:"Portland Timbers", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"20:30", home:"Sporting KC", away:"LAFC", comp:"MLS", score:null},
+  {date:"2026-09-12", et:"21:00", home:"Monterrey", away:"Tigres", comp:"Liga MX", score:null},
+  {date:"2026-09-12", et:"21:30", home:"Real Salt Lake", away:"New York City FC", comp:"MLS", score:null},
+  {date:"2026-09-13", et:"07:00", home:"Rangers", away:"Celtic", comp:"Scottish League Cup", score:null},
+  {date:"2026-09-13", et:"09:00", home:"Coventry City", away:"Brighton", comp:"Premier League", score:null},
+  {date:"2026-09-13", et:"11:30", home:"Elversberg", away:"Bayern Munich", comp:"Bundesliga", score:null},
+  {date:"2026-09-13", et:"14:45", home:"Sassuolo", away:"Juventus", comp:"Serie A", score:null},
+  {date:"2026-09-13", et:"15:00", home:"Real Sociedad", away:"Atl\u00e9tico Madrid", comp:"LaLiga", score:null},
+  {date:"2026-09-13", et:"18:30", home:"Vancouver Whitecaps", away:"Austin FC", comp:"MLS", score:null},
+  {date:"2026-09-14", et:"15:00", home:"Villarreal", away:"Real Betis", comp:"LaLiga", score:null},
+  {date:"2026-09-15", et:"14:45", home:"Middlesbrough", away:"Millwall", comp:"Championship", score:null},
+  {date:"2026-09-15", et:"14:45", home:"Motherwell", away:"Aberdeen", comp:"Scottish Premiership", score:null},
+  {date:"2026-09-16", et:"13:00", home:"Atl\u00e9tico Madrid", away:"Osasuna", comp:"LaLiga", score:null},
+  {date:"2026-09-16", et:"15:00", home:"Manchester United", away:"Brighton", comp:"EFL Cup", score:null},
+  {date:"2026-09-16", et:"19:00", home:"Columbus Crew", away:"Orlando City", comp:"US Open Cup", score:null},
+  {date:"2026-09-16", et:"19:00", home:"CF Montr\u00e9al", away:"Vancouver Whitecaps", comp:"Canadian Championship", score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
@@ -364,12 +454,70 @@ const BUBBLE = [
   {name:"Junior Hoilett",        pos:"F", team:"Without a club", lg:"", note:"Still unattached."},
   {name:"Jacen Russell-Rowe",    pos:"F", team:"Toulouse", lg:"Ligue 1", la:3, ls:2, r:6.63, g:1, note:"Started and played 65 minutes v Lille."},
   {name:"Daniel Jebbison",       pos:"F", team:"Bournemouth", lg:"Premier League", la:2, ls:0, r:6.31, note:"One minute off the bench v Newcastle."},
-  {name:"Theo Bair",             pos:"F", team:"Bolton Wanderers", lg:"Championship", la:1, ls:0, r:5.88, st:"new", note:"Joined Jayden Nelson at Bolton; 30-minute Championship debut off the bench v Millwall."},
+  {name:"Theo Bair",             pos:"F", team:"Bolton Wanderers", lg:"Championship", la:1, ls:0, r:5.88, st:"new", note:"Joined Jayden Nelson at Bolton; 30-minute Championship debut off the bench v Millwall, then an unused sub v West Ham on Sept 8.", upd:"2026-09-09"},
   {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:5, ls:4, r:6.57, g:1, note:"Scored in a start v Doncaster, then 29 minutes off the bench v Leicester."}
 ];
 BUBBLE.forEach(b => { b.club = b; });
 
 const isUpd = x => (x.club || x).upd === SYNC.last;
+
+/* ---- club matches ---- */
+const todayET = () => new Date().toLocaleDateString("en-CA", {timeZone:"America/Toronto"});
+const dayName = iso => { const [y,m,d] = iso.split("-").map(Number); return new Date(y,m-1,d).toLocaleDateString("en-CA",{weekday:"short", month:"short", day:"numeric"}); };
+function fmtET(et){
+  if (!et) return "TBD";
+  const [h,m] = et.split(":").map(Number);
+  const h12 = ((h + 11) % 12) + 1;
+  return `${h12}${m ? ":" + String(m).padStart(2,"0") : ""} ${h < 12 ? "am" : "pm"}`;
+}
+const ourClub = name => SQUAD.some(p => p.club.team === name) || BUBBLE.some(b => b.team === name);
+function playersAt(name){
+  const sq = SQUAD.filter(p => p.club.team === name), bb = BUBBLE.filter(b => b.team === name);
+  const fmt = (x, isSq) => (x.club || x).st === "inj" ? `<i>${isSq ? last(x) : surname(x)} (out)</i>` : (isSq ? last(x) : surname(x));
+  return sq.map(x => fmt(x, true)).concat(bb.map(x => fmt(x, false)));
+}
+function matchRow(m, mode){
+  const sides = [m.home, m.away];
+  const who = sides.filter(ourClub).flatMap(playersAt).join(", ");
+  const tie = sides.map(s => ourClub(s) ? `<b>${s}</b>` : s);
+  const centre = m.score ? `<span class="sc">${m.score.replace("-", "\u2013")}</span>` : " v ";
+  const when = mode === "today"
+    ? `<span class="when">${m.score ? "FT" : fmtET(m.et)}<small>${m.score ? "final" : "ET"}</small></span>`
+    : `<span class="when">${dayName(m.date).split(",")[0]}<small>${m.score ? "FT" : fmtET(m.et)}</small></span>`;
+  return `<li class="m">${when}<span>
+      <span class="tie">${tie[0]}${centre}${tie[1]}</span> <span class="comp">${m.comp}</span>
+      <span class="who">${who || "<i>No Canadians involved</i>"}</span>
+      ${m.note ? `<p class="mnote">${m.note}</p>` : ""}
+    </span></li>`;
+}
+const byKick = (a,b) => (a.date + (a.et || "99")).localeCompare(b.date + (b.et || "99"));
+function renderToday(){
+  const t = todayET();
+  const ours = MATCHES.filter(m => ourClub(m.home) || ourClub(m.away)).sort(byKick);
+  const today = ours.filter(m => m.date === t);
+  const recent = ours.filter(m => m.date < t && m.score).slice(-8);
+  const next = ours.filter(m => m.date > t).slice(0, 12);
+  document.getElementById("todayH").innerHTML = `Playing today <small>${dayName(t)}</small>`;
+  const tb = document.getElementById("todayBody");
+  if (today.length){
+    tb.innerHTML = `<ul class="mlist">${today.map(m => matchRow(m, "today")).join("")}</ul>`;
+  } else {
+    const nx = next[0];
+    tb.innerHTML = `<p class="none">No Canadians in action today.${nx ? ` Next up: <b>${nx.home} v ${nx.away}</b>, ${dayName(nx.date)} at ${fmtET(nx.et)} ET.` : ""}</p>`;
+  }
+  document.getElementById("weekBody").innerHTML = `<div class="week">
+    ${recent.length ? `<h3>Recent results</h3><ul class="mlist">${recent.map(m => matchRow(m, "week")).join("")}</ul>` : ""}
+    ${next.length ? `<h3>Coming up</h3><ul class="mlist">${next.map(m => matchRow(m, "week")).join("")}</ul>` : ""}
+  </div>`;
+}
+/* "Today 7:30 p.m." tag for a player's row */
+function todayTag(x){
+  const team = (x.club || x).team, t = todayET();
+  const m = MATCHES.find(m => m.date === t && (m.home === team || m.away === team));
+  if (!m) return "";
+  const opp = m.home === team ? `v ${m.away}` : `at ${m.home}`;
+  return m.score ? ` <span class="tag ft">FT ${m.score.replace("-", "\u2013")} ${opp}</span>` : ` <span class="tag">Today ${fmtET(m.et)} ${opp}</span>`;
+}
 function fmtDate(iso){
   const [y,m,d] = iso.split("-").map(Number);
   return new Date(y, m-1, d).toLocaleDateString("en-CA", {month:"short", day:"numeric", year:"numeric"});
@@ -500,7 +648,7 @@ function renderList(){
         <span class="kit">${p.n}</span>
         <span class="who">
           <span class="name">${isUpd(p)?'<span class="dot" role="img" aria-label="Updated in the last sync"></span>':""}${p.name}</span>
-          <span class="meta">${POSNAME[p.pos]} &nbsp;&middot;&nbsp; ${p.age} &nbsp;&middot;&nbsp; ${p.club.team || p.ht}${badge(p)}</span>
+          <span class="meta">${POSNAME[p.pos]} &nbsp;&middot;&nbsp; ${p.age} &nbsp;&middot;&nbsp; ${p.club.team || p.ht}${badge(p)}${todayTag(p)}</span>
         </span>
         <span class="keystat"><b>${v}</b><span>${label}</span></span>
       </button>
@@ -542,7 +690,7 @@ function renderBubble(){
         <span class="kit pos">${b.pos}</span>
         <span class="who">
           <span class="name">${isUpd(b)?'<span class="dot" role="img" aria-label="Updated in the last sync"></span>':""}${b.name}</span>
-          <span class="meta">${b.team}${b.lg ? " &nbsp;&middot;&nbsp; " + b.lg : ""}${badge(b)}</span>
+          <span class="meta">${b.team}${b.lg ? " &nbsp;&middot;&nbsp; " + b.lg : ""}${badge(b)}${todayTag(b)}</span>
           <span class="bnote">${b.note || ""}</span>
         </span>
         <span class="keystat"><b>${b.r === undefined ? "\u2013" : b.r.toFixed(2)}</b><span>${b.la === undefined ? "FotMob" : `${b.la} gp / ${b.ls} st`}</span></span>
@@ -585,6 +733,10 @@ document.getElementById("onlyUpd").addEventListener("click", e => {
   e.currentTarget.setAttribute("aria-pressed", String(onlyUpd));
   render();
 });
+document.getElementById("toggleWeek").addEventListener("click", e => {
+  const el = document.getElementById("weekBody"); el.hidden = !el.hidden;
+  e.currentTarget.setAttribute("aria-pressed", String(!el.hidden));
+});
 document.getElementById("toggleView").addEventListener("click", e => {
   const on = document.body.classList.toggle("pitchview");
   e.currentTarget.setAttribute("aria-pressed", String(on));
@@ -595,6 +747,7 @@ document.getElementById("q").addEventListener("input", e => { query = e.target.v
 document.getElementById("sort").addEventListener("change", e => { sortKey = e.target.value; render(); });
 
 tallies();
+renderToday();
 render();
 </script>
 </body>
