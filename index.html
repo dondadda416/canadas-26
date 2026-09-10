@@ -324,6 +324,35 @@
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
 
 
+  /* Season game log table */
+  .glog{margin-top:14px;min-width:0}
+  .detail>.club,.card .club{min-width:0}
+  .detail{min-width:0}
+  .glog h4{font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+  .glog h4 span{font-weight:500;letter-spacing:0;text-transform:none;margin-left:6px}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .glog table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.35;min-width:520px}
+  .glog th{font-weight:600;font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 6px;border-bottom:1px solid var(--stone);white-space:nowrap}
+  .glog td{padding:7px 6px;border-bottom:1px solid #eceff2;vertical-align:top;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .glog td.opp{white-space:normal;min-width:150px;font-weight:500}
+  .glog td.opp small,.glog td .na{color:var(--muted);font-weight:400}
+  .glog td.comp{color:var(--muted);font-size:12px}
+  .glog td.res b{display:inline-block;width:16px;text-align:center;border-radius:3px;font-size:11px;line-height:16px;color:#fff;margin-right:2px}
+  .glog td.res b.W{background:#1f7a4d}.glog td.res b.D{background:#7a7f86}.glog td.res b.L{background:var(--maple)}
+  .glog tr.off td{color:var(--muted)}
+  .glog i.yc,.glog i.rc{font-style:normal;font-size:11px;letter-spacing:1px}
+  .glog i.yc{color:#d4a017}.glog i.rc{color:var(--maple)}
+  .glog.clip tbody tr:nth-child(n+9){display:none}
+  .glog .more{padding:8px 0 0;min-height:36px}
+  .glog .mcomp{display:none}
+  @media(max-width:600px){
+    .glog table{min-width:400px;font-size:12.5px}
+    .glog td,.glog th{padding:6px 4px}
+    .glog td.comp,.glog th:nth-child(3){display:none}
+    .glog td.opp{min-width:120px}
+    .glog .mcomp{display:block;font-size:11px;color:var(--muted)}
+  }
+
   /* Most recent individual match, separate from season averages. */
   .detail > .last-match,.detail > .club-season{grid-column:1/-1}
   .last-match{background:#fff;border:1px solid var(--stone);border-left:4px solid var(--maple);border-radius:8px;padding:18px;min-width:0}
@@ -437,7 +466,7 @@
     red dot by his name and a red edge on his row; the masthead counts them and the
     <b>Updated</b> chip shows only those players. The stamp inside a player&rsquo;s club block
     gives the date his line last changed. Dots clear on the next sync that finds no change for him.</p>
-    <p><b>Last match.</b> Each squad dropdown shows the latest recorded club game and the player’s available minutes, goals, assists, cards and match rating. Goalkeepers have saves and goals conceded instead. A dash means that figure was not recorded, not zero; the season FotMob rating below it is an average and is never used in place of a match rating.</p>
+    <p><b>Game log.</b> Each squad player&rsquo;s card lists every club match this season, newest first: opponent, competition, result from his side, minutes, goals and assists (saves and goals conceded for keepers), cards and the match rating. Greyed rows are games he was an unused sub for. A dash means that figure was not recorded, not zero; the season FotMob rating above the table is an average.</p>
     <p><b>Last sync.</b> <span id="howLast"></span></p>
   </details>
 
@@ -612,33 +641,263 @@ const BUBBLE = [
 ];
 BUBBLE.forEach(b => { b.club = b; });
 
-/* Each player's line from his most recent club match, keyed by shirt number. Maintained daily by the
-   updater alongside MATCHES: date/home/away must match the MATCHES entry exactly, or the card falls
-   back to "participation not recorded". Fields: minutes, goals, assists, yellow, red, shots,
-   shotsOnTarget, rating (match rating, not the season average), status ("Started" | "Substitute" |
-   "Unused substitute"), note; keepers use saves, conceded, cleanSheet. Leave a field out if unknown.
-   Undated entries (recorded: date, opponent) are carried over from weekly notes and are dropped once
-   a dated match replaces them. */
-const PLAYER_MATCH_LINES = {
-  1: {club:"Inter Miami", recorded:"2026-09-09", status:"Started", conceded:2, yellow:1, note:"One start, two conceded and a yellow card."},
-  16:{club:"Orlando City", recorded:"2026-09-09", status:"Started", conceded:0, cleanSheet:1, note:"One start and a clean sheet."},
-  3: {club:"Middlesbrough", date:"2026-09-08", home:"Crystal Palace", away:"Middlesbrough", minutes:90, status:"Started", note:"Started and played the full 90."},
-  5: {club:"Portland Timbers", recorded:"2026-09-09", opponent:"Minnesota", minutes:9, note:"Nine-minute debut after moving from Chicago."},
-  13:{club:"Marseille", recorded:"2026-09-09", opponent:"Paris FC", minutes:17, status:"Substitute", note:"17 minutes off the bench."},
-  19:{club:"Bayern Munich", recorded:"2026-09-09", competition:"DFB-Pokal", minutes:28, note:"Played 28 minutes in the cup after the league match against Schalke. The 8.5 rating in the weekly note belongs to that earlier league match."},
-  22:{club:"Toronto FC", recorded:"2026-09-09", status:"Started", rating:5.2, note:"One start, rated 5.2 in the weekly note."},
-  6: {club:"LAFC", recorded:"2026-09-09", opponent:"Real Salt Lake", minutes:90, status:"Started", rating:7.6, note:"Played the full 90 against Real Salt Lake."},
-  7: {club:"Swansea City", date:"2026-09-08", home:"Southampton", away:"Swansea City", minutes:27, status:"Substitute", note:"Came on in the 63rd minute; played 27 minutes."},
-  23:{club:"Toulouse", recorded:"2026-09-09", opponent:"Lille", minutes:0, goals:0, assists:0, status:"Unused substitute", note:"On the bench; no debut yet."},
-  25:{club:"Villarreal", date:"2026-09-08", home:"Borussia Dortmund", away:"Villarreal", minutes:59, status:"Started", rating:6.7, note:"Started and came off in the 59th minute."},
-  9: {club:"Southampton", date:"2026-09-08", home:"Southampton", away:"Swansea City", minutes:85, goals:2, status:"Started", note:"Scored in the 25th and 33rd minutes; came off in the 85th."},
-  10:{club:"Atlético Madrid", recorded:"2026-09-09", opponent:"Athletic Bilbao", minutes:0, goals:0, assists:0, status:"Unused substitute", note:"Unused substitute; still waiting on a LaLiga debut."},
-  11:{club:"Birmingham City", recorded:"2026-09-09", opponent:"Wolves", result:"2–2 draw", minutes:69, status:"Started", note:"Started and played 69 minutes."},
-  12:{club:"Villarreal", date:"2026-09-08", home:"Borussia Dortmund", away:"Villarreal", minutes:59, status:"Started", rating:6.3, note:"Started and came off in the 59th minute."},
-  14:{club:"LAFC", recorded:"2026-09-09", opponent:"Real Salt Lake", result:"2–2 draw", minutes:82, status:"Started", note:"Started and played 82 minutes."},
-  17:{club:"Villarreal", date:"2026-09-08", home:"Borussia Dortmund", away:"Villarreal", minutes:75, status:"Started", rating:7.1, note:"Started and played 75 minutes."},
-  24:{club:"Brighton", recorded:"2026-09-09", opponent:"Leeds", minutes:13, status:"Substitute", yellow:1, note:"13 minutes off the bench; booked."},
-  26:{club:"Bolton Wanderers", date:"2026-09-08", home:"Bolton Wanderers", away:"West Ham United", minutes:17, status:"Substitute", note:"Came on in the 73rd minute; played 17 minutes."}
+/* Season game log per squad player (newest first). One row per club match, all competitions.
+   score is home-away; ha says which side he was on. mins/g/a/yc/rc/rating (match rating) as found;
+   keepers use sv (saves) and ga (conceded). A missing field means not recorded. A row may carry
+   club when it was for a previous club this season (e.g. Waterman at Chicago). Maintained daily. */
+const GAMELOG = {
+  1: [
+    {"date": "2026-09-05", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 4, "ga": 2},
+    {"date": "2026-08-29", "opp": "CF Montréal", "ha": "H", "comp": "MLS", "score": "7-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 1},
+    {"date": "2026-08-22", "opp": "Toronto FC", "ha": "H", "comp": "MLS", "score": "1-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 0, "ga": 2},
+    {"date": "2026-08-19", "opp": "Philadelphia Union", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 2},
+    {"date": "2026-08-15", "opp": "Nashville SC", "ha": "A", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-01", "opp": "Columbus Crew", "ha": "H", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-25", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-22", "opp": "Chicago Fire", "ha": "H", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-24", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "6-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 6, "ga": 4},
+    {"date": "2026-05-17", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 0},
+    {"date": "2026-05-13", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "3-5", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 0, "ga": 3},
+    {"date": "2026-05-09", "opp": "Toronto FC", "ha": "A", "comp": "MLS", "score": "2-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 2},
+    {"date": "2026-05-02", "opp": "Orlando City", "ha": "H", "comp": "MLS", "score": "3-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 4},
+    {"date": "2026-04-25", "opp": "New England Revolution", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 6, "ga": 1},
+    {"date": "2026-04-22", "opp": "Real Salt Lake", "ha": "A", "comp": "MLS", "score": "0-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 0},
+    {"date": "2026-04-18", "opp": "Colorado Rapids", "ha": "A", "comp": "MLS", "score": "2-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 2},
+    {"date": "2026-04-11", "opp": "New York Red Bulls", "ha": "H", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 0, "ga": 2},
+    {"date": "2026-04-04", "opp": "Austin FC", "ha": "H", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 1, "ga": 2},
+    {"date": "2026-03-22", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "2-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 2},
+    {"date": "2026-03-14", "opp": "Charlotte FC", "ha": "A", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-07", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 2, "ga": 1},
+    {"date": "2026-03-01", "opp": "Orlando City", "ha": "A", "comp": "MLS", "score": "2-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 2},
+    {"date": "2026-02-21", "opp": "LAFC", "ha": "A", "comp": "MLS", "score": "3-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 3}
+  ],
+  16: [
+    {"date": "2026-09-05", "opp": "San Diego FC", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 2, "ga": 0},
+    {"date": "2026-08-29", "opp": "Minnesota United", "ha": "A", "comp": "MLS", "score": "3-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 6, "ga": 3},
+    {"date": "2026-08-22", "opp": "Real Salt Lake", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 1},
+    {"date": "2026-08-19", "opp": "Chicago Fire", "ha": "H", "comp": "MLS", "score": "1-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 1, "ga": 2},
+    {"date": "2026-08-15", "opp": "FC Cincinnati", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 1},
+    {"date": "2026-08-01", "opp": "New York Red Bulls", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 3},
+    {"date": "2026-07-25", "opp": "Nashville SC", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 0},
+    {"date": "2026-07-22", "opp": "San Jose Earthquakes", "ha": "A", "comp": "MLS", "score": "0-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 7, "ga": 0},
+    {"date": "2026-05-23", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "6-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 6},
+    {"date": "2026-05-16", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 1},
+    {"date": "2026-05-13", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "4-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 3},
+    {"date": "2026-05-09", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 2},
+    {"date": "2026-05-02", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 7, "ga": 3},
+    {"date": "2026-04-25", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 3},
+    {"date": "2026-04-22", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "4-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 1},
+    {"date": "2026-04-18", "opp": "Houston Dynamo", "ha": "H", "comp": "MLS", "score": "0-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 1},
+    {"date": "2026-04-12", "opp": "Columbus Crew", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 6, "ga": 1},
+    {"date": "2026-04-04", "opp": "LAFC", "ha": "A", "comp": "MLS", "score": "6-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 6},
+    {"date": "2026-03-21", "opp": "Nashville SC", "ha": "A", "comp": "MLS", "score": "5-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 5},
+    {"date": "2026-03-07", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "5-0", "status": "Started", "yc": 0, "rc": 1, "sv": 0, "ga": 0},
+    {"date": "2026-03-01", "opp": "Inter Miami", "ha": "H", "comp": "MLS", "score": "2-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 4},
+    {"date": "2026-02-21", "opp": "New York Red Bulls", "ha": "H", "comp": "MLS", "score": "1-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 11, "ga": 2}
+  ],
+  18: [
+    {"date": "2026-09-06", "opp": "Heart of Midlothian", "ha": "A", "comp": "Premiership", "score": "2-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 2},
+    {"date": "2026-09-02", "opp": "St Johnstone", "ha": "H", "comp": "Premiership", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 1},
+    {"date": "2026-08-30", "opp": "Hibernian", "ha": "H", "comp": "Premiership", "score": "1-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 2},
+    {"date": "2026-08-22", "opp": "Dundee United", "ha": "A", "comp": "Premiership", "score": "0-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.9, "ga": 0},
+    {"date": "2026-08-15", "opp": "Aberdeen", "ha": "A", "comp": "League Cup", "score": "3-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 0},
+    {"date": "2026-08-08", "opp": "Aberdeen", "ha": "H", "comp": "Premiership", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.9, "ga": 0},
+    {"date": "2026-08-03", "opp": "Celtic", "ha": "A", "comp": "Premiership", "score": "1-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.0, "ga": 1}
+  ],
+  2: [
+    {"date": "2026-08-09", "opp": "Kilmarnock", "ha": "A", "comp": "Premiership", "score": "1-5", "status": "Started", "mins": 45, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-03", "opp": "Dundee", "ha": "H", "comp": "Premiership", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  3: [
+    {"date": "2026-09-08", "opp": "Crystal Palace", "ha": "A", "comp": "EFL Cup", "score": "3-0", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 5.8},
+    {"date": "2026-09-05", "opp": "Queens Park Rangers", "ha": "A", "comp": "Championship", "score": "0-1", "status": "Sub", "mins": 19, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.4},
+    {"date": "2026-09-02", "opp": "Burnley", "ha": "A", "comp": "Championship", "score": "1-1", "status": "Started", "mins": 74, "g": 0, "a": 0, "yc": 1, "rc": 0, "rating": 7.1},
+    {"date": "2026-08-29", "opp": "West Bromwich Albion", "ha": "H", "comp": "Championship", "score": "3-1", "status": "Sub", "mins": 21, "g": 1, "a": 0, "yc": 0, "rc": 0, "rating": 7.3},
+    {"date": "2026-08-25", "opp": "Doncaster Rovers", "ha": "A", "comp": "EFL Cup", "score": "1-3", "status": "Started", "mins": 72, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.2},
+    {"date": "2026-08-22", "opp": "Blackburn Rovers", "ha": "A", "comp": "Championship", "score": "1-2", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-15", "opp": "Lincoln City", "ha": "H", "comp": "Championship", "score": "2-1", "status": "Sub", "mins": 1, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  4: [],
+  5: [
+    {"date": "2026-09-05", "opp": "Minnesota United", "ha": "H", "comp": "MLS", "score": "5-4", "status": "Sub", "mins": 9, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-29", "opp": "Seattle Sounders", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-08-22", "opp": "New York Red Bulls", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-08-19", "opp": "Orlando City", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-08-16", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-08-01", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-07-25", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "3-1", "status": "Started", "g": 1, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-07-22", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-05-23", "opp": "Toronto FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-05-16", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "0-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-05-13", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "1-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-05-09", "opp": "New York Red Bulls", "ha": "H", "comp": "MLS", "score": "1-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-05-02", "opp": "FC Cincinnati", "ha": "H", "comp": "MLS", "score": "2-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-04-25", "opp": "Sporting KC", "ha": "H", "comp": "MLS", "score": "5-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-04-18", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "3-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-04-11", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-04-04", "opp": "Nashville SC", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-03-21", "opp": "Philadelphia Union", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-03-14", "opp": "D.C. United", "ha": "H", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-03-07", "opp": "Columbus Crew", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-02-28", "opp": "CF Montréal", "ha": "H", "comp": "MLS", "score": "3-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
+    {"date": "2026-02-21", "opp": "Houston Dynamo", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire"}
+  ],
+  13: [
+    {"date": "2026-09-06", "opp": "Paris", "ha": "H", "comp": "Ligue 1", "score": "2-3", "status": "Sub", "mins": 17, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.1},
+    {"date": "2026-08-30", "opp": "Monaco", "ha": "A", "comp": "Ligue 1", "score": "2-0", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-21", "opp": "Strasbourg", "ha": "H", "comp": "Ligue 1", "score": "4-0", "status": "Sub", "mins": 7, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  15: [],
+  19: [
+    {"date": "2026-09-05", "opp": "Schalke 04", "ha": "A", "comp": "Bundesliga", "score": "0-0", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 8.5},
+    {"date": "2026-09-02", "opp": "VfL Osnabrück", "ha": "A", "comp": "DFB-Pokal", "score": "1-4", "status": "Sub", "mins": 28, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.1},
+    {"date": "2026-08-28", "opp": "VfB Stuttgart", "ha": "H", "comp": "Bundesliga", "score": "5-1", "status": "Started", "mins": 74, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.8},
+    {"date": "2026-08-22", "opp": "Borussia Dortmund", "ha": "A", "comp": "DFL-Supercup", "score": "1-2", "status": "Sub", "mins": 22, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.4}
+  ],
+  22: [
+    {"date": "2026-09-05", "opp": "Chicago Fire", "ha": "H", "comp": "MLS", "score": "4-4", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-29", "opp": "New York City FC", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-22", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-08-19", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "3-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-15", "opp": "New England Revolution", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-31", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-07-25", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-22", "opp": "New England Revolution", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-16", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-22", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "3-3", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-04-18", "opp": "Austin FC", "ha": "H", "comp": "MLS", "score": "3-3", "status": "Started", "g": 1, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-11", "opp": "FC Cincinnati", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-04", "opp": "Colorado Rapids", "ha": "H", "comp": "MLS", "score": "3-2", "status": "Started", "g": 1, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-03-21", "opp": "Columbus Crew", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-14", "opp": "New York Red Bulls", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-08", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "0-1", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0},
+    {"date": "2026-02-28", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "3-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-02-21", "opp": "FC Dallas", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  6: [
+    {"date": "2026-09-05", "opp": "Real Salt Lake", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.6},
+    {"date": "2026-08-29", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-22", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-08-19", "opp": "Colorado Rapids", "ha": "A", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-15", "opp": "San Diego FC", "ha": "H", "comp": "MLS", "score": "0-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-25", "opp": "Sporting KC", "ha": "H", "comp": "MLS", "score": "4-0", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0},
+    {"date": "2026-07-22", "opp": "Real Salt Lake", "ha": "H", "comp": "MLS", "score": "3-1", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0},
+    {"date": "2026-07-17", "opp": "LA Galaxy", "ha": "A", "comp": "MLS", "score": "0-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-24", "opp": "Seattle Sounders", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-17", "opp": "Nashville SC", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-13", "opp": "St. Louis City", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-10", "opp": "Houston Dynamo", "ha": "H", "comp": "MLS", "score": "1-4", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-02", "opp": "San Diego FC", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0},
+    {"date": "2026-04-25", "opp": "Minnesota United", "ha": "A", "comp": "MLS", "score": "0-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-22", "opp": "Colorado Rapids", "ha": "H", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-19", "opp": "San Jose Earthquakes", "ha": "H", "comp": "MLS", "score": "1-4", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-11", "opp": "Portland Timbers", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-04", "opp": "Orlando City", "ha": "H", "comp": "MLS", "score": "6-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-21", "opp": "Austin FC", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-14", "opp": "St. Louis City", "ha": "H", "comp": "MLS", "score": "2-0", "status": "Started", "g": 2, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-07", "opp": "FC Dallas", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-02-28", "opp": "Houston Dynamo", "ha": "A", "comp": "MLS", "score": "0-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-02-21", "opp": "Inter Miami", "ha": "H", "comp": "MLS", "score": "3-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  7: [
+    {"date": "2026-09-08", "opp": "Southampton", "ha": "A", "comp": "Championship", "score": "3-1", "status": "Sub", "mins": 27, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-09-05", "opp": "Wrexham", "ha": "H", "comp": "Championship", "score": "0-0", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.9},
+    {"date": "2026-09-01", "opp": "Watford", "ha": "H", "comp": "Championship", "score": "2-0", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.1},
+    {"date": "2026-08-29", "opp": "Derby County", "ha": "A", "comp": "Championship", "score": "0-3", "status": "Sub", "mins": 25, "g": 0, "a": 1, "yc": 0, "rc": 0, "rating": 7.7}
+  ],
+  8: [],
+  20: [],
+  21: [
+    {"date": "2026-07-31", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-07-25", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-07-22", "opp": "New England Revolution", "ha": "A", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-23", "opp": "Chicago Fire", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-05-16", "opp": "Charlotte FC", "ha": "A", "comp": "MLS", "score": "3-1", "status": "Started", "g": 0, "a": 1, "yc": 1, "rc": 0},
+    {"date": "2026-05-09", "opp": "Inter Miami", "ha": "H", "comp": "MLS", "score": "2-4", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-02", "opp": "San Jose Earthquakes", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 1, "yc": 1, "rc": 0},
+    {"date": "2026-04-25", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-22", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "3-3", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-04-18", "opp": "Austin FC", "ha": "H", "comp": "MLS", "score": "3-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-11", "opp": "FC Cincinnati", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0},
+    {"date": "2026-04-04", "opp": "Colorado Rapids", "ha": "H", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-21", "opp": "Columbus Crew", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-14", "opp": "New York Red Bulls", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-03-08", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "0-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-02-28", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "3-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-02-21", "opp": "FC Dallas", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0}
+  ],
+  23: [
+    {"date": "2026-09-03", "opp": "Lille", "ha": "H", "comp": "Ligue 1", "score": "0-1", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-16", "opp": "HNK Gorica", "ha": "A", "comp": "HNL", "score": "2-1", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.1, "club": "Hajduk Split"},
+    {"date": "2026-08-09", "opp": "NK Istra 1961", "ha": "H", "comp": "HNL", "score": "2-2", "status": "Started", "mins": 80, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.4, "club": "Hajduk Split"}
+  ],
+  25: [
+    {"date": "2026-09-08", "opp": "Borussia Dortmund", "ha": "A", "comp": "Champions League", "score": "3-2", "status": "Started", "mins": 59, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.7},
+    {"date": "2026-09-05", "opp": "Deportivo de La Coruña", "ha": "H", "comp": "LaLiga", "score": "2-3", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.7},
+    {"date": "2026-08-28", "opp": "Deportivo Alavés", "ha": "A", "comp": "LaLiga", "score": "1-0", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  9: [
+    {"date": "2026-09-08", "opp": "Swansea City", "ha": "H", "comp": "Championship", "score": "3-1", "status": "Started", "mins": 85, "g": 2, "a": 0, "yc": 0, "rc": 0, "rating": 8.0},
+    {"date": "2026-09-05", "opp": "Lincoln City", "ha": "A", "comp": "Championship", "score": "1-1", "status": "Started", "mins": 62, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.6},
+    {"date": "2026-09-01", "opp": "Birmingham City", "ha": "A", "comp": "Championship", "score": "1-1", "status": "Started", "mins": 69, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.2},
+    {"date": "2026-08-29", "opp": "Millwall", "ha": "H", "comp": "Championship", "score": "5-1", "status": "Started", "mins": 70, "g": 2, "a": 0, "yc": 0, "rc": 0, "rating": 8.8},
+    {"date": "2026-08-25", "opp": "West Ham United", "ha": "H", "comp": "EFL Cup", "score": "1-4", "status": "Sub", "mins": 11, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 5.8},
+    {"date": "2026-08-22", "opp": "Stoke City", "ha": "H", "comp": "Championship", "score": "3-1", "status": "Started", "mins": 78, "g": 1, "a": 0, "yc": 0, "rc": 0, "rating": 7.6},
+    {"date": "2026-08-16", "opp": "Watford", "ha": "A", "comp": "Championship", "score": "2-1", "status": "Started", "mins": 70, "g": 1, "a": 0, "yc": 0, "rc": 0, "rating": 7.6},
+    {"date": "2026-08-08", "opp": "Colchester United", "ha": "A", "comp": "EFL Cup", "score": "0-2", "status": "Sub", "mins": 28, "g": 1, "a": 0, "yc": 0, "rc": 0, "rating": 7.5}
+  ],
+  10: [
+    {"date": "2026-08-29", "opp": "Parma", "ha": "H", "comp": "Serie A", "score": "2-0", "status": "Started", "mins": 57, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.1, "club": "Juventus"},
+    {"date": "2026-08-23", "opp": "Frosinone", "ha": "A", "comp": "Serie A", "score": "0-1", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Juventus"}
+  ],
+  11: [
+    {"date": "2026-09-06", "opp": "Wolverhampton Wanderers", "ha": "H", "comp": "Championship", "score": "2-2", "status": "Started", "mins": 68, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.8},
+    {"date": "2026-08-29", "opp": "Coventry City", "ha": "A", "comp": "Premier League", "score": "0-1", "status": "Sub", "g": 1, "a": 0, "yc": 0, "rc": 0, "club": "Hull City"},
+    {"date": "2026-08-22", "opp": "Manchester United", "ha": "H", "comp": "Premier League", "score": "2-0", "status": "Sub", "mins": 19, "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Hull City"}
+  ],
+  12: [
+    {"date": "2026-09-08", "opp": "Borussia Dortmund", "ha": "A", "comp": "Champions League", "score": "3-2", "status": "Started", "mins": 59, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.3},
+    {"date": "2026-09-05", "opp": "Deportivo de La Coruña", "ha": "H", "comp": "LaLiga", "score": "2-3", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-28", "opp": "Deportivo Alavés", "ha": "A", "comp": "LaLiga", "score": "1-0", "status": "Sub", "mins": 8, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-23", "opp": "Atlético Madrid", "ha": "A", "comp": "LaLiga", "score": "2-2", "status": "Sub", "mins": 6, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-16", "opp": "Racing Santander", "ha": "A", "comp": "LaLiga", "score": "2-2", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  14: [
+    {"date": "2026-09-05", "opp": "Real Salt Lake", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "mins": 82, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-22", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-19", "opp": "Colorado Rapids", "ha": "A", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-15", "opp": "San Diego FC", "ha": "H", "comp": "MLS", "score": "0-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-25", "opp": "Sporting KC", "ha": "H", "comp": "MLS", "score": "4-0", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-22", "opp": "Real Salt Lake", "ha": "H", "comp": "MLS", "score": "3-1", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-07-17", "opp": "LA Galaxy", "ha": "A", "comp": "MLS", "score": "0-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-13", "opp": "St. Louis City", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-05-10", "opp": "Houston Dynamo", "ha": "H", "comp": "MLS", "score": "1-4", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0},
+    {"date": "2026-04-25", "opp": "Minnesota United", "ha": "A", "comp": "MLS", "score": "0-1", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-22", "opp": "Colorado Rapids", "ha": "H", "comp": "MLS", "score": "0-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-19", "opp": "San Jose Earthquakes", "ha": "H", "comp": "MLS", "score": "1-4", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-11", "opp": "Portland Timbers", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-04-04", "opp": "Orlando City", "ha": "H", "comp": "MLS", "score": "6-0", "status": "Sub", "g": 0, "a": 1, "yc": 0, "rc": 0}
+  ],
+  17: [
+    {"date": "2026-09-08", "opp": "Borussia Dortmund", "ha": "A", "comp": "Champions League", "score": "3-2", "status": "Started", "mins": 75, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.1},
+    {"date": "2026-09-05", "opp": "Deportivo de La Coruña", "ha": "H", "comp": "LaLiga", "score": "2-3", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-28", "opp": "Deportivo Alavés", "ha": "A", "comp": "LaLiga", "score": "1-0", "status": "Started", "mins": 63, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.5},
+    {"date": "2026-08-23", "opp": "Atlético Madrid", "ha": "A", "comp": "LaLiga", "score": "2-2", "status": "Sub", "mins": 29, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.2},
+    {"date": "2026-08-16", "opp": "Racing Santander", "ha": "A", "comp": "LaLiga", "score": "2-2", "status": "Sub", "mins": 34, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.3}
+  ],
+  24: [
+    {"date": "2026-09-05", "opp": "Leeds United", "ha": "H", "comp": "Premier League", "score": "1-1", "status": "Sub", "mins": 13, "g": 0, "a": 0, "yc": 1, "rc": 0, "rating": 5.8},
+    {"date": "2026-08-30", "opp": "Chelsea", "ha": "A", "comp": "Premier League", "score": "4-3", "status": "Sub", "mins": 10, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 5.9},
+    {"date": "2026-08-23", "opp": "Aston Villa", "ha": "H", "comp": "Premier League", "score": "4-0", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ],
+  26: [
+    {"date": "2026-09-08", "opp": "West Ham United", "ha": "H", "comp": "Championship", "score": "2-3", "status": "Sub", "mins": 17, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 5.9},
+    {"date": "2026-09-05", "opp": "Millwall", "ha": "A", "comp": "Championship", "score": "4-0", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-09-01", "opp": "Sheffield United", "ha": "A", "comp": "Championship", "score": "3-2", "status": "Sub", "mins": 9, "g": 0, "a": 0, "yc": 0, "rc": 0},
+    {"date": "2026-08-29", "opp": "Lincoln City", "ha": "A", "comp": "Championship", "score": "1-0", "status": "Sub", "mins": 18, "g": 0, "a": 0, "yc": 0, "rc": 0}
+  ]
 };
 
 const isUpd = x => (x.club || x).upd === SYNC.last;
@@ -792,44 +1051,6 @@ function badge(p){
   const eta = st === "inj" && c.eta ? ` <i>\u00b7 ${c.eta === "TBD" ? "no date" : "back " + c.eta}</i>` : "";
   return ` <span class="badge ${st}">${STATUS[st]}${eta}</span>`;
 }
-function lastMatchRecord(p){
-  const club = p.club.team;
-  const match = MATCHES.filter(m => m.score && m.date <= todayET() && (m.home === club || m.away === club)).sort(byKick).at(-1);
-  const line = PLAYER_MATCH_LINES[p.n];
-  if (match){
-    const sameMatch = line && line.club === club && line.date === match.date && line.home === match.home && line.away === match.away;
-    return {match, line:sameMatch ? line : null};
-  }
-  return {match:null, line:line && line.club === club && !line.date && line.recorded === SYNC.last ? line : null};
-}
-function lastMatchBlock(p){
-  const {match, line} = lastMatchRecord(p);
-  const rating = line && Number.isFinite(line.rating) ? line.rating : null;
-  const fixture = match
-    ? `${match.home} <span class="match-score">${match.score.replace("-","–")}</span> ${match.away}`
-    : line && line.opponent ? `${p.club.team} vs ${line.opponent}${line.result ? " · " + line.result : ""}`
-    : "Match details not recorded";
-  const meta = match ? `${fmtDate(match.date)} · ${match.comp}`
-    : line ? `${line.competition || p.club.lg || "Club match"} · Match date not recorded` : "No club match recorded yet.";
-  const stat = key => line && line[key] !== undefined && line[key] !== null ? String(line[key]) : '<span aria-label="Not recorded">—</span>';
-  const cells = p.pos === "G"
-    ? [["Minutes","minutes"],["Saves","saves"],["Conceded","conceded"],["Clean sheet","cleanSheet"]]
-    : [["Minutes","minutes"],["Goals","goals"],["Assists","assists"],["Yellow cards","yellow"]];
-  if (p.pos === "G" && line && line.yellow !== undefined) cells.push(["Yellow cards","yellow"]);
-  if (line && line.shots !== undefined) cells.push(["Shots","shots"]);
-  if (line && line.shotsOnTarget !== undefined) cells.push(["On target","shotsOnTarget"]);
-  if (line && line.red !== undefined) cells.push(["Red cards","red"]);
-  return `<section class="last-match" aria-label="Last match for ${p.name}">
-    <div class="last-match-head"><div><p class="last-match-kicker">Latest recorded club game</p><h3>Last match</h3>
-      <p class="last-match-fixture">${fixture}</p><p class="last-match-meta">${meta}${line && line.status ? " · " + line.status : ""}</p></div>
-      <div class="match-rating ${rating !== null ? "has-rating" : ""}"><span>Match rating</span><strong>${rating !== null ? rating.toFixed(1) : "—"}</strong><small>${rating !== null ? "out of 10" : line && line.minutes === 0 ? "Did not play" : "Not recorded"}</small></div>
-    </div>
-    ${line || match ? `<dl class="match-line">${cells.map(([label,key])=>`<div><dt>${label}</dt><dd>${stat(key)}</dd></div>`).join("")}</dl>` : ""}
-    ${line && line.note ? `<p class="note">${line.note}</p>` : match ? '<p class="note">Club result recorded; this player’s participation and individual stats have not been recorded.</p>' : ""}
-    <p class="match-source">${line || match ? "From the existing match and club notes. — means not recorded; it does not mean zero. " : ""}Match ratings are separate from the season average below.</p>
-  </section>`;
-}
-
 function clubBlock(p){
   const c = p.club; if (!c.team) return "";
   const cells = [];
@@ -839,8 +1060,48 @@ function clubBlock(p){
   return `<div class="club club-season">
     <h3>${c.team} <span>${c.lg}</span>${c.upd ? `<span class="stamp">updated ${fmtDate(c.upd)}</span>` : ""}</h3>
     <div class="grid grid-club">${cells.map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join("")}</div>
-    ${c.note ? `<p class="note">${c.note}</p>` : ""}
     ${c.st === "inj" && c.ret ? `<p class="note ret"><b>Estimated return.</b> ${c.ret}</p>` : ""}
+    ${gameLog(p)}
+  </div>`;
+}
+function resultOf(r){
+  if (!r.score) return ["", ""];
+  const [h,a] = r.score.split("-").map(Number);
+  const [f,ag] = r.ha === "H" ? [h,a] : [a,h];
+  return [f > ag ? "W" : f < ag ? "L" : "D", `${f}\u2013${ag}`];
+}
+function gameLog(p){
+  const rows = (GAMELOG[p.n] || []);
+  if (!rows.length) return `<p class="note">No club games this season.</p>`;
+  const isGK = p.pos === "G";
+  const cell = v => (v === undefined || v === null) ? '<span class="na">\u2013</span>' : v;
+  const played = rows.filter(r => r.status !== "Unused" && r.status !== "Not in squad").length;
+  const head = isGK
+    ? ["Date","Match","Comp","Result","Min","Sv","GA","Cards","Rtg"]
+    : ["Date","Match","Comp","Result","Min","G","A","Cards","Rtg"];
+  const body = rows.map(r => {
+    const [wdl, sc] = resultOf(r);
+    const off = r.status === "Unused" || r.status === "Not in squad";
+    const cards = (r.yc ? "\u25a0".repeat(r.yc) : "") ;
+    const cardHtml = r.rc ? `<i class="yc">${cards}</i><i class="rc">\u25a0</i>` : cards ? `<i class="yc">${cards}</i>` : (r.yc === 0 || r.rc === 0 ? "" : '<span class="na">\u2013</span>');
+    const opp = `${r.ha === "H" ? "v" : "at"} ${r.opp}${r.club ? ` <small>(${r.club})</small>` : ""}`;
+    return `<tr class="${off ? "off" : ""}">
+      <td>${fmtDate(r.date).replace(/, \d{4}$/, "")}</td>
+      <td class="opp">${opp}${r.status === "Sub" ? ' <small>sub</small>' : off ? ` <small>${r.status.toLowerCase()}</small>` : ""}<small class="mcomp">${r.comp}</small></td>
+      <td class="comp">${r.comp}</td>
+      <td class="res"><b class="${wdl}">${wdl}</b> ${sc}</td>
+      <td>${off ? '<span class="na">\u2013</span>' : cell(r.mins)}</td>
+      <td>${off ? "" : cell(isGK ? r.sv : r.g)}</td>
+      <td>${off ? "" : cell(isGK ? r.ga : r.a)}</td>
+      <td>${off ? "" : cardHtml}</td>
+      <td>${off ? "" : (r.rating !== undefined && r.rating !== null ? r.rating.toFixed(1) : '<span class="na">\u2013</span>')}</td>
+    </tr>`;
+  }).join("");
+  const many = rows.length > 8;
+  return `<div class="glog ${many ? "clip" : ""}">
+    <h4>Game log <span>${played} played of ${rows.length} this season</span></h4>
+    <div class="tscroll"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div>
+    ${many ? `<button type="button" class="text-button more" data-n="${p.n}">Show all ${rows.length} games</button>` : ""}
   </div>`;
 }
 function intlBlock(p){
@@ -861,7 +1122,7 @@ function detailBody(p){
     ? `<p class="note">Did not appear in the group stage.</p>` : "";
   const wc = `<div class="club wc"><h3>World Cup group stage</h3>` + statGrid(p) + dnp + `</div>`;
   const club = clubBlock(p) || `<div class="club"><h3>Club form</h3><p class="note">No club line yet.</p></div>`;
-  return lastMatchBlock(p) + club + intlBlock(p) + wc;
+  return club + intlBlock(p) + wc;
 }
 
 function renderList(){
@@ -939,6 +1200,8 @@ function render(){
 }
 
 document.addEventListener("click", e => {
+  const more = e.target.closest(".glog .more");
+  if (more){ const g = more.closest(".glog"); g.classList.remove("clip"); more.remove(); return; }
   const bar = e.target.closest("button.bar[data-n], button.shirt[data-n]");
   if (bar){
     const n = +bar.dataset.n; open = (open === n ? null : n); render();
