@@ -98,8 +98,6 @@
   .keystat{text-align:right;line-height:1.1}
   .keystat b{font-family:var(--display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
   .keystat span{display:block;font-size:11px;color:var(--muted)}
-  .player.dnp .kit{color:var(--stone)}
-  .player.dnp .name{color:var(--muted)}
 
   .detail{display:none;padding:2px 14px 16px 64px;background:#FBFAF9}
   @media (max-width:380px){.detail{padding-left:14px}}
@@ -112,7 +110,7 @@
   .sec,.club h3{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 0 0}
   .club{margin-top:16px;border-top:2px solid var(--stone);padding-top:10px}
   .detail .club:first-child,.card .club:first-child{margin-top:8px;border-top:0;padding-top:0}
-  .club.intl h3,.club.wc h3{font-size:16px}
+  .club.intl h3{font-size:16px}
   .note.ret{color:var(--ink)}
   .note.ret b{font-weight:600}
   .badge i{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0}
@@ -147,8 +145,6 @@
   .shirt em{font-family:var(--display);font-weight:700;font-size:16px;font-style:normal;color:var(--maple);font-variant-numeric:tabular-nums}
   .shirt strong{font-family:var(--display);font-weight:600;font-size:16px}
   .shirt small{font-size:11px;color:var(--muted)}
-  .shirt.dnp{background:rgba(255,255,255,.72)}
-  .shirt.dnp em{color:var(--muted)}
   .shirt[aria-pressed="true"]{box-shadow:0 0 0 2px #fff}
   .card{background:#fff;margin-top:14px;padding:14px}
   .card .name{font-size:26px}
@@ -192,9 +188,14 @@
   .howto h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0 0 6px}
   .howto p{margin:0 0 8px;max-width:60ch;color:var(--muted)}
   .howto p b{color:var(--ink);font-weight:600}
-  .bubble{border-top:6px solid var(--ink);margin-top:6px}
-  .bubble h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;margin:18px 14px 4px}
-  .bubble .lede{margin:0 14px 10px;font-size:13px;color:var(--muted);max-width:52ch}
+  .bubble,.daily{border-top:6px solid var(--ink);margin-top:6px}
+  .bubble h2,.daily h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;margin:18px 14px 4px}
+  .bubble .lede,.daily .lede{margin:0 14px 10px;font-size:13px;color:var(--muted);max-width:52ch}
+  .daylist{list-style:none;margin:0;padding:0 14px 14px}
+  .daylist li{border-top:1px solid var(--stone);padding:14px 0}
+  .daylist li:first-child{border-top:0;padding-top:0}
+  .daylist h3{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.15;margin:0 0 5px}
+  .daylist p{margin:0;font-size:13px;line-height:1.5;color:var(--ink)}
   .bar.static{cursor:default;align-items:flex-start}
   .kit.pos{font-size:16px;font-weight:600;color:var(--muted);padding-top:6px;letter-spacing:.04em}
   .bnote{display:block;font-size:12.5px;color:var(--ink);margin-top:4px;line-height:1.4}
@@ -237,7 +238,7 @@
   .tally span{font-size:13px;color:#c9d0d8}
   .legacy-tally{display:none}
   .workspace{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:26px;align-items:start}
-  .squad-panel,.today,.bubble{background:#fff;border:1px solid var(--stone);border-radius:10px;overflow:clip;min-width:0}
+  .squad-panel,.today,.bubble,.daily{background:#fff;border:1px solid var(--stone);border-radius:10px;overflow:clip;min-width:0}
   .section-head{padding:22px 22px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
   .section-head h2{font-family:var(--display);font-size:32px;line-height:1;margin:0}
   .section-head p{font-size:14px;color:var(--muted);margin:0}
@@ -262,14 +263,12 @@
   .keystat span{font-size:12px;margin-top:4px}
   .chevron{width:9px;height:9px;border-right:2px solid #788490;border-bottom:2px solid #788490;transform:rotate(45deg);margin:0 3px 5px 5px;flex-shrink:0}
   .open .chevron{transform:rotate(225deg);margin-top:8px}
-  .player.dnp .kit{color:var(--maple)}
-  .player.dnp .name{color:var(--ink)}
   .player.open{background:#f7f9fb}
   .player.open .detail{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .detail{padding:0 22px 24px 82px;background:transparent}
   .detail>.club:first-child{grid-column:1/-1}
   .club,.detail .club:first-child{margin:0;padding-top:16px;border-top:1px solid var(--stone)}
-  .club h3,.club.intl h3,.club.wc h3{font-size:21px}
+  .club h3,.club.intl h3{font-size:21px}
   .club h3 span{font-size:14px}
   .grid{gap:16px 10px;grid-template-columns:repeat(3,minmax(0,1fr))}
   .grid b{font-size:25px}
@@ -293,9 +292,13 @@
   .m .mnote{font-size:14px;line-height:1.6;margin-top:7px}
   .week h3{font-size:14px;letter-spacing:0;text-transform:none;margin-top:22px}
   .fixture-note{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 12px}
-  .bubble{margin-top:26px;border-top:4px solid var(--maple)}
-  .bubble h2{font-size:32px;margin:22px 22px 8px}
-  .bubble .lede{font-size:14px;margin:0 22px 16px;line-height:1.6}
+  .bubble,.daily{margin-top:26px;border-top:4px solid var(--maple)}
+  .bubble h2,.daily h2{font-size:32px;margin:22px 22px 8px}
+  .bubble .lede,.daily .lede{font-size:14px;margin:0 22px 16px;line-height:1.6}
+  .daylist{padding:0 22px 22px}
+  .daylist li{padding:18px 0}
+  .daylist h3{font-size:21px;margin-bottom:7px}
+  .daylist p{font-size:14px;line-height:1.7;max-width:90ch}
   .bubble .list{display:grid;grid-template-columns:1fr 1fr}
   .bubble .player:nth-child(odd){border-right:1px solid var(--stone)}
   .player.bub .name{font-size:23px}
@@ -311,8 +314,6 @@
   .shirt{padding:10px 12px;min-height:46px;border-radius:5px;gap:8px}
   .shirt strong,.shirt em{font-size:20px}
   .shirt small{font-size:14px}
-  .shirt.dnp{background:#fff}
-  .shirt.dnp em{color:var(--maple)}
   .shirt.inj em{text-decoration:none}
   .card{border-radius:8px;padding:22px;margin-top:22px}
   .card .club{margin-top:18px}
@@ -323,7 +324,7 @@
   footer{font-size:13px;line-height:1.7;border:0;padding:24px 0 36px;max-width:100ch}
   @media(min-width:1100px){.controls{position:sticky;top:0;z-index:5;padding-top:12px}}
   @media(max-width:1000px){.workspace{grid-template-columns:minmax(0,1fr) 300px;gap:18px}.wrap{padding:0 20px}.bar{padding:16px;gap:12px}.controls{padding-left:16px;padding-right:16px}.detail{padding-left:16px}.masthead{gap:20px}.tally{padding:18px 12px}.tally div{padding:4px 7px}.bubble .list{grid-template-columns:1fr}}
-  @media(max-width:760px){.wrap{padding:0 16px}.topline{padding:18px 0}.topline nav{gap:16px}.topline nav a:last-child{display:none}.masthead{grid-template-columns:1fr;padding:24px 0;gap:18px}.masthead h1{font-size:56px}.masthead p{font-size:16px}.tally{grid-template-columns:repeat(3,1fr);padding:16px;order:2}.synced{order:3}.tally b{font-size:30px}.tally span{font-size:12px}.workspace{display:flex;flex-direction:column;gap:20px}.squad-panel,.today{width:100%}.today{order:-1}.section-head{padding:20px 16px 16px}.section-head h2{font-size:28px}.section-head p{font-size:12px}.controls{padding:0 16px 16px}.row1{flex-direction:column}.row1 select{max-width:100%;width:100%}.chip{min-height:44px;font-size:14px;padding:8px 10px}.viewbar{padding:8px 16px}.bar{padding:16px 12px;gap:10px}.kit{min-width:36px;height:42px;font-size:26px}.name{font-size:23px}.meta{font-size:14px}.keystat{min-width:48px}.keystat b{font-size:25px}.chevron{width:7px;height:7px;margin-left:2px}.detail{padding:0 16px 20px}.player.open .detail{grid-template-columns:1fr}.detail>.club:first-child{grid-column:auto}.bubble{margin-top:20px}.bubble .list{grid-template-columns:1fr}.bubble .player:nth-child(odd){border-right:0}.bubble .bar{padding:18px 16px}.pitch{padding:16px}.shirt{padding:10px}.howto{padding:18px}.m{grid-template-columns:70px minmax(0,1fr)}}
+  @media(max-width:760px){.wrap{padding:0 16px}.topline{padding:18px 0}.topline nav{gap:16px}.topline nav a:last-child{display:none}.masthead{grid-template-columns:1fr;padding:24px 0;gap:18px}.masthead h1{font-size:56px}.masthead p{font-size:16px}.tally{grid-template-columns:repeat(3,1fr);padding:16px;order:2}.synced{order:3}.tally b{font-size:30px}.tally span{font-size:12px}.workspace{display:flex;flex-direction:column;gap:20px}.squad-panel,.today{width:100%}.today{order:-1}.section-head{padding:20px 16px 16px}.section-head h2{font-size:28px}.section-head p{font-size:12px}.controls{padding:0 16px 16px}.row1{flex-direction:column}.row1 select{max-width:100%;width:100%}.chip{min-height:44px;font-size:14px;padding:8px 10px}.viewbar{padding:8px 16px}.bar{padding:16px 12px;gap:10px}.kit{min-width:36px;height:42px;font-size:26px}.name{font-size:23px}.meta{font-size:14px}.keystat{min-width:48px}.keystat b{font-size:25px}.chevron{width:7px;height:7px;margin-left:2px}.detail{padding:0 16px 20px}.player.open .detail{grid-template-columns:1fr}.detail>.club:first-child{grid-column:auto}.bubble,.daily{margin-top:20px}.daylist{padding:0 16px 18px}.bubble .list{grid-template-columns:1fr}.bubble .player:nth-child(odd){border-right:0}.bubble .bar{padding:18px 16px}.pitch{padding:16px}.shirt{padding:10px}.howto{padding:18px}.m{grid-template-columns:70px minmax(0,1fr)}}
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
 
 
@@ -381,7 +382,7 @@
 <body>
 <a class="skip" href="#squad">Skip to squad</a>
 <div class="wrap">
-<div class="topline"><a class="wordmark" href="#">CANADA&rsquo;S <b>26</b></a><nav aria-label="Main"><a href="#squad">The squad</a><a href="#today">Fixtures</a><a href="#bubbleH">On the bubble</a></nav></div>
+<div class="topline"><a class="wordmark" href="#">CANADA&rsquo;S <b>26</b></a><nav aria-label="Main"><a href="#squad">The squad</a><a href="#today">Fixtures</a><a href="#daily">Day by day</a><a href="#bubbleH">On the bubble</a></nav></div>
 
   <header class="masthead">
     <div><p class="eyebrow">The national team. Week by week.</p><h1>Canada’s <span>26.</span></h1>
@@ -392,7 +393,6 @@
       <div><b id="tUpd">–</b><span>updated across board</span></div>
     </div>
     <p class="synced" id="synced"></p>
-    <div class="legacy-tally" aria-hidden="true"><span id="tGoals"></span><span id="tUsed"></span><span id="tAge"></span></div>
   </header>
   <main>
   <div class="workspace">
@@ -406,13 +406,6 @@
         <option value="name">Name</option>
         <option value="rating">Club form (FotMob)</option>
         <option value="age">Age · oldest first</option>
-        <optgroup label="World Cup group stage">
-          <option value="goals">Group-stage goals</option>
-          <option value="assists">Group-stage assists</option>
-          <option value="apps">Group-stage appearances</option>
-          <option value="shots">Shots</option>
-          <option value="fa">Fouls suffered</option>
-        </optgroup>
       </select>
     </div>
     <div class="chips">
@@ -443,9 +436,15 @@
 
   </div>
 
+  <section class="daily" id="daily" aria-labelledby="dailyH">
+    <h2 id="dailyH">Day by day</h2>
+    <p class="lede">What the Canadians did, matchday by matchday, newest first.</p>
+    <ol class="daylist" id="dayList"></ol>
+  </section>
+
   <section class="bubble" aria-labelledby="bubbleH">
     <h2 id="bubbleH">On the bubble</h2>
-    <p class="lede">Canadians outside the 26 who are tracked in the same weekly post. Same club-form numbers; no World Cup line.</p>
+    <p class="lede">Canadians outside the 26 who are tracked in the same weekly post. Same club-form numbers.</p>
     <ul class="list" id="bubbleList"></ul>
   </section>
 
@@ -456,10 +455,14 @@
     <p><b>Club matchday.</b> The matchday panel lists every club fixture involving one of these players
     today, with kickoff in Eastern time, and turns into the score once the game is played.
     <b>This week</b> opens recent results and the next few days. Player rows carry a matching tag.</p>
+    <p><b>Day by day.</b> The <b>Day by day</b> log keeps one short paragraph per matchday, newest
+    first, on what the Canadians did that day, with the best performance of the day leading. It is
+    written from the same match notes and ratings that fill the rest of the board, and shows the
+    most recent fourteen days.</p>
     <p><b>What changes.</b> The club-form layer &mdash; club, league games and starts, FotMob
     rating, status badges, the weekly note, and the bubble list &mdash; plus the match list and
     each player&rsquo;s note after his club plays &mdash; and, after Canada plays,
-    the &ldquo;since the World Cup&rdquo; section. The World Cup group-stage numbers are fixed.</p>
+    the &ldquo;since the World Cup&rdquo; section.</p>
     <p><b>Injury returns.</b> The &ldquo;back &hellip;&rdquo; tag on an injured player is an estimate
     from club or press reports at the time of the sync, not a medical timeline; the card gives the
     source and date. &ldquo;No date&rdquo; means nothing has been reported.</p>
@@ -473,9 +476,6 @@
 
   </main>
   <footer>
-    Squad and match numbers from ESPN&rsquo;s Canada squad page, covering the three group-stage
-    matches. Canada went on to beat South Africa 1&ndash;0 in the round of 32 and lost 3&ndash;0 to
-    Morocco in the round of 16 &mdash; those two games are not in these totals yet.
     Club form (team, league games, FotMob rating, weekly note) is compiled from the r/CanadaSoccer
     &ldquo;Sept 1&ndash;7 Summary&rdquo; post by u/jewsdoitbest, whose numbers come from the FotMob app; the bubble list is that post&rsquo;s second table.
     Injury return estimates come from club statements and Canadian soccer press reports; club fixtures
@@ -525,6 +525,15 @@ const SYNC = {
   changed: 16,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
+
+/* Day by day: one short paragraph per matchday on what the Canadians did, newest first.
+   Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
+   entry each night a Canadian played. Only the newest 14 are shown. */
+const DAILY = [
+  {date:"2026-09-18", text:"Alphonso Davies was the pick of the day, setting up Jamal Musiala's opener and later teeing up Ismael Saibari for two assists and a 9.2 rating before coming off in the 83rd minute of Bayern Munich's 7-0 rout of Union Berlin. It was thin otherwise: Isma\u00ebl Kon\u00e9, still out with the leg he broke at the World Cup, was not in the Sassuolo squad for their 2-1 loss at Monza; Jahkeele Marshall-Rutty was left out of the New York Red Bulls side that won 1-0 at NYCFC; and Marcelo Flores missed Tigres' 2-0 defeat at Ju\u00e1rez with his ACL injury."},
+  {date:"2026-09-17", text:"A European night, led by Villarreal's pair at M\u00e1laga: Tajon Buchanan went the full 90 and Nathan Saliba 82 minutes, rated 7.8 and 7.3, as Villarreal came from a goal down to win 3-1, with Tani Oluwaseyi an unused substitute. Derek Cornelius started at centre-back in Marseille's 4-1 loss at Be\u015fikta\u015f and was replaced by Nayef Aguerd in the 67th minute, rated 5.2. Three more Canadians watched from outside the squad: Alistair Johnston (hamstring) as Celtic were beaten 3-1 at home by Ferencv\u00e1ros, Ali Ahmed (torn ACL) as Norwich City were routed 5-0 by Manchester City in the EFL Cup, and Daniel Jebbison as Bournemouth won 2-1 at Real Sociedad for their first European victory."},
+  {date:"2026-09-16", text:"Jonathan David had the standout day, scoring off his own rebound in the 24th minute and setting up Lee Kang-in in the 54th for an 8.8 rating as Atl\u00e9tico Madrid routed Osasuna 4-0. Dayne St. Clair kept a clean sheet and denied Jos\u00e9 Paradela with a big stoppage-time save as Inter Miami beat Cruz Azul 2-0 to win the Campeones Cup, while Maxime Cr\u00e9peau made several saves, including a reflex stop on a two-on-one in stoppage time, but Orlando City's US Open Cup run ended in a 2-1 semifinal loss at Columbus Crew. Promise David was an unused substitute as Brighton won 3-2 at Manchester United, and in the Canadian Championship Sam Adekugbe conceded the penalty that put CF Montr\u00e9al 2-0 up as Vancouver lost 2-1 and went out 3-2 on aggregate, with Ralph Priso coming on in the 78th minute for his first appearance back from injury."}
+];
 
 /* Club form, week of Sept 1-7 (r/CanadaSoccer weekly summary; ratings via FotMob).
    la/ls = season league appearances/starts; r = FotMob season rating; st = "inj" | "new" | null. */
@@ -1037,10 +1046,6 @@ let filter = "all", query = "", sortKey = "num", open = null, onlyUpd = false;
 
 /* header tallies */
 function tallies(){
-document.getElementById("tGoals").textContent = SQUAD.reduce((s,p)=>s+num(p.g),0);
-document.getElementById("tUsed").textContent  = SQUAD.filter(p=>p.apps>0).length;
-document.getElementById("tAge").textContent   =
-  (SQUAD.reduce((s,p)=>s+p.age,0)/SQUAD.length).toFixed(1);
 document.getElementById("tInj").textContent   = SQUAD.filter(p=>p.club.st==="inj").length;
 const updCount = SQUAD.filter(isUpd).length + BUBBLE.filter(isUpd).length;
 document.getElementById("tUpd").textContent   = updCount;
@@ -1060,37 +1065,14 @@ function visible(){
     num:  (a,b)=>a.n-b.n,
     name: (a,b)=>surname(a).localeCompare(surname(b)) || a.name.localeCompare(b.name),
     age:  (a,b)=>b.age-a.age,
-    apps: (a,b)=>b.apps-a.apps || a.n-b.n,
-    goals:(a,b)=>num(b.g)-num(a.g) || a.n-b.n,
-    assists:(a,b)=>num(b.a)-num(a.a) || a.n-b.n,
-    shots:(a,b)=>num(b.sh)-num(a.sh) || a.n-b.n,
-    fa:   (a,b)=>num(b.fa)-num(a.fa) || a.n-b.n,
     rating:(a,b)=>(b.club.r ?? -1)-(a.club.r ?? -1) || a.n-b.n
   };
   return out.sort(by[sortKey]);
 }
 
 function keyStat(p){
-  const games = [p.apps, p.apps === 1 ? "group game" : "group games"];
-  const form  = [p.club.r === undefined ? "\u2013" : p.club.r.toFixed(2), "FotMob"];
-  if (sortKey === "num" || sortKey === "name" || sortKey === "rating") return form;
-  if (sortKey === "apps")    return games;
-  if (sortKey === "age")     return [p.age, "years old"];
-  if (p.pos === "G")         return games;
-  if (sortKey === "assists") return [num(p.a), num(p.a) === 1 ? "group assist" : "group assists"];
-  if (sortKey === "shots")   return [num(p.sh), num(p.sh) === 1 ? "group shot" : "group shots"];
-  if (sortKey === "fa")      return [num(p.fa), "fouled (group)"];
-  return [num(p.g), num(p.g) === 1 ? "group goal" : "group goals"];
-}
-
-function statGrid(p){
-  const cells = p.pos === "G"
-    ? [["Appearances",p.apps],["Saves",num(p.sv)],["Goals against",num(p.ga)]]
-    : [["Appearances",p.apps],["Off the bench",num(p.sub)],["Goals",num(p.g)],
-       ["Assists",num(p.a)],["Shots",num(p.sh)],["On target",num(p.sog)],
-       ["Fouls made",num(p.fc)],["Fouls drawn",num(p.fa)],["Yellow cards",num(p.yc)]];
-  return `<div class="grid">${cells.map(c =>
-    `<div><b>${c[1]}</b><span>${c[0]}</span></div>`).join("")}</div>`;
+  if (sortKey === "age") return [p.age, "years old"];
+  return [p.club.r === undefined ? "\u2013" : p.club.r.toFixed(2), "FotMob"];
 }
 
 function badge(p){
@@ -1165,11 +1147,8 @@ function intlBlock(p){
     ${i.note ? `<p class="note">${i.note}</p>` : ""}${next}</div>`;
 }
 function detailBody(p){
-  const dnp = p.apps === 0
-    ? `<p class="note">Did not appear in the group stage.</p>` : "";
-  const wc = `<div class="club wc"><h3>World Cup group stage</h3>` + statGrid(p) + dnp + `</div>`;
   const club = clubBlock(p) || `<div class="club"><h3>Club form</h3><p class="note">No club line yet.</p></div>`;
-  return club + intlBlock(p) + wc;
+  return club + intlBlock(p);
 }
 
 function renderList(){
@@ -1178,7 +1157,7 @@ function renderList(){
   if (!rows.length){ el.innerHTML = `<li class="empty">${onlyUpd && !query ? "Nothing in the 26 changed in the last sync." : "No squad players match these filters. Try another search or clear the filters."}</li>`; return; }
   el.innerHTML = rows.map(p => {
     const [v,label] = keyStat(p);
-    return `<li class="player ${p.apps===0?"dnp":""} ${open===p.n?"open":""} ${isUpd(p)?"upd":""}">
+    return `<li class="player ${open===p.n?"open":""} ${isUpd(p)?"upd":""}">
       <button class="bar" data-n="${p.n}" aria-expanded="${open===p.n}" aria-controls="d${p.n}">
         <span class="kit">${p.n}</span>
         <span class="who">
@@ -1198,7 +1177,7 @@ function renderPitch(){
   const bands = BANDS.filter(b => rows.some(p => p.pos === b[0])).map(([code,title]) => {
     const men = rows.filter(p => p.pos === code);
     return `<div class="band"><h2>${title}</h2><div class="shirts">${men.map(p =>
-      `<button class="shirt ${p.apps===0?"dnp":""} ${p.club.st==="inj"?"inj":""} ${isUpd(p)?"upd":""}" data-n="${p.n}" aria-pressed="${open===p.n}">
+      `<button class="shirt ${p.club.st==="inj"?"inj":""} ${isUpd(p)?"upd":""}" data-n="${p.n}" aria-pressed="${open===p.n}">
         <em>${p.n}</em><strong>${last(p)}</strong><small>${p.club.r === undefined ? "\u2013" : p.club.r.toFixed(2)}</small>
       </button>`).join("")}</div></div>`;
   }).join("");
@@ -1231,6 +1210,14 @@ function renderBubble(){
         <span class="keystat"><b>${b.r === undefined ? "\u2013" : b.r.toFixed(2)}</b><span>${b.la === undefined ? "FotMob" : `${b.la} gp / ${b.ls} st`}</span></span>
       </div>
     </li>`).join("");
+}
+
+function renderDaily(){
+  const el = document.getElementById("dayList");
+  const days = DAILY.slice(0, 14);
+  el.innerHTML = days.length
+    ? days.map(d => `<li><h3>${fmtDate(d.date)}</h3><p>${d.text}</p></li>`).join("")
+    : `<li class="empty">No day-by-day summaries recorded yet.</li>`;
 }
 
 function render(){
@@ -1296,6 +1283,7 @@ document.getElementById("sort").addEventListener("change", e => { sortKey = e.ta
 
 tallies();
 renderToday();
+renderDaily();
 render();
 </script>
 
