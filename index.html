@@ -522,7 +522,7 @@ const SQUAD = [
 const SYNC = {
   last: "2026-09-22",            // date of the most recent successful sync (ET)
   source: "Sept 1\u20137 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 2,                   // how many players changed in that sync
+  changed: 4,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -541,12 +541,12 @@ const DAILY = [
    la/ls = season league appearances/starts; r = FotMob season rating; st = "inj" | "new" | null. */
 const CLUB = {
   1: {team:"Inter Miami", lg:"MLS", la:21, ls:21, r:6.70, note:"St. Clair conceded twice, including a stoppage-time Anders Dreyer equaliser, as Inter Miami drew 2-2 at home to San Diego FC despite a Lionel Messi goal.", upd:"2026-09-22"},
-  16:{team:"Orlando City", lg:"MLS", la:25, ls:25, r:6.71, note:"Cr\u00e9peau started and conceded four as Orlando lost 4-2 at New England Revolution.", upd:"2026-09-21"},
+  16:{team:"Orlando City", lg:"MLS", la:25, ls:25, r:6.71, note:"Cr\u00e9peau started and conceded four as Orlando lost 4-2 at New England Revolution.", upd:"2026-09-22"},
   18:{team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded.", upd:"2026-09-19"},
   2: {team:"Celtic", lg:"Scottish Premiership", la:2, ls:2, r:7.26, st:"inj", eta:"Nov", ret:"Now expected to be out until November — a step back from the earlier October target — per Celtic manager comments relayed by Scottish outlets (Sept 18-19). Hurt v Kilmarnock on Aug 9.", note:"Alistair Johnston (hamstring) was again left out of the Celtic squad as they lost 0-1 at home to Rangers.", upd:"2026-09-21"},
   3: {team:"Middlesbrough", lg:"Championship", la:5, ls:2, r:6.93, st:"inj", eta:"Oct", ret:"Now expected to miss the Sept 19 trip to Birmingham City too and target a return only after the international break (early October), per Boro boss Kim Hellberg (the72.co.uk, Sept 15). Calf issue forced him off at halftime against Norwich on Sept 12.", note:"Jones (calf) was again left out of the Middlesbrough squad as Adilson Malanda's stoppage-time equaliser rescued a 2-2 draw at Birmingham City.", upd:"2026-09-20"},
   4: {team:"Real Salt Lake", lg:"MLS", st:"new", note:"De Fougerolles was left out of the Real Salt Lake squad again, still without his US work visa, as RSL were thrashed 3-0 at home by Vancouver Whitecaps.", upd:"2026-09-20"},
-  5: {team:"Portland Timbers", lg:"MLS", la:18, ls:13, r:6.84, st:"new", note:"Waterman started at centre-back and Pantemis made several saves as Portland lost 1-0 at home to Atlanta United, Alexey Miranchuk scoring the only goal; Kamal Miller was left out of the matchday squad.", upd:"2026-09-21"},
+  5: {team:"Portland Timbers", lg:"MLS", la:18, ls:13, r:6.84, st:"new", note:"Waterman started at centre-back and Pantemis made several saves as Portland lost 1-0 at home to Atlanta United, Alexey Miranchuk scoring the only goal; Kamal Miller was left out of the matchday squad.", upd:"2026-09-22"},
   13:{team:"Marseille", lg:"Ligue 1", la:3, ls:0, r:6.06, note:"Cornelius was an unused substitute as Marseille lost 1-2 at home to PSG.", upd:"2026-09-21"},
   15:{team:"Nice", lg:"Ligue 1", st:"inj", eta:"months", ret:"Months; no date set. Second surgery on the left tibia announced Aug 26 after playing through pain at the World Cup.", note:"Mo\u00efse Bombito (tibia surgery) was not in the Nice squad as they lost 1-0 at Auxerre to a 74th-minute Cameron Archer goal.", upd:"2026-09-14"},
   19:{team:"Bayern Munich", lg:"Bundesliga", la:4, ls:3, r:8.16, a:2, note:"Alphonso Davies set up Jamal Musiala's 18th-minute opener and later teed up Ismael Saibari, finishing with two assists in Bayern's 7-0 rout of Union Berlin before coming off in the 83rd minute.", upd:"2026-09-19"},
@@ -691,7 +691,7 @@ const GAMELOG = {
     {"date": "2026-07-22", "opp": "San Jose Earthquakes", "ha": "A", "comp": "MLS", "score": "0-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 7, "ga": 0, "rating": 9.0, "src": "https://www.fotmob.com/en-GB/matches/san-jose-earthquakes-vs-orlando-city/haonzau#5071230"},
     {"date": "2026-05-23", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "6-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 6},
     {"date": "2026-05-16", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 1},
-    {"date": "2026-05-13", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "4-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 3},
+    {"date": "2026-05-13", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "4-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 3, "rs": "wrong-fixture"},
     {"date": "2026-05-09", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 2},
     {"date": "2026-05-02", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 7, "ga": 3},
     {"date": "2026-04-25", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 3},
@@ -744,10 +744,10 @@ const GAMELOG = {
     {"date": "2026-09-12", "opp": "FC Dallas", "ha": "A", "comp": "MLS", "score": "2-1", "status": "Started", "mins": 90, "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 7.2},
     {"date": "2026-09-09", "opp": "St. Louis City", "ha": "H", "comp": "MLS", "score": "2-2", "status": "Unused", "mins": 0, "g": 0, "a": 0, "yc": 0, "rc": 0},
     {"date": "2026-09-05", "opp": "Minnesota United", "ha": "H", "comp": "MLS", "score": "5-4", "status": "Sub", "mins": 9, "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "unrated"},
-    {"date": "2026-08-29", "opp": "Seattle Sounders", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
+    {"date": "2026-08-29", "opp": "Seattle Sounders", "ha": "A", "comp": "MLS", "score": "2-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "unreadable"},
     {"date": "2026-08-22", "opp": "New York Red Bulls", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "mins": 90, "rating": 6.5, "src": "https://www.fotmob.com/en-GB/matches/chicago-fire-fc-vs-red-bull-new-york/1dmoxm#5071295"},
     {"date": "2026-08-19", "opp": "Orlando City", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "mins": 90, "rating": 7.4, "src": "https://www.fotmob.com/en-GB/matches/chicago-fire-fc-vs-orlando-city/h9r0tbh#5071280"},
-    {"date": "2026-08-16", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
+    {"date": "2026-08-16", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "unreadable"},
     {"date": "2026-08-01", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
     {"date": "2026-07-25", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "3-1", "status": "Started", "g": 1, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
     {"date": "2026-07-22", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
