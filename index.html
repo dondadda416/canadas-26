@@ -299,6 +299,11 @@
   .daylist li{padding:18px 0}
   .daylist h3{font-size:21px;margin-bottom:7px}
   .daylist p{font-size:14px;line-height:1.7;max-width:90ch}
+  .latest{background:#fff;border:1px solid var(--stone);border-top:4px solid var(--maple);border-radius:10px;padding:22px 24px;margin-bottom:26px;min-width:0}
+  .latest .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--maple);font-weight:700;margin:0 0 9px}
+  .latest h2{font-family:var(--display);font-weight:700;font-size:32px;line-height:1.05;margin:0 0 10px}
+  .latest-text{font-size:17px;line-height:1.65;max-width:88ch;margin:0 0 12px;color:var(--ink)}
+  .latest-more{font-size:13px;color:var(--muted)}
   .bubble .list{display:grid;grid-template-columns:1fr 1fr}
   .bubble .player:nth-child(odd){border-right:1px solid var(--stone)}
   .player.bub .name{font-size:23px}
@@ -325,6 +330,7 @@
   @media(min-width:1100px){.controls{position:sticky;top:0;z-index:5;padding-top:12px}}
   @media(max-width:1000px){.workspace{grid-template-columns:minmax(0,1fr) 300px;gap:18px}.wrap{padding:0 20px}.bar{padding:16px;gap:12px}.controls{padding-left:16px;padding-right:16px}.detail{padding-left:16px}.masthead{gap:20px}.tally{padding:18px 12px}.tally div{padding:4px 7px}.bubble .list{grid-template-columns:1fr}}
   @media(max-width:760px){.wrap{padding:0 16px}.topline{padding:18px 0}.topline nav{gap:16px}.topline nav a:last-child{display:none}.masthead{grid-template-columns:1fr;padding:24px 0;gap:18px}.masthead h1{font-size:56px}.masthead p{font-size:16px}.tally{grid-template-columns:repeat(3,1fr);padding:16px;order:2}.synced{order:3}.tally b{font-size:30px}.tally span{font-size:12px}.workspace{display:flex;flex-direction:column;gap:20px}.squad-panel,.today{width:100%}.today{order:-1}.section-head{padding:20px 16px 16px}.section-head h2{font-size:28px}.section-head p{font-size:12px}.controls{padding:0 16px 16px}.row1{flex-direction:column}.row1 select{max-width:100%;width:100%}.chip{min-height:44px;font-size:14px;padding:8px 10px}.viewbar{padding:8px 16px}.bar{padding:16px 12px;gap:10px}.kit{min-width:36px;height:42px;font-size:26px}.name{font-size:23px}.meta{font-size:14px}.keystat{min-width:48px}.keystat b{font-size:25px}.chevron{width:7px;height:7px;margin-left:2px}.detail{padding:0 16px 20px}.player.open .detail{grid-template-columns:1fr}.detail>.club:first-child{grid-column:auto}.bubble,.daily{margin-top:20px}.daylist{padding:0 16px 18px}.bubble .list{grid-template-columns:1fr}.bubble .player:nth-child(odd){border-right:0}.bubble .bar{padding:18px 16px}.pitch{padding:16px}.shirt{padding:10px}.howto{padding:18px}.m{grid-template-columns:70px minmax(0,1fr)}}
+  @media(max-width:760px){.latest{border-top-width:6px;padding:18px 16px;margin-bottom:20px}.latest h2{font-size:28px}.latest-text{font-size:15px;line-height:1.6}}
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
 
 
@@ -395,6 +401,12 @@
     <p class="synced" id="synced"></p>
   </header>
   <main>
+  <section class="latest" id="latest" aria-labelledby="latestH" hidden>
+    <p class="eyebrow">Latest matchday</p>
+    <h2 id="latestH"></h2>
+    <p class="latest-text"></p>
+    <a class="latest-more" href="#daily">Earlier matchdays</a>
+  </section>
   <div class="workspace">
   <section class="squad-panel" id="squad" aria-labelledby="squadH">
   <div class="section-head"><h2 id="squadH">The squad</h2><p>Open a player for the full picture</p></div>
@@ -438,7 +450,7 @@
 
   <section class="daily" id="daily" aria-labelledby="dailyH">
     <h2 id="dailyH">Day by day</h2>
-    <p class="lede">What the Canadians did, matchday by matchday, newest first.</p>
+    <p class="lede">Earlier matchdays, newest first. The most recent one is at the top of the page.</p>
     <ol class="daylist" id="dayList"></ol>
   </section>
 
@@ -575,7 +587,8 @@ const STATUS = {inj:"Injured", new:"New club"};
 const INTL = {};
 const NEXT_MATCHES = [
   {date:"2026-09-26", opp:"Chile", where:"BMO Field, Toronto", comp:"Friendly"},
-  {date:"2026-10-03", opp:"Peru",  where:"Stade Saputo, Montr\u00e9al", comp:"Friendly"}
+  {date:"2026-10-03", opp:"Peru",  where:"Stade Saputo, Montr\u00e9al", comp:"Friendly"},
+  {date:"2026-10-06", opp:"USA",   where:"St. Paul, Minnesota", comp:"Friendly"}
 ];
 
 /* Club matches: results from the last couple of days and fixtures for the week ahead.
@@ -639,7 +652,11 @@ const BUBBLE = [
   {name:"Jacen Russell-Rowe",    pos:"F", team:"Toulouse", lg:"Ligue 1", la:5, ls:4, r:6.63, g:1, note:"Russell-Rowe started and posted a 6.9 rating as Toulouse beat Le Havre 3-2; Niko Sigur also started.", upd:"2026-09-20"},
   {name:"Daniel Jebbison",       pos:"F", team:"Bournemouth", lg:"Premier League", la:3, ls:0, r:6.31, note:"Jebbison came on in the 75th minute, rated 5.7, as Bournemouth lost 0-1 at home to Liverpool.", upd:"2026-09-21"},
   {name:"Theo Bair",             pos:"F", team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:5.88, st:"new", a:1, note:"Bair was an unused substitute as Bolton Wanderers won 4-3 away at Norwich City; Nelson was also an unused substitute.", upd:"2026-09-21"},
-  {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:7, ls:6, r:6.57, g:2, note:"Pepple started up front and posted a 7.5 rating as Plymouth won 4-2 away at Blackpool.", upd:"2026-09-20"}
+  {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:7, ls:6, r:6.57, g:2, note:"Pepple started up front and posted a 7.5 rating as Plymouth won 4-2 away at Blackpool.", upd:"2026-09-20"},
+  {name:"Jeevan Badwal",         pos:"M", team:"Vancouver Whitecaps", lg:"MLS", la:21, ls:16, r:6.97, g:1, a:2, st:"new", note:"Badwal was named in the Sept 15 squad for Chile, Peru and the USA; a regular starter for Vancouver at 20, with 1,334 league minutes.", upd:"2026-09-22"},
+  {name:"Samuel Piette",         pos:"M", team:"CF Montr\u00e9al", lg:"MLS", la:17, ls:12, r:6.81, st:"new", note:"Piette was recalled in the Sept 15 squad after a long spell away; used in shorter spells by Montr\u00e9al, 916 league minutes.", upd:"2026-09-22"},
+  {name:"Richard Chukwu",        pos:"D", team:"Toronto FC II", lg:"MLS Next Pro", la:9, ls:7, r:6.58, a:1, st:"new", note:"Chukwu got his first senior call-up at 18 in the Sept 15 squad; his club football is still with the reserve team, not in MLS.", upd:"2026-09-22"},
+  {name:"Jovan Ivanisevic",      pos:"D", team:"FK Sarajevo", lg:"Bosnian Premier League", st:"new", note:"Ivanisevic got his first senior call-up at 21 in the Sept 15 squad, having joined Sarajevo permanently in August. FotMob has no appearance or rating figures for him this season, so his club line is left blank.", upd:"2026-09-22"}
 ];
 BUBBLE.forEach(b => { b.club = b; });
 
@@ -1237,9 +1254,19 @@ function renderBubble(){
 function renderDaily(){
   const el = document.getElementById("dayList");
   const days = DAILY.slice(0, 14);
-  el.innerHTML = days.length
-    ? days.map(d => `<li><h3>${fmtDate(d.date)}</h3><p>${d.text}</p></li>`).join("")
-    : `<li class="empty">No day-by-day summaries recorded yet.</li>`;
+  const lead = document.getElementById("latest");
+  if (days.length){
+    lead.hidden = false;
+    document.getElementById("latestH").textContent = fmtDate(days[0].date);
+    lead.querySelector(".latest-text").innerHTML = days[0].text;
+    lead.querySelector(".latest-more").hidden = days.length < 2;
+  } else {
+    lead.hidden = true;
+  }
+  const rest = days.slice(1);
+  el.innerHTML = rest.length
+    ? rest.map(d => `<li><h3>${fmtDate(d.date)}</h3><p>${d.text}</p></li>`).join("")
+    : `<li class="empty">${days.length ? "Nothing earlier yet." : "No day-by-day summaries recorded yet."}</li>`;
 }
 
 function render(){
