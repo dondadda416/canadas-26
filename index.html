@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-09-22",            // date of the most recent successful sync (ET)
+  last: "2026-09-23",            // date of the most recent successful sync (ET)
   source: "Sept 1\u20137 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 4,                   // how many players changed in that sync
+  changed: 7,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-09-22", text:"A quiet day with only cup football on: bubble forward Aribim Pepple scored as Plymouth Argyle thrashed Crystal Palace U21 5-1 in the EFL Trophy, the only Canadian in action."},
   {date:"2026-09-20", text:"Jonathan David was the standout, scoring in the 59th minute before he was substituted in the 62nd for a 7.6 rating as Atlético Madrid beat 10-man Real Madrid 2-1. In LaLiga's late kick-off, Tajon Buchanan (7.6) and Nathan Saliba (7.4) both started as Villarreal came from behind to beat Levante 3-1, Buchanan booked and subbed off in the 79th minute, with Tani Oluwaseyi an unused substitute. Dayne St. Clair conceded twice in Inter Miami's 2-2 draw with San Diego FC, Daniel Jebbison came off the bench for Bournemouth's 0-1 loss to Liverpool, and Derek Cornelius was an unused substitute as Marseille lost 1-2 at home to PSG. Elsewhere, Alistair Johnston (hamstring) missed Celtic's 0-1 loss to Rangers, and Ali Ahmed (torn ACL) sat out Norwich's 3-4 defeat to Bolton Wanderers, where fellow Canadians Theo Bair and Jayden Nelson were both unused substitutes."},
   {date:"2026-09-19", text:"Liam Millar posted the day's best rating, scoring as Birmingham City twice led before Middlesbrough's Adilson Malanda snatched a stoppage-time equaliser for a 2-2 draw — Alfie Jones (calf) again missing out for Boro. Stephen Eustáquio matched Millar's 8.0 in Swansea City's 2-1 win at Lincoln City, and Owen Goodman anchored a 2-1 win over Motherwell for Dundee (7.7), with bubble defender Jamie Knight-Lebel left out of the squad entirely. Ralph Priso made his first start since his hamstring injury and Sam Adekugbe came off the bench as Vancouver Whitecaps thrashed Real Salt Lake 3-0, while Jonathan Osorio's substitute cameo in Toronto FC's 3-1 loss at St. Louis City was his first appearance back from the knee injury that had sidelined him since August. Elsewhere Joel Waterman and James Pantemis started as Portland Timbers lost 1-0 at Atlanta United, Niko Sigur and Jacen Russell-Rowe helped Toulouse beat Le Havre 3-2, Cyle Larin went close twice before Southampton lost 2-1 at Wrexham, and Maxime Crépeau conceded four as Orlando City were beaten 4-2 at New England Revolution."},
   {date:"2026-09-18", text:"Alphonso Davies was the pick of the day, setting up Jamal Musiala's opener and later teeing up Ismael Saibari for two assists and a 9.2 rating before coming off in the 83rd minute of Bayern Munich's 7-0 rout of Union Berlin. It was thin otherwise: Isma\u00ebl Kon\u00e9, still out with the leg he broke at the World Cup, was not in the Sassuolo squad for their 2-1 loss at Monza; Jahkeele Marshall-Rutty was left out of the New York Red Bulls side that won 1-0 at NYCFC; and Marcelo Flores missed Tigres' 2-0 defeat at Ju\u00e1rez with his ACL injury."},
@@ -552,18 +553,18 @@ const DAILY = [
 /* Club form, week of Sept 1-7 (r/CanadaSoccer weekly summary; ratings via FotMob).
    la/ls = season league appearances/starts; r = FotMob season rating; st = "inj" | "new" | null. */
 const CLUB = {
-  1: {team:"Inter Miami", lg:"MLS", la:21, ls:21, r:6.70, note:"St. Clair conceded twice, including a stoppage-time Anders Dreyer equaliser, as Inter Miami drew 2-2 at home to San Diego FC despite a Lionel Messi goal.", upd:"2026-09-22"},
-  16:{team:"Orlando City", lg:"MLS", la:25, ls:25, r:6.71, note:"Cr\u00e9peau started and conceded four as Orlando lost 4-2 at New England Revolution.", upd:"2026-09-22"},
-  18:{team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded.", upd:"2026-09-19"},
+  1: {team:"Inter Miami", lg:"MLS", la:21, ls:21, r:6.70, note:"St. Clair conceded twice, including a stoppage-time Anders Dreyer equaliser, as Inter Miami drew 2-2 at home to San Diego FC despite a Lionel Messi goal.", upd:"2026-09-23"},
+  16:{team:"Orlando City", lg:"MLS", la:25, ls:25, r:6.71, note:"Cr\u00e9peau started and conceded four as Orlando lost 4-2 at New England Revolution.", upd:"2026-09-23"},
+  18:{team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded.", upd:"2026-09-23"},
   2: {team:"Celtic", lg:"Scottish Premiership", la:2, ls:2, r:7.26, st:"inj", eta:"Nov", ret:"Now expected to be out until November — a step back from the earlier October target — per Celtic manager comments relayed by Scottish outlets (Sept 18-19). Hurt v Kilmarnock on Aug 9.", note:"Alistair Johnston (hamstring) was again left out of the Celtic squad as they lost 0-1 at home to Rangers.", upd:"2026-09-21"},
   3: {team:"Middlesbrough", lg:"Championship", la:5, ls:2, r:6.93, st:"inj", eta:"Oct", ret:"Now expected to miss the Sept 19 trip to Birmingham City too and target a return only after the international break (early October), per Boro boss Kim Hellberg (the72.co.uk, Sept 15). Calf issue forced him off at halftime against Norwich on Sept 12.", note:"Jones (calf) was again left out of the Middlesbrough squad as Adilson Malanda's stoppage-time equaliser rescued a 2-2 draw at Birmingham City.", upd:"2026-09-20"},
   4: {team:"Real Salt Lake", lg:"MLS", st:"new", note:"De Fougerolles was left out of the Real Salt Lake squad again, still without his US work visa, as RSL were thrashed 3-0 at home by Vancouver Whitecaps.", upd:"2026-09-20"},
-  5: {team:"Portland Timbers", lg:"MLS", la:18, ls:13, r:6.84, st:"new", note:"Waterman started at centre-back and Pantemis made several saves as Portland lost 1-0 at home to Atlanta United, Alexey Miranchuk scoring the only goal; Kamal Miller was left out of the matchday squad.", upd:"2026-09-22"},
+  5: {team:"Portland Timbers", lg:"MLS", la:18, ls:13, r:6.84, st:"new", note:"Waterman started at centre-back and Pantemis made several saves as Portland lost 1-0 at home to Atlanta United, Alexey Miranchuk scoring the only goal; Kamal Miller was left out of the matchday squad.", upd:"2026-09-23"},
   13:{team:"Marseille", lg:"Ligue 1", la:3, ls:0, r:6.06, note:"Cornelius was an unused substitute as Marseille lost 1-2 at home to PSG.", upd:"2026-09-21"},
   15:{team:"Nice", lg:"Ligue 1", st:"inj", eta:"months", ret:"Months; no date set. Second surgery on the left tibia announced Aug 26 after playing through pain at the World Cup.", note:"Mo\u00efse Bombito (tibia surgery) was not in the Nice squad as they lost 1-0 at Auxerre to a 74th-minute Cameron Archer goal.", upd:"2026-09-14"},
   19:{team:"Bayern Munich", lg:"Bundesliga", la:4, ls:3, r:8.16, a:2, note:"Alphonso Davies set up Jamal Musiala's 18th-minute opener and later teed up Ismael Saibari, finishing with two assists in Bayern's 7-0 rout of Union Berlin before coming off in the 83rd minute.", upd:"2026-09-19"},
   22:{team:"Toronto FC", lg:"MLS", la:21, ls:21, r:6.9, note:"Laryea started the full 90 and Gavran was in goal as Toronto FC lost 3-1 at St. Louis City; Osorio came off the bench for his first appearance since his knee injury.", upd:"2026-09-21"},
-  6: {team:"LAFC", lg:"MLS", la:27, ls:18, r:7.05, g:2, a:3, note:"Choini\u00e8re started the full 90 as LAFC drew 2-2 at San Jose Earthquakes; Shaffelburg was an unused substitute.", upd:"2026-09-22"},
+  6: {team:"LAFC", lg:"MLS", la:27, ls:18, r:7.05, g:2, a:3, note:"Choini\u00e8re started the full 90 as LAFC drew 2-2 at San Jose Earthquakes; Shaffelburg was an unused substitute.", upd:"2026-09-23"},
   7: {team:"Swansea City", lg:"Championship", la:6, ls:4, r:7.23, a:1, note:"Eust\u00e1quio started and posted an 8.0 rating as Swansea came from behind to win 2-1 at Lincoln City.", upd:"2026-09-20"},
   8: {team:"Sassuolo", lg:"Serie A", st:"inj", eta:"Nov 2026", ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.", note:"Isma\u00ebl Kon\u00e9 (leg injury) was not in the Sassuolo squad as they lost 2-1 at Monza.", upd:"2026-09-19"},
   20:{team:"Norwich City", lg:"Championship", st:"inj", eta:"2027", ret:"Likely out for most or all of 2026-27 \u2014 Norwich confirmed a right ACL rupture from the Aug 1 Osasuna friendly, followed by surgery; no return date given, and ACL recoveries usually run nine months or more.", note:"Ali Ahmed (torn ACL) was not in the Norwich squad as they lost 3-4 at home to Bolton Wanderers.", upd:"2026-09-21"},
@@ -574,7 +575,7 @@ const CLUB = {
   10:{team:"Atl\u00e9tico Madrid", lg:"LaLiga", st:"new", la:3, ls:2, g:3, a:1, r:8.02, note:"David scored in the 59th minute before being substituted in the 62nd, rated 7.6, as Atl\u00e9tico Madrid beat 10-man Real Madrid 2-1.", upd:"2026-09-21"},
   11:{team:"Birmingham City", lg:"Championship", la:4, ls:4, r:7.01, g:1, a:3, st:"new", note:"Millar scored and posted an 8.0 rating as Birmingham twice led before Middlesbrough's Adilson Malanda snatched a stoppage-time equaliser for a 2-2 draw.", upd:"2026-09-21"},
   12:{team:"Villarreal", lg:"LaLiga", la:4, ls:0, r:5.7, note:"Oluwaseyi was an unused substitute again as Villarreal came from behind to beat Levante 3-1; Buchanan and Saliba both started.", upd:"2026-09-21"},
-  14:{team:"LAFC", lg:"MLS", la:15, ls:7, r:6.48, a:3, note:"Shaffelburg was an unused substitute as LAFC drew 2-2 at San Jose Earthquakes; Choini\u00e8re started the full 90.", upd:"2026-09-21"},
+  14:{team:"LAFC", lg:"MLS", la:15, ls:7, r:6.48, a:3, note:"Shaffelburg was an unused substitute as LAFC drew 2-2 at San Jose Earthquakes; Choini\u00e8re started the full 90.", upd:"2026-09-23"},
   17:{team:"Villarreal", lg:"LaLiga", la:7, ls:4, r:6.91, a:1, note:"Buchanan started and was booked before being substituted in the 79th minute, rated 7.6, as Villarreal came from behind to beat Levante 3-1; Saliba also started and Oluwaseyi was an unused substitute.", upd:"2026-09-21"},
   24:{team:"Brighton", lg:"Premier League", la:2, ls:0, r:5.86, note:"Promise David was an unused substitute again as Brighton beat Arsenal 3-0 at home.", upd:"2026-09-20"},
   26:{team:"Bolton Wanderers", lg:"Championship", la:4, ls:0, r:6.34, note:"Nelson was an unused substitute as Bolton Wanderers won 4-3 away at Norwich City; Bair was also an unused substitute.", upd:"2026-09-21"}
@@ -596,20 +597,6 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-09-19", et:"10:00", home:"Blackpool", away:"Plymouth Argyle", comp:"League One", score:"2-4", note:"Aribim Pepple started up front and posted a 7.5 rating as Plymouth won 4-2 away at Blackpool."},
-  {date:"2026-09-19", et:"10:00", home:"Birmingham City", away:"Middlesbrough", comp:"Championship", score:"2-2", note:"Liam Millar scored and rated 8.0 as Birmingham twice led before Middlesbrough's Adilson Malanda snatched a stoppage-time equaliser; Alfie Jones (calf) was again left out of the Boro squad."},
-  {date:"2026-09-19", et:"10:00", home:"Lincoln City", away:"Swansea City", comp:"Championship", score:"1-2", note:"Stephen Eustáquio started and rated 8.0 as Swansea came from behind to win 2-1 at Lincoln City."},
-  {date:"2026-09-19", et:"10:00", home:"Wrexham", away:"Southampton", comp:"Championship", score:"2-1", note:"Cyle Larin went close twice — a headed effort saved and a chip that hit the crossbar — before being substituted in the 86th minute as Southampton lost 2-1 (Moore, a Schlotterbeck own goal; Ward-Prowse replying)."},
-  {date:"2026-09-19", et:"10:00", home:"Dundee", away:"Motherwell", comp:"Scottish Premiership", score:"2-1", note:"Owen Goodman kept goal and rated 7.7 as Dundee won 2-1 (Westley pen, Fink; Lowry for Motherwell); bubble defender Jamie Knight-Lebel was left out of the Motherwell squad entirely."},
-  {date:"2026-09-19", et:"10:00", home:"Brighton", away:"Arsenal", comp:"Premier League", score:"3-0", note:"Promise David was an unused substitute as Brighton beat Arsenal 3-0 at home."},
-  {date:"2026-09-19", et:"14:45", home:"Toulouse", away:"Le Havre", comp:"Ligue 1", score:"3-2", note:"Niko Sigur (7.6) and Jacen Russell-Rowe (6.9) both started as Toulouse came back to beat Le Havre 3-2."},
-  {date:"2026-09-19", et:"19:30", home:"CF Montréal", away:"Columbus Crew", comp:"MLS", score:"0-2"},
-  {date:"2026-09-19", et:"19:30", home:"San Jose Earthquakes", away:"LAFC", comp:"MLS", score:"2-2", note:"Choinière started the full 90, rated 7.1, as LAFC drew 2-2 at San Jose; Shaffelburg was an unused substitute."},
-  {date:"2026-09-19", et:"19:30", home:"New England Revolution", away:"Orlando City", comp:"MLS", score:"4-2", note:"Crépeau started and rated 5.7 as Orlando lost 4-2 at New England Revolution."},
-  {date:"2026-09-19", et:"20:30", home:"St. Louis City SC", away:"Toronto FC", comp:"MLS", score:"3-1", note:"Gavran started in goal (7.1) and Laryea played the full 90 (6.2) as Toronto FC lost 3-1 at St. Louis City; Osorio came off the bench (6.3) for his first appearance since his knee injury."},
-  {date:"2026-09-19", et:"20:30", home:"Sporting KC", away:"Philadelphia Union", comp:"MLS", score:"3-4", note:"Bassong came off the bench, rated 5.5, playing through the calf issue as Sporting KC lost 4-3 at home to Philadelphia Union."},
-  {date:"2026-09-19", et:"21:30", home:"Real Salt Lake", away:"Vancouver Whitecaps", comp:"MLS", score:"0-3", note:"De Fougerolles was left out again (still no US work visa); Adekugbe came off the bench (6.4) and Priso made his first start since his hamstring injury (6.7) as Vancouver thrashed Real Salt Lake 3-0."},
-  {date:"2026-09-19", et:"22:30", home:"Portland Timbers", away:"Atlanta United", comp:"MLS", score:"0-1", note:"Waterman (7.4) and Pantemis started as Portland lost 1-0 at home to Atlanta United, Alexey Miranchuk scoring the only goal; Kamal Miller was left out of the matchday squad."},
   {date:"2026-09-20", et:"07:00", home:"Celtic", away:"Rangers", comp:"Scottish Premiership", score:"0-1", note:"Alistair Johnston (hamstring) was again left out of the Celtic squad as they lost 0-1 at home to Rangers."},
   {date:"2026-09-20", et:"08:30", home:"Norwich City", away:"Bolton Wanderers", comp:"Championship", score:"3-4", note:"Ali Ahmed (torn ACL) was not in the Norwich squad as they lost 3-4 at home to Bolton Wanderers; Theo Bair and Jayden Nelson were both unused substitutes for Bolton."},
   {date:"2026-09-20", et:"09:00", home:"Bournemouth", away:"Liverpool", comp:"Premier League", score:"0-1", note:"Daniel Jebbison came on in the 75th minute, rated 5.7, as Bournemouth lost 0-1 at home to Liverpool."},
@@ -618,9 +605,9 @@ const MATCHES = [
   {date:"2026-09-20", et:"12:30", home:"Villarreal", away:"Levante", comp:"LaLiga", score:"3-1", note:"Buchanan started and was booked before being substituted in the 79th minute, rated 7.6, and Saliba played the full 90, rated 7.4, as Villarreal came from behind to beat Levante 3-1; Oluwaseyi was an unused substitute."},
   {date:"2026-09-20", et:"14:45", home:"Marseille", away:"PSG", comp:"Ligue 1", score:"1-2", note:"Cornelius was an unused substitute as Marseille lost 1-2 at home to PSG."},
   {date:"2026-09-20", et:"19:00", home:"Inter Miami", away:"San Diego FC", comp:"MLS", score:"2-2", note:"St. Clair conceded twice, including a stoppage-time Anders Dreyer equaliser, as Inter Miami drew 2-2 at home to San Diego FC despite a Lionel Messi goal."},
-  {date:"2026-09-22", et:"14:00", home:"Plymouth Argyle", away:"Crystal Palace U21", comp:"EFL Trophy", score:null},
+  {date:"2026-09-22", et:"14:00", home:"Plymouth Argyle", away:"Crystal Palace U21", comp:"EFL Trophy", score:"5-1", note:"Aribim Pepple scored as Plymouth thrashed Crystal Palace U21 5-1 in the EFL Trophy."},
   {date:"2026-09-23", et:"21:30", home:"Seattle Sounders", away:"Real Salt Lake", comp:"MLS", score:null},
-  {date:"2026-09-26", et:"09:00", home:"Plymouth Argyle", away:"Burton Albion", comp:"League One", score:null},
+  {date:"2026-09-26", et:"10:00", home:"Plymouth Argyle", away:"Burton Albion", comp:"League One", score:null},
   {date:"2026-09-26", et:"19:30", home:"New York Red Bulls", away:"St. Louis City", comp:"MLS", score:null},
   {date:"2026-09-26", et:"19:30", home:"Atlanta United", away:"New York City FC", comp:"MLS", score:null},
   {date:"2026-09-26", et:"19:30", home:"Philadelphia Union", away:"Orlando City", comp:"MLS", score:null},
@@ -630,9 +617,9 @@ const MATCHES = [
   {date:"2026-09-26", et:"21:30", home:"Real Salt Lake", away:"New England Revolution", comp:"MLS", score:null},
   {date:"2026-09-26", et:"22:30", home:"San Jose Earthquakes", away:"Portland Timbers", comp:"MLS", score:null},
   {date:"2026-09-26", et:"22:30", home:"DC United", away:"Vancouver Whitecaps", comp:"MLS", score:null},
-  {date:"2026-09-27", et:"19:00", home:"Columbus Crew", away:"Inter Miami", comp:"MLS", score:null},
-  {date:"2026-09-27", et:null, home:"Puebla", away:"Tigres", comp:"Liga MX", score:null},
-  {date:"2026-09-29", et:null, home:"Swansea City", away:"Derby County", comp:"Championship", score:null}
+  {date:"2026-09-26", et:"23:00", home:"Tigres", away:"Puebla", comp:"Liga MX", score:null},
+  {date:"2026-09-26", et:"23:30", home:"CF Montréal", away:"FC Cincinnati", comp:"MLS", score:null},
+  {date:"2026-09-27", et:"19:00", home:"Columbus Crew", away:"Inter Miami", comp:"MLS", score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
@@ -652,7 +639,7 @@ const BUBBLE = [
   {name:"Jacen Russell-Rowe",    pos:"F", team:"Toulouse", lg:"Ligue 1", la:5, ls:4, r:6.63, g:1, note:"Russell-Rowe started and posted a 6.9 rating as Toulouse beat Le Havre 3-2; Niko Sigur also started.", upd:"2026-09-20"},
   {name:"Daniel Jebbison",       pos:"F", team:"Bournemouth", lg:"Premier League", la:3, ls:0, r:6.31, note:"Jebbison came on in the 75th minute, rated 5.7, as Bournemouth lost 0-1 at home to Liverpool.", upd:"2026-09-21"},
   {name:"Theo Bair",             pos:"F", team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:5.88, st:"new", a:1, note:"Bair was an unused substitute as Bolton Wanderers won 4-3 away at Norwich City; Nelson was also an unused substitute.", upd:"2026-09-21"},
-  {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:7, ls:6, r:6.57, g:2, note:"Pepple started up front and posted a 7.5 rating as Plymouth won 4-2 away at Blackpool.", upd:"2026-09-20"},
+  {name:"Aribim Pepple",         pos:"F", team:"Plymouth Argyle", lg:"League One", la:7, ls:6, r:6.57, g:2, note:"Pepple scored as Plymouth thrashed Crystal Palace U21 5-1 in the EFL Trophy.", upd:"2026-09-23"},
   {name:"Jeevan Badwal",         pos:"M", team:"Vancouver Whitecaps", lg:"MLS", la:21, ls:16, r:6.97, g:1, a:2, st:"new", note:"Badwal was named in the Sept 15 squad for Chile, Peru and the USA; a regular starter for Vancouver at 20, with 1,334 league minutes.", upd:"2026-09-22"},
   {name:"Samuel Piette",         pos:"M", team:"CF Montr\u00e9al", lg:"MLS", la:17, ls:12, r:6.81, st:"new", note:"Piette was recalled in the Sept 15 squad after a long spell away; used in shorter spells by Montr\u00e9al, 916 league minutes.", upd:"2026-09-22"},
   {name:"Richard Chukwu",        pos:"D", team:"Toronto FC II", lg:"MLS Next Pro", la:9, ls:7, r:6.58, a:1, st:"new", note:"Chukwu got his first senior call-up at 18 in the Sept 15 squad; his club football is still with the reserve team, not in MLS.", upd:"2026-09-22"},
@@ -678,9 +665,9 @@ const GAMELOG = {
     {"date": "2026-08-01", "opp": "Columbus Crew", "ha": "H", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
     {"date": "2026-07-25", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
     {"date": "2026-07-22", "opp": "Chicago Fire", "ha": "H", "comp": "MLS", "score": null, "status": "Unused", "mins": 0, "yc": 0, "rc": 0},
-    {"date": "2026-05-24", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "6-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 6, "ga": 4},
+    {"date": "2026-05-24", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "6-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 6, "ga": 4, "rs": "wrong-fixture"},
     {"date": "2026-05-17", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 0, "rating": 8.0, "src": "https://www.fotmob.com/en-GB/matches/portland-timbers-vs-inter-miami-cf/a9juyym7#5071189"},
-    {"date": "2026-05-13", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "3-5", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 0, "ga": 3},
+    {"date": "2026-05-13", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "3-5", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 0, "ga": 3, "rs": "preview"},
     {"date": "2026-05-09", "opp": "Toronto FC", "ha": "A", "comp": "MLS", "score": "2-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 3, "ga": 2},
     {"date": "2026-05-02", "opp": "Orlando City", "ha": "H", "comp": "MLS", "score": "3-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 4},
     {"date": "2026-04-25", "opp": "New England Revolution", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 6, "ga": 1},
@@ -706,9 +693,9 @@ const GAMELOG = {
     {"date": "2026-08-01", "opp": "New York Red Bulls", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 3, "rating": 6.4, "src": "https://www.fotmob.com/en-GB/matches/red-bull-new-york-vs-orlando-city/haa4lj8#5071251"},
     {"date": "2026-07-25", "opp": "Nashville SC", "ha": "H", "comp": "MLS", "score": "1-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 0, "rating": 7.9, "src": "https://www.fotmob.com/en-GB/matches/orlando-city-vs-nashville-sc/8xsle0tc"},
     {"date": "2026-07-22", "opp": "San Jose Earthquakes", "ha": "A", "comp": "MLS", "score": "0-4", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 7, "ga": 0, "rating": 9.0, "src": "https://www.fotmob.com/en-GB/matches/san-jose-earthquakes-vs-orlando-city/haonzau#5071230"},
-    {"date": "2026-05-23", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "6-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 6},
-    {"date": "2026-05-16", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 1},
-    {"date": "2026-05-13", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "4-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 3, "rs": "wrong-fixture"},
+    {"date": "2026-05-23", "opp": "FC Cincinnati", "ha": "A", "comp": "MLS", "score": "6-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 6, "rs": "wrong-fixture"},
+    {"date": "2026-05-16", "opp": "Atlanta United", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 5, "ga": 1, "rs": "wrong-fixture"},
+    {"date": "2026-05-13", "opp": "Philadelphia Union", "ha": "H", "comp": "MLS", "score": "4-3", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 4, "ga": 3, "rs": "preview"},
     {"date": "2026-05-09", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 2, "ga": 2},
     {"date": "2026-05-02", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-4", "status": "Started", "mins": 90, "yc": 1, "rc": 0, "sv": 7, "ga": 3},
     {"date": "2026-04-25", "opp": "D.C. United", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "sv": 5, "ga": 3},
@@ -727,7 +714,7 @@ const GAMELOG = {
     {"date": "2026-09-02", "opp": "St Johnstone", "ha": "H", "comp": "Premiership", "score": "1-1", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 1, "rating": 6.0, "src": "https://www.fotmob.com/en-GB/matches/dundee-fc-vs-st-johnstone/2bjfmj#5793923"},
     {"date": "2026-08-30", "opp": "Hibernian", "ha": "H", "comp": "Premiership", "score": "1-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 2, "rating": 6.6, "src": "https://www.fotmob.com/en-GB/matches/dundee-fc-vs-hibernian/2ua2iw#5793918"},
     {"date": "2026-08-22", "opp": "Dundee United", "ha": "A", "comp": "Premiership", "score": "0-2", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.9, "ga": 0},
-    {"date": "2026-08-15", "opp": "Aberdeen", "ha": "A", "comp": "League Cup", "score": "3-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 0, "rs": "unreadable"},
+    {"date": "2026-08-15", "opp": "Aberdeen", "ha": "A", "comp": "League Cup", "score": "3-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "ga": 0, "rs": "unrated"},
     {"date": "2026-08-08", "opp": "Aberdeen", "ha": "H", "comp": "Premiership", "score": "2-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.9, "ga": 0},
     {"date": "2026-08-03", "opp": "Celtic", "ha": "A", "comp": "Premiership", "score": "1-0", "status": "Started", "mins": 90, "yc": 0, "rc": 0, "rating": 7.0, "ga": 1}
   ],
@@ -765,8 +752,8 @@ const GAMELOG = {
     {"date": "2026-08-22", "opp": "New York Red Bulls", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "mins": 90, "rating": 6.5, "src": "https://www.fotmob.com/en-GB/matches/chicago-fire-fc-vs-red-bull-new-york/1dmoxm#5071295"},
     {"date": "2026-08-19", "opp": "Orlando City", "ha": "A", "comp": "MLS", "score": "1-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "mins": 90, "rating": 7.4, "src": "https://www.fotmob.com/en-GB/matches/chicago-fire-fc-vs-orlando-city/h9r0tbh#5071280"},
     {"date": "2026-08-16", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "unreadable"},
-    {"date": "2026-08-01", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
-    {"date": "2026-07-25", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "3-1", "status": "Started", "g": 1, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
+    {"date": "2026-08-01", "opp": "Charlotte FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "preview"},
+    {"date": "2026-07-25", "opp": "New York City FC", "ha": "A", "comp": "MLS", "score": "3-1", "status": "Started", "g": 1, "a": 0, "yc": 1, "rc": 0, "club": "Chicago Fire", "rs": "preview"},
     {"date": "2026-07-22", "opp": "Inter Miami", "ha": "A", "comp": "MLS", "score": "3-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire", "rs": "wrong-fixture"},
     {"date": "2026-05-23", "opp": "Toronto FC", "ha": "H", "comp": "MLS", "score": "2-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
     {"date": "2026-05-16", "opp": "CF Montréal", "ha": "A", "comp": "MLS", "score": "0-2", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "club": "Chicago Fire"},
@@ -835,7 +822,7 @@ const GAMELOG = {
     {"date": "2026-08-22", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 1, "rc": 0, "mins": 70, "rating": 7.8, "src": "https://www.fotmob.com/en-GB/matches/portland-timbers-vs-los-angeles-fc/8t3y49q7#5071298"},
     {"date": "2026-08-19", "opp": "Colorado Rapids", "ha": "A", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "mins": 90, "rating": 6.5, "src": "https://www.fotmob.com/en-GB/matches/colorado-rapids-vs-los-angeles-fc/4w3n0887#5071283"},
     {"date": "2026-08-15", "opp": "San Diego FC", "ha": "H", "comp": "MLS", "score": "0-1", "status": "Sub", "g": 0, "a": 0, "yc": 1, "rc": 0, "mins": 25, "rating": 6.2, "src": "https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-san-diego-fc/1638hsqug#5071269"},
-    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
+    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "preview"},
     {"date": "2026-07-25", "opp": "Sporting KC", "ha": "H", "comp": "MLS", "score": "4-0", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
     {"date": "2026-07-22", "opp": "Real Salt Lake", "ha": "H", "comp": "MLS", "score": "3-1", "status": "Started", "g": 0, "a": 1, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
     {"date": "2026-07-17", "opp": "LA Galaxy", "ha": "A", "comp": "MLS", "score": "0-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
@@ -955,7 +942,7 @@ const GAMELOG = {
     {"date": "2026-08-22", "opp": "Portland Timbers", "ha": "H", "comp": "MLS", "score": "1-1", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0, "rating": 6.5, "src": "https://www.fotmob.com/en-GB/matches/portland-timbers-vs-los-angeles-fc/8t3y49q7#5071298"},
     {"date": "2026-08-19", "opp": "Colorado Rapids", "ha": "A", "comp": "MLS", "score": "1-0", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "mins": 64, "rating": 6.1, "src": "https://www.fotmob.com/en-GB/matches/colorado-rapids-vs-los-angeles-fc/4w3n0887#5071283"},
     {"date": "2026-08-15", "opp": "San Diego FC", "ha": "H", "comp": "MLS", "score": "0-1", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0, "mins": 28, "rating": 6.0, "src": "https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-san-diego-fc/1638hsqug#5071269"},
-    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
+    {"date": "2026-08-01", "opp": "Vancouver Whitecaps", "ha": "A", "comp": "MLS", "score": "1-1", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "preview"},
     {"date": "2026-07-25", "opp": "Sporting KC", "ha": "H", "comp": "MLS", "score": "4-0", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
     {"date": "2026-07-22", "opp": "Real Salt Lake", "ha": "H", "comp": "MLS", "score": "3-1", "status": "Sub", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
     {"date": "2026-07-17", "opp": "LA Galaxy", "ha": "A", "comp": "MLS", "score": "0-3", "status": "Started", "g": 0, "a": 0, "yc": 0, "rc": 0, "rs": "wrong-fixture"},
