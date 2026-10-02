@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-01",            // date of the most recent successful sync (ET)
+  last: "2026-10-02",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 7,                   // how many players changed in that sync
+  changed: 1,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-10-01", text:"Zorhan Bassong was the only Canadian in action, coming off the bench in the 76th minute for a 6.4 rating as Sporting KC lost 2-1 at Seattle Sounders, who scored twice after Luiz had put Kansas City ahead."},
   {date:"2026-09-27", text:"A quiet day after the Chile friendly: Dayne St. Clair was left out of the Inter Miami squad, released early for Canada's upcoming camp, as Miami lost 2-1 at Columbus Crew (Martínez pen, 28', and Thiaré, 90+9', for Columbus; Messi replying, 33'). No other Canadians were involved in the day's lone match."},
   {date:"2026-09-26", text:"Jonathan David settled a chippy Canada return with the winner in a 1-0 friendly victory over Chile at BMO Field — Chile finished with nine men after two red cards — with Mathieu Choinière (8.3) the pick of a much-changed side and Cyle Larin supplying the assist; captain Alphonso Davies sat out on his honeymoon. Club football went on without the travelling group: Jonathan Osorio started before making way in the 73rd minute as Toronto FC lost 2-0 at Nashville SC, while LAFC (missing Choinière and Shaffelburg), Vancouver (missing Priso and Badwal) and Montréal (missing Piette) were also down internationals. Elsewhere Crépeau conceded four in Orlando's 4-2 loss at Philadelphia Union, Pantemis and Miller started as Portland lost 3-1 at San Jose with new signing Joel Waterman suspended, and Bassong came off the bench in Sporting KC's 2-0 win at Houston Dynamo. Pepple played the full 90 in Plymouth's 0-1 defeat to Burton Albion, Marcelo Flores (ACL) missed Tigres' 1-0 win over Puebla, and Hibbert was again an unused substitute in Atlanta United's 2-2 draw with NYCFC."},
   {date:"2026-09-23", text:"A quiet day: Luc de Fougerolles was again left out of the Real Salt Lake squad, still without his US work visa, as RSL lost 2-0 at Seattle Sounders — the only Canadian tie to the day's lone match."},
@@ -613,7 +614,7 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-01", et:"21:30", home:"Seattle Sounders", away:"Sporting KC", comp:"MLS", score:null},
+  {date:"2026-10-01", et:"21:30", home:"Seattle Sounders", away:"Sporting KC", comp:"MLS", score:"2-1", note:"Zorhan Bassong came on in the 76th minute, rated 6.4, as Sporting KC lost 2-1 at Seattle (Luiz scored for SKC; Roldan won it in the 89th)."},
   {date:"2026-10-03", et:"09:00", home:"Leyton Orient", away:"Plymouth Argyle", comp:"League One", score:null},
   {date:"2026-10-06", et:"13:00", home:"Newport County", away:"Plymouth Argyle", comp:"EFL Trophy", score:null},
   {date:"2026-10-06", et:"20:30", home:"Chicago Fire", away:"Vancouver Whitecaps", comp:"MLS", score:null}
@@ -625,7 +626,7 @@ const BUBBLE = [
   {name:"Luka Gavran", pos:"G", team:"Toronto FC", lg:"MLS", la:26, ls:26, r:6.7, note:"Gavran started in goal, rated 7.1, as Toronto FC lost 3-1 at St. Louis City.", upd:"2026-09-20"},
   {name:"Jayden Hibbert", pos:"G", team:"Atlanta United", lg:"MLS", note:"Hibbert was again an unused substitute as Atlanta United drew 2-2 at home to New York City FC.", upd:"2026-09-27"},
   {name:"Tom McGill", pos:"G", team:"Brighton U21", lg:"", note:"With the under-21s; no first-team involvement this week."},
-  {name:"Zorhan Bassong", pos:"D", team:"Sporting KC", lg:"MLS", la:14, ls:10, r:6.48, note:"Bassong came on in the 79th minute, rated 6.0, as Sporting KC won 2-0 at Houston Dynamo.", upd:"2026-09-27"},
+  {name:"Zorhan Bassong", pos:"D", team:"Sporting KC", lg:"MLS", la:15, ls:10, r:6.48, note:"Bassong came on in the 76th minute, rated 6.4, as Sporting KC lost 2-1 at Seattle Sounders.", upd:"2026-10-02"},
   {name:"Sam Adekugbe", pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:6, ls:0, r:6.48, note:"Adekugbe came on in the 85th minute, rated 6.6, as Vancouver Whitecaps drew 3-3 at home to DC United.", upd:"2026-09-27"},
   {name:"Ralph Priso", pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:11, ls:8, r:7.12, g:1, note:"Priso started for Canada instead, rated 6.6 in a 1-0 win over Chile, as Vancouver drew 3-3 at home to DC United without him and Badwal.", upd:"2026-09-27"},
   {name:"Jamie Knight-Lebel", pos:"D", team:"Motherwell", lg:"Scottish Premiership", la:4, ls:3, r:6.9, note:"Knight-Lebel was left out of the Motherwell squad entirely as they lost 2-1 at Dundee.", upd:"2026-09-20"},
