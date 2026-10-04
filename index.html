@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-03",            // date of the most recent successful sync (ET)
+  last: "2026-10-04",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 6,                   // how many players changed in that sync
+  changed: 3,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-10-03", text:"Jacob Shaffelburg was the day's standout, scoring twice (19' and 35') as Canada beat Peru 2-0 at Stade Saputo in Montréal, with Liam Millar providing the crosses for both goals and Daniel Jebbison flicking on the first. In League One, bubble forward Aribim Pepple scored in the 52nd minute as Plymouth Argyle won 2-0 at Leyton Orient. Most club football was paused for the international break."},
   {date:"2026-09-30", text:"A one-match midweek night with a Canadian tie: bubble defender Jahkeele Marshall-Rutty was not in the New York Red Bulls squad as they lost 0-3 at home to St. Louis City (Navarro, 5', Becher, 88', and Ostrák, 90+1'). No other Canadians were involved."},
   {date:"2026-10-01", text:"Zorhan Bassong was the only Canadian in action, coming off the bench in the 76th minute for a 6.4 rating as Sporting KC lost 2-1 at Seattle Sounders, who scored twice after Luiz had put Kansas City ahead."},
   {date:"2026-09-27", text:"A quiet day after the Chile friendly: Dayne St. Clair was left out of the Inter Miami squad, released early for Canada's upcoming camp, as Miami lost 2-1 at Columbus Crew (Martínez pen, 28', and Thiaré, 90+9', for Columbus; Messi replying, 33'). No other Canadians were involved in the day's lone match."},
@@ -568,10 +569,10 @@ const CLUB = {
   8: {team:"Sassuolo", lg:"Serie A", st:"inj", eta:"Nov 2026", ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.", note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 2-1 at Monza.", upd:"2026-09-19"},
   9: {team:"Southampton", lg:"Championship", la:8, ls:8, r:7.34, g:8, note:"Larin went close twice — a headed effort saved and a chip that landed on the crossbar — before being substituted in the 86th minute as Southampton lost 2-1 at Wrexham (Moore, a Schlotterbeck own goal; Ward-Prowse replying).", upd:"2026-09-27"},
   10: {team:"Atlético Madrid", lg:"LaLiga", st:"new", la:3, ls:2, g:3, a:1, r:8.02, note:"David scored in the 59th minute before being substituted in the 62nd, rated 7.6, as Atlético Madrid beat 10-man Real Madrid 2-1.", upd:"2026-09-27"},
-  11: {team:"Birmingham City", lg:"Championship", la:4, ls:4, r:7.01, g:1, a:3, st:"new", note:"Millar scored and posted an 8.0 rating as Birmingham twice led before Middlesbrough's Adilson Malanda snatched a stoppage-time equaliser for a 2-2 draw.", upd:"2026-09-27"},
+  11: {team:"Birmingham City", lg:"Championship", la:4, ls:4, r:7.01, g:1, a:3, st:"new", note:"Millar assisted both of Jacob Shaffelburg's goals as Canada beat Peru 2-0 on Oct 3; for Birmingham he scored and posted an 8.0 in a 2-2 draw at Middlesbrough on Sept 19.", upd:"2026-10-04"},
   12: {team:"Villarreal", lg:"LaLiga", la:4, ls:0, r:5.7, note:"Oluwaseyi was an unused substitute again as Villarreal came from behind to beat Levante 3-1; Buchanan and Saliba both started.", upd:"2026-09-21"},
   13: {team:"Marseille", lg:"Ligue 1", la:3, ls:0, r:6.06, st:"inj", eta:"2027", ret:"Around three months out, no surgery needed, but Canada boss Jesse Marsch says he's unlikely to play again in 2026 — the hip injury happened when his knee caught in the turf at Canada training (Yahoo Sports, TSN, Sept 26–27, 2026).", note:"Cornelius (hip, ~3 months) remains out; Marseille do not play again until Oct 11 vs Troyes.", upd:"2026-09-27"},
-  14: {team:"LAFC", lg:"MLS", la:15, ls:7, r:6.48, a:3, note:"Shaffelburg was away with Canada (rated 7.0 in a 1-0 win over Chile) as LAFC lost 1-0 at FC Dallas without him and Choinière.", upd:"2026-10-01"},
+  14: {team:"LAFC", lg:"MLS", la:15, ls:7, r:6.48, a:3, note:"Shaffelburg scored twice for Canada in a 2-0 win over Peru on Oct 3, after starting the 1-0 win over Chile (7.0).", upd:"2026-10-04"},
   15: {team:"Nice", lg:"Ligue 1", st:"inj", eta:"months", ret:"Months; no date set. Second surgery on the left tibia announced Aug 26 after playing through pain at the World Cup.", note:"Moïse Bombito (tibia surgery) was again not in the Nice squad as they beat Lille 2-1 at home.", upd:"2026-09-26"},
   16: {team:"Orlando City", lg:"MLS", la:26, ls:26, r:6.73, note:"Crépeau started and conceded four, rated 6.4, as Orlando lost 4-2 at Philadelphia Union.", upd:"2026-10-03"},
   17: {team:"Villarreal", lg:"LaLiga", la:7, ls:4, r:6.91, a:1, note:"Buchanan started and was booked before being substituted in the 79th minute, rated 7.6, as Villarreal came from behind to beat Levante 3-1; Saliba also started and Oluwaseyi was an unused substitute.", upd:"2026-09-27"},
@@ -597,8 +598,8 @@ const INTL = {
   7: {apps:1, starts:0, note:"Came on as a substitute, rated 7.0, in Canada's 1-0 friendly win over Chile."},
   9: {apps:1, starts:1, a:1, note:"Started up front and set up Jonathan David's winner, rated 7.5, in Canada's 1-0 friendly win over Chile."},
   10: {apps:1, starts:1, g:1, note:"Scored the only goal, in the 12th minute, as Canada beat Chile 1-0 at BMO Field, rated 8.4."},
-  11: {apps:1, starts:0, note:"Came off the bench, rated 7.7, in Canada's 1-0 friendly win over Chile."},
-  14: {apps:1, starts:1, note:"Started as Canada beat Chile 1-0, rated 7.0."},
+  11: {apps:2, starts:1, a:2, note:"Came off the bench against Chile (7.7), then crossed for both Jacob Shaffelburg goals in Canada's 2-0 friendly win over Peru."},
+  14: {apps:2, starts:2, g:2, note:"Started against Chile (7.0), then scored twice, in the 19th and 35th minutes, in Canada's 2-0 friendly win over Peru in Montréal."},
   17: {apps:1, starts:1, note:"Started on the wing, rated 6.5, in Canada's 1-0 friendly win over Chile."},
   22: {apps:1, starts:1, note:"Started at right-back, rated 7.2, in Canada's 1-0 friendly win over Chile."},
   23: {apps:1, starts:1, note:"Started in midfield, rated 7.5, in Canada's 1-0 friendly win over Chile."},
@@ -606,7 +607,6 @@ const INTL = {
   25: {apps:1, starts:1, note:"Started in midfield, rated 7.4, in Canada's 1-0 friendly win over Chile."}
 };
 const NEXT_MATCHES = [
-  {date:"2026-10-03", opp:"Peru", where:"Stade Saputo, Montréal", comp:"Friendly"},
   {date:"2026-10-06", opp:"USA", where:"St. Paul, Minnesota", comp:"Friendly"}
 ];
 
@@ -615,9 +615,8 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-09-30",et:"19:30",home:"New York Red Bulls",away:"St. Louis City",comp:"MLS",score:"0-3",note:"Jahkeele Marshall-Rutty was not in the New York Red Bulls squad."},
   {date:"2026-10-01",et:"21:30",home:"Seattle Sounders",away:"Sporting KC",comp:"MLS",score:"2-1",note:"Zorhan Bassong came on in the 76th minute, rated 6.4, as Sporting KC lost 2-1 at Seattle (Luiz scored for SKC; Roldan won it in the 89th)."},
-  {date:"2026-10-03",et:"10:00",home:"Leyton Orient",away:"Plymouth Argyle",comp:"League One",score:null},
+  {date:"2026-10-03",et:"10:00",home:"Leyton Orient",away:"Plymouth Argyle",comp:"League One",score:"0-2",note:"Aribim Pepple scored in the 52nd minute as Plymouth won 2-0 at Leyton Orient (Will Evans added the second in the 56th)."},
   {date:"2026-10-06",et:"14:00",home:"Newport County",away:"Plymouth Argyle",comp:"EFL Trophy",score:null},
   {date:"2026-10-06",et:"20:30",home:"Chicago Fire",away:"Vancouver Whitecaps",comp:"MLS",score:null},
   {date:"2026-10-09",et:"23:00",home:"Tigres",away:"Toluca",comp:"Liga MX",score:null},
@@ -640,7 +639,12 @@ const MATCHES = [
   {date:"2026-10-10",et:"19:30",home:"FC Cincinnati",away:"Atlanta United",comp:"MLS",score:null},
   {date:"2026-10-10",et:"19:30",home:"Philadelphia Union",away:"Real Salt Lake",comp:"MLS",score:null},
   {date:"2026-10-10",et:"20:30",home:"Sporting KC",away:"Portland Timbers",comp:"MLS",score:null},
-  {date:"2026-10-10",et:"22:30",home:"Vancouver Whitecaps",away:"LAFC",comp:"MLS",score:null}
+  {date:"2026-10-10",et:"22:30",home:"Vancouver Whitecaps",away:"LAFC",comp:"MLS",score:null},
+  {date:"2026-10-11",et:"07:00",home:"Motherwell",away:"Celtic",comp:"Scottish Premiership",score:null},
+  {date:"2026-10-11",et:"07:00",home:"Southampton",away:"Portsmouth",comp:"Championship",score:null},
+  {date:"2026-10-11",et:"09:00",home:"Nice",away:"Strasbourg",comp:"Ligue 1",score:null},
+  {date:"2026-10-11",et:"12:00",home:"Sassuolo",away:"Milan",comp:"Serie A",score:null},
+  {date:"2026-10-11",et:"14:45",home:"Troyes",away:"Marseille",comp:"Ligue 1",score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
@@ -660,7 +664,7 @@ const BUBBLE = [
   {name:"Jacen Russell-Rowe", pos:"F", team:"Toulouse", lg:"Ligue 1", la:5, ls:4, r:6.63, g:1, note:"Russell-Rowe started and posted a 6.9 rating as Toulouse beat Le Havre 3-2; Niko Sigur also started.", upd:"2026-09-20"},
   {name:"Daniel Jebbison", pos:"F", team:"Bournemouth", lg:"Premier League", la:3, ls:0, r:6.31, note:"Jebbison came on in the 75th minute, rated 5.7, as Bournemouth lost 0-1 at home to Liverpool.", upd:"2026-09-21"},
   {name:"Theo Bair", pos:"F", team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:5.88, st:"new", a:1, note:"Bair was an unused substitute as Bolton Wanderers won 4-3 away at Norwich City; Nelson was also an unused substitute.", upd:"2026-09-21"},
-  {name:"Aribim Pepple", pos:"F", team:"Plymouth Argyle", lg:"League One", la:7, ls:6, r:6.57, g:2, note:"Pepple scored as Plymouth thrashed Crystal Palace U21 5-1 in the EFL Trophy.", upd:"2026-09-23"},
+  {name:"Aribim Pepple", pos:"F", team:"Plymouth Argyle", lg:"League One", la:8, ls:7, r:6.57, g:3, note:"Pepple scored in the 52nd minute as Plymouth won 2-0 at Leyton Orient on Oct 3.", upd:"2026-10-04"},
   {name:"Jeevan Badwal", pos:"M", team:"Vancouver Whitecaps", lg:"MLS", la:21, ls:16, r:6.97, g:1, a:2, st:"inj", eta:"TBD", ret:"Left the Sept 15 Canada camp with a hamstring injury before making his senior debut and returned to Vancouver to recover with the Whitecaps; MLS's player availability report lists him out, no firm return date given (TSN, Yahoo Canada, Sept 25, 2026).", note:"Badwal was pulled from the Chile/Peru/USA camp with a hamstring issue; a regular starter for Vancouver at 20 with 1,334 league minutes this season.", upd:"2026-09-26"},
   {name:"Samuel Piette", pos:"M", team:"CF Montréal", lg:"MLS", la:17, ls:12, r:6.81, st:"new", note:"Piette was away with Canada's squad as Montréal beat FC Cincinnati 3-1 without him.", upd:"2026-09-27"},
   {name:"Richard Chukwu", pos:"D", team:"Toronto FC II", lg:"MLS Next Pro", la:9, ls:7, r:6.58, a:1, st:"new", note:"Chukwu got his first senior call-up at 18 in the Sept 15 squad; his club football is still with the reserve team, not in MLS.", upd:"2026-09-22"},
