@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-04",            // date of the most recent successful sync (ET)
+  last: "2026-10-05",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 3,                   // how many players changed in that sync
+  changed: 1,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -564,7 +564,7 @@ const CLUB = {
   3: {team:"Middlesbrough", lg:"Championship", la:5, ls:2, r:6.93, st:"inj", eta:"Oct", ret:"Now expected to miss the Sept 19 trip to Birmingham City too and target a return only after the international break (early October), per Boro boss Kim Hellberg (the72.co.uk, Sept 15). Calf issue forced him off at halftime against Norwich on Sept 12.", note:"Jones (calf) was again left out of the Middlesbrough squad as Adilson Malanda's stoppage-time equaliser rescued a 2-2 draw at Birmingham City.", upd:"2026-09-20"},
   4: {team:"Real Salt Lake", lg:"MLS", st:"new", note:"De Fougerolles remained out of the Real Salt Lake squad, still without his US work visa, as RSL beat New England Revolution 3-0.", upd:"2026-09-27"},
   5: {team:"Portland Timbers", lg:"MLS", la:18, ls:13, r:6.84, st:"new", note:"Waterman, serving a one-match suspension for yellow-card accumulation, was not in the Portland squad as they lost 3-1 at San Jose Earthquakes.", upd:"2026-10-01"},
-  6: {team:"LAFC", lg:"MLS", la:27, ls:18, r:7.05, g:2, a:3, note:"Choinière was away with Canada (rated 8.3 in a 1-0 win over Chile) as LAFC lost 1-0 at FC Dallas without him and Shaffelburg.", upd:"2026-10-03"},
+  6: {team:"LAFC", lg:"MLS", la:27, ls:18, r:7.05, g:2, a:3, note:"Choinière was away with Canada (rated 8.3 in a 1-0 win over Chile) as LAFC lost 1-0 at FC Dallas without him and Shaffelburg.", upd:"2026-10-05"},
   7: {team:"Swansea City", lg:"Championship", la:6, ls:4, r:7.23, a:1, note:"Eustáquio started and posted an 8.0 rating as Swansea came from behind to win 2-1 at Lincoln City.", upd:"2026-09-27"},
   8: {team:"Sassuolo", lg:"Serie A", st:"inj", eta:"Nov 2026", ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.", note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 2-1 at Monza.", upd:"2026-09-19"},
   9: {team:"Southampton", lg:"Championship", la:8, ls:8, r:7.34, g:8, note:"Larin went close twice — a headed effort saved and a chip that landed on the crossbar — before being substituted in the 86th minute as Southampton lost 2-1 at Wrexham (Moore, a Schlotterbeck own goal; Ward-Prowse replying).", upd:"2026-09-27"},
@@ -615,7 +615,6 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-01",et:"21:30",home:"Seattle Sounders",away:"Sporting KC",comp:"MLS",score:"2-1",note:"Zorhan Bassong came on in the 76th minute, rated 6.4, as Sporting KC lost 2-1 at Seattle (Luiz scored for SKC; Roldan won it in the 89th)."},
   {date:"2026-10-03",et:"10:00",home:"Leyton Orient",away:"Plymouth Argyle",comp:"League One",score:"0-2",note:"Aribim Pepple scored in the 52nd minute as Plymouth won 2-0 at Leyton Orient (Will Evans added the second in the 56th)."},
   {date:"2026-10-06",et:"14:00",home:"Newport County",away:"Plymouth Argyle",comp:"EFL Trophy",score:null},
   {date:"2026-10-06",et:"20:30",home:"Chicago Fire",away:"Vancouver Whitecaps",comp:"MLS",score:null},
@@ -790,7 +789,7 @@ const GAMELOG = {
     {"date":"2026-03-14","opp":"St. Louis City","ha":"H","comp":"MLS","score":"2-0","status":"Started","g":2,"a":0,"yc":0,"rc":0},
     {"date":"2026-03-07","opp":"FC Dallas","ha":"H","comp":"MLS","score":"1-0","status":"Started","g":0,"a":0,"yc":0,"rc":0,"rs":"wrong-fixture"},
     {"date":"2026-02-28","opp":"Houston Dynamo","ha":"A","comp":"MLS","score":"0-2","status":"Started","g":0,"a":0,"yc":0,"rc":0,"rs":"wrong-fixture"},
-    {"date":"2026-02-21","opp":"Inter Miami","ha":"H","comp":"MLS","score":"3-0","status":"Started","g":0,"a":0,"yc":0,"rc":0,"rs":"unreadable"}
+    {"date":"2026-02-21","opp":"Inter Miami","ha":"H","comp":"MLS","score":"3-0","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":6.3,"src":"https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-inter-miami-cf/lbjvj8kg#5070996"}
   ],
   7: [
     {"date":"2026-09-19","opp":"Lincoln City","ha":"A","comp":"Championship","score":"1-2","status":"Started","mins":90,"g":0,"a":0,"yc":0,"rc":0,"rating":8,"src":"https://www.fotmob.com/en-GB/matches/lincoln-city-vs-swansea-city/2t5nu7#5836842"},
