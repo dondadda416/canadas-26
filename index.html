@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-05",            // date of the most recent successful sync (ET)
+  last: "2026-10-07",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 1,                   // how many players changed in that sync
+  changed: 3,                   // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-10-06", text:"Aribim Pepple was the day's standout, coming off the bench to score in the 75th minute (7.0) as Plymouth Argyle drew 2-2 at Newport County in the EFL Trophy and went through 5-4 on penalties. Sam Adekugbe came on in the 73rd minute for a 6.6 rating as Vancouver Whitecaps lost 3-1 at Chicago Fire, with Jeevan Badwal still out injured and Ralph Priso away with Canada, who lost 1-0 to the USA in St. Paul."},
   {date:"2026-10-03", text:"Jacob Shaffelburg was the day's standout, scoring twice (19' and 35') as Canada beat Peru 2-0 at Stade Saputo in Montréal, with Liam Millar providing the crosses for both goals and Daniel Jebbison flicking on the first. In League One, bubble forward Aribim Pepple scored in the 52nd minute as Plymouth Argyle won 2-0 at Leyton Orient. Most club football was paused for the international break."},
   {date:"2026-09-30", text:"A one-match midweek night with a Canadian tie: bubble defender Jahkeele Marshall-Rutty was not in the New York Red Bulls squad as they lost 0-3 at home to St. Louis City (Navarro, 5', Becher, 88', and Ostrák, 90+1'). No other Canadians were involved."},
   {date:"2026-10-01", text:"Zorhan Bassong was the only Canadian in action, coming off the bench in the 76th minute for a 6.4 rating as Sporting KC lost 2-1 at Seattle Sounders, who scored twice after Luiz had put Kansas City ahead."},
@@ -574,7 +575,7 @@ const CLUB = {
   13: {team:"Marseille", lg:"Ligue 1", la:3, ls:0, r:6.06, st:"inj", eta:"2027", ret:"Around three months out, no surgery needed, but Canada boss Jesse Marsch says he's unlikely to play again in 2026 — the hip injury happened when his knee caught in the turf at Canada training (Yahoo Sports, TSN, Sept 26–27, 2026).", note:"Cornelius (hip, ~3 months) remains out; Marseille do not play again until Oct 11 vs Troyes.", upd:"2026-09-27"},
   14: {team:"LAFC", lg:"MLS", la:15, ls:7, r:6.48, a:3, note:"Shaffelburg scored twice for Canada in a 2-0 win over Peru on Oct 3, after starting the 1-0 win over Chile (7.0).", upd:"2026-10-04"},
   15: {team:"Nice", lg:"Ligue 1", st:"inj", eta:"months", ret:"Months; no date set. Second surgery on the left tibia announced Aug 26 after playing through pain at the World Cup.", note:"Moïse Bombito (tibia surgery) was again not in the Nice squad as they beat Lille 2-1 at home.", upd:"2026-09-26"},
-  16: {team:"Orlando City", lg:"MLS", la:26, ls:26, r:6.73, note:"Crépeau started and conceded four, rated 6.4, as Orlando lost 4-2 at Philadelphia Union.", upd:"2026-10-03"},
+  16: {team:"Orlando City", lg:"MLS", la:26, ls:26, r:6.73, note:"Crépeau started and conceded four, rated 6.4, as Orlando lost 4-2 at Philadelphia Union.", upd:"2026-10-07"},
   17: {team:"Villarreal", lg:"LaLiga", la:7, ls:4, r:6.91, a:1, note:"Buchanan started and was booked before being substituted in the 79th minute, rated 7.6, as Villarreal came from behind to beat Levante 3-1; Saliba also started and Oluwaseyi was an unused substitute.", upd:"2026-09-27"},
   18: {team:"Dundee", lg:"Scottish Premiership", la:6, ls:6, r:7.18, note:"Two starts, three conceded.", upd:"2026-09-23"},
   19: {team:"Bayern Munich", lg:"Bundesliga", la:4, ls:3, r:8.16, a:2, note:"Alphonso Davies set up Jamal Musiala's 18th-minute opener and later teed up Ismael Saibari, finishing with two assists in Bayern's 7-0 rout of Union Berlin before coming off in the 83rd minute.", upd:"2026-09-19"},
@@ -607,7 +608,6 @@ const INTL = {
   25: {apps:1, starts:1, note:"Started in midfield, rated 7.4, in Canada's 1-0 friendly win over Chile."}
 };
 const NEXT_MATCHES = [
-  {date:"2026-10-06", opp:"USA", where:"St. Paul, Minnesota", comp:"Friendly"}
 ];
 
 /* Club matches: results from the last couple of days and fixtures for the week ahead.
@@ -615,9 +615,8 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-03",et:"10:00",home:"Leyton Orient",away:"Plymouth Argyle",comp:"League One",score:"0-2",note:"Aribim Pepple scored in the 52nd minute as Plymouth won 2-0 at Leyton Orient (Will Evans added the second in the 56th)."},
-  {date:"2026-10-06",et:"14:00",home:"Newport County",away:"Plymouth Argyle",comp:"EFL Trophy",score:null},
-  {date:"2026-10-06",et:"20:30",home:"Chicago Fire",away:"Vancouver Whitecaps",comp:"MLS",score:null},
+  {date:"2026-10-06",et:"14:00",home:"Newport County",away:"Plymouth Argyle",comp:"EFL Trophy",score:"2-2",note:"Aribim Pepple came off the bench and scored in the 75th minute, rated 7.0, as Plymouth drew 2-2 at Newport (Bakinson equalised in the 90th) and won 5-4 on penalties."},
+  {date:"2026-10-06",et:"20:30",home:"Chicago Fire",away:"Vancouver Whitecaps",comp:"MLS",score:"3-1",note:"Sam Adekugbe came on in the 73rd minute, rated 6.6, as Vancouver lost 3-1 at Chicago Fire; Ralph Priso (with Canada) and the injured Jeevan Badwal were not in the matchday squad."},
   {date:"2026-10-09",et:"23:00",home:"Tigres",away:"Toluca",comp:"Liga MX",score:null},
   {date:"2026-10-10",et:"07:30",home:"Plymouth Argyle",away:"AFC Wimbledon",comp:"League One",score:null},
   {date:"2026-10-10",et:"07:30",home:"West Bromwich Albion",away:"Birmingham City",comp:"Championship",score:null},
@@ -643,7 +642,10 @@ const MATCHES = [
   {date:"2026-10-11",et:"07:00",home:"Southampton",away:"Portsmouth",comp:"Championship",score:null},
   {date:"2026-10-11",et:"09:00",home:"Nice",away:"Strasbourg",comp:"Ligue 1",score:null},
   {date:"2026-10-11",et:"12:00",home:"Sassuolo",away:"Milan",comp:"Serie A",score:null},
-  {date:"2026-10-11",et:"14:45",home:"Troyes",away:"Marseille",comp:"Ligue 1",score:null}
+  {date:"2026-10-11",et:"14:45",home:"Troyes",away:"Marseille",comp:"Ligue 1",score:null},
+  {date:"2026-10-14",et:"19:30",home:"Toronto FC",away:"Orlando City",comp:"MLS",score:null},
+  {date:"2026-10-14",et:"20:30",home:"Nashville SC",away:"Sporting KC",comp:"MLS",score:null},
+  {date:"2026-10-14",et:"20:30",home:"St. Louis City",away:"Vancouver Whitecaps",comp:"MLS",score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
@@ -653,7 +655,7 @@ const BUBBLE = [
   {name:"Jayden Hibbert", pos:"G", team:"Atlanta United", lg:"MLS", note:"Hibbert was again an unused substitute as Atlanta United drew 2-2 at home to New York City FC.", upd:"2026-09-27"},
   {name:"Tom McGill", pos:"G", team:"Brighton U21", lg:"", note:"With the under-21s; no first-team involvement this week."},
   {name:"Zorhan Bassong", pos:"D", team:"Sporting KC", lg:"MLS", la:15, ls:10, r:6.48, note:"Bassong came on in the 76th minute, rated 6.4, as Sporting KC lost 2-1 at Seattle Sounders.", upd:"2026-10-02"},
-  {name:"Sam Adekugbe", pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:6, ls:0, r:6.48, note:"Adekugbe came on in the 85th minute, rated 6.6, as Vancouver Whitecaps drew 3-3 at home to DC United.", upd:"2026-09-27"},
+  {name:"Sam Adekugbe", pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:7, ls:0, r:6.48, note:"Adekugbe came on in the 73rd minute, rated 6.6, as Vancouver Whitecaps lost 3-1 at Chicago Fire on Oct 6.", upd:"2026-10-07"},
   {name:"Ralph Priso", pos:"D", team:"Vancouver Whitecaps", lg:"MLS", la:11, ls:8, r:7.12, g:1, note:"Priso started for Canada instead, rated 6.6 in a 1-0 win over Chile, as Vancouver drew 3-3 at home to DC United without him and Badwal.", upd:"2026-09-27"},
   {name:"Jamie Knight-Lebel", pos:"D", team:"Motherwell", lg:"Scottish Premiership", la:4, ls:3, r:6.9, note:"Knight-Lebel was left out of the Motherwell squad entirely as they lost 2-1 at Dundee.", upd:"2026-09-20"},
   {name:"Kamal Miller", pos:"D", team:"Portland Timbers", lg:"MLS", la:22, ls:18, r:6.62, a:1, note:"Miller started and played the full 90, rated 6.4, as Portland lost 3-1 at San Jose Earthquakes.", upd:"2026-09-27"},
@@ -663,7 +665,7 @@ const BUBBLE = [
   {name:"Jacen Russell-Rowe", pos:"F", team:"Toulouse", lg:"Ligue 1", la:5, ls:4, r:6.63, g:1, note:"Russell-Rowe started and posted a 6.9 rating as Toulouse beat Le Havre 3-2; Niko Sigur also started.", upd:"2026-09-20"},
   {name:"Daniel Jebbison", pos:"F", team:"Bournemouth", lg:"Premier League", la:3, ls:0, r:6.31, note:"Jebbison came on in the 75th minute, rated 5.7, as Bournemouth lost 0-1 at home to Liverpool.", upd:"2026-09-21"},
   {name:"Theo Bair", pos:"F", team:"Bolton Wanderers", lg:"Championship", la:2, ls:0, r:5.88, st:"new", a:1, note:"Bair was an unused substitute as Bolton Wanderers won 4-3 away at Norwich City; Nelson was also an unused substitute.", upd:"2026-09-21"},
-  {name:"Aribim Pepple", pos:"F", team:"Plymouth Argyle", lg:"League One", la:8, ls:7, r:6.57, g:3, note:"Pepple scored in the 52nd minute as Plymouth won 2-0 at Leyton Orient on Oct 3.", upd:"2026-10-04"},
+  {name:"Aribim Pepple", pos:"F", team:"Plymouth Argyle", lg:"League One", la:8, ls:7, r:6.57, g:3, note:"Pepple came off the bench and scored in the 75th minute, rated 7.0, as Plymouth drew 2-2 at Newport in the EFL Trophy on Oct 6 (won 5-4 on penalties); he also scored in the 2-0 league win at Leyton Orient on Oct 3.", upd:"2026-10-07"},
   {name:"Jeevan Badwal", pos:"M", team:"Vancouver Whitecaps", lg:"MLS", la:21, ls:16, r:6.97, g:1, a:2, st:"inj", eta:"TBD", ret:"Left the Sept 15 Canada camp with a hamstring injury before making his senior debut and returned to Vancouver to recover with the Whitecaps; MLS's player availability report lists him out, no firm return date given (TSN, Yahoo Canada, Sept 25, 2026).", note:"Badwal was pulled from the Chile/Peru/USA camp with a hamstring issue; a regular starter for Vancouver at 20 with 1,334 league minutes this season.", upd:"2026-09-26"},
   {name:"Samuel Piette", pos:"M", team:"CF Montréal", lg:"MLS", la:17, ls:12, r:6.81, st:"new", note:"Piette was away with Canada's squad as Montréal beat FC Cincinnati 3-1 without him.", upd:"2026-09-27"},
   {name:"Richard Chukwu", pos:"D", team:"Toronto FC II", lg:"MLS Next Pro", la:9, ls:7, r:6.58, a:1, st:"new", note:"Chukwu got his first senior call-up at 18 in the Sept 15 squad; his club football is still with the reserve team, not in MLS.", upd:"2026-09-22"},
@@ -898,7 +900,7 @@ const GAMELOG = {
     {"date":"2026-04-04","opp":"LAFC","ha":"A","comp":"MLS","score":"6-0","status":"Started","mins":90,"yc":0,"rc":0,"sv":2,"ga":6,"rs":"unreadable"},
     {"date":"2026-03-21","opp":"Nashville SC","ha":"A","comp":"MLS","score":"5-0","status":"Started","mins":90,"yc":0,"rc":0,"sv":3,"ga":5,"rs":"wrong-fixture"},
     {"date":"2026-03-07","opp":"New York City FC","ha":"A","comp":"MLS","score":"5-0","status":"Started","yc":0,"rc":1,"sv":0,"ga":0,"rs":"preview"},
-    {"date":"2026-03-01","opp":"Inter Miami","ha":"H","comp":"MLS","score":"2-4","status":"Started","mins":90,"yc":0,"rc":0,"sv":4,"ga":4},
+    {"date":"2026-03-01","opp":"Inter Miami","ha":"H","comp":"MLS","score":"2-4","status":"Started","mins":90,"yc":0,"rc":0,"sv":4,"ga":4,"rs":"wrong-fixture"},
     {"date":"2026-02-21","opp":"New York Red Bulls","ha":"H","comp":"MLS","score":"1-2","status":"Started","mins":90,"yc":0,"rc":0,"sv":11,"ga":2,"rs":"wrong-fixture"}
   ],
   17: [
