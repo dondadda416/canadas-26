@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-19",            // date of the most recent successful sync (ET)
+  last: "2026-10-20",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 5,                    // how many players changed in that sync
+  changed: 0,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -678,7 +678,8 @@ const MATCHES = [
   {date:"2026-10-25",et:"10:00",home:"Motherwell",away:"Hearts",comp:"Scottish Premiership",score:null},
   {date:"2026-10-25",et:"12:15",home:"Marseille",away:"Le Havre",comp:"Ligue 1",score:null},
   {date:"2026-10-25",et:"12:30",home:"Freiburg",away:"Bayern Munich",comp:"Bundesliga",score:null},
-  {date:"2026-10-25",et:"21:00",home:"LAFC",away:"LA Galaxy",comp:"MLS",score:null}
+  {date:"2026-10-25",et:"21:00",home:"LAFC",away:"LA Galaxy",comp:"MLS",score:null},
+  {date:"2026-10-27",et:"16:00",home:"CD Manacor",away:"Villarreal",comp:"Copa del Rey",score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
