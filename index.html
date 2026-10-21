@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-19",            // date of the most recent successful sync (ET)
+  last: "2026-10-21",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 5,                    // how many players changed in that sync
+  changed: 6,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-10-20",text:"Tani Oluwaseyi scored in the 87th minute (7.1) after coming on at half-time, but Villarreal still lost 4-3 at Liverpool in the Champions League. Tajon Buchanan was back from his hamstring problem, starting and coming off in the 60th minute (6.6), while Nathan Saliba started and made way at half-time (6.9). Jonathan David was replaced by Ademola Lookman at the break (6.2) as Atlético Madrid drew 1-1 at Stuttgart, and Aribim Pepple played 90 minutes (6.0) in Plymouth's 3-0 League One loss at Stevenage. Marcelo Flores (ACL) missed Tigres' 2-0 home loss to León."},
   {date:"2026-10-18",text:"A quiet Sunday for the Canadians: no one played. Promise David was an unused substitute as Brighton beat Crystal Palace 5-0, and Daniel Jebbison was not among the players who featured in Bournemouth's 2-0 win over 10-man Sunderland. Alistair Johnston (hamstring) sat out Celtic's 7-1 thrashing of Hearts, Derek Cornelius (hip) missed Marseille's 5-2 win at Angers, and Moïse Bombito (leg) was out as Nice lost 2-1 at Lyon."},
   {date:"2026-10-17",text:"Liam Millar was the standout, scoring twice (27th and 49th minutes) for a 9.0 rating, the best of the day, before coming off in the 71st as Birmingham City beat Queens Park Rangers 3-0. Jonathan Osorio (8.3, with the assist on the 82nd-minute second goal) and keeper Luka Gavran (8.0) helped Toronto FC win 2-0 at the New York Red Bulls, Maxime Crépeau was rated 8.0 in Orlando City's 4-1 win over D.C. United, and Jonathan David played all 90 (7.1) in Atlético Madrid's 1-0 win at Espanyol. Luc de Fougerolles (7.5) started in Real Salt Lake's 3-1 win at Sporting KC, Dayne St. Clair (7.0) played all 90 in Inter Miami's 3-1 win at Atlanta, and Tani Oluwaseyi started with Nathan Saliba on as a sub in Villarreal's 0-0 draw with Elche, while Tajon Buchanan (hamstring), Alfie Jones (calf) and Ali Ahmed (ACL) were all out."},
   {date:"2026-10-16",text:"Jacen Russell-Rowe was the standout, scoring in the 46th minute and rating 8.0 before coming off in the 76th as Toulouse won 3-0 at Le Mans, with Niko Sigur playing all 90 (7.4) alongside him. Ismaël Koné, still out with a broken leg, was not in the Sassuolo squad for their 4-2 loss at Frosinone."},
@@ -570,14 +571,14 @@ const CLUB = {
   7: {team:"Swansea City",lg:"Championship",la:7,ls:4,r:7.23,a:1,note:"Eustáquio came on in the 56th minute (6.1) as Swansea lost 1-0 at home to West Ham.",upd:"2026-10-18"},
   8: {team:"Sassuolo",lg:"Serie A",st:"inj",eta:"Nov 2026",ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.",note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 4-2 at Frosinone.",upd:"2026-10-17"},
   9: {team:"Southampton",lg:"Championship",la:11,ls:10,r:7.3,g:8,note:"Larin started and was replaced in the 41st minute (5.9) as Southampton drew 0-0 with Bolton.",upd:"2026-10-18"},
-  10: {team:"Atlético Madrid",lg:"LaLiga",st:"new",la:5,ls:4,g:3,a:2,r:7.8,note:"David played all 90, rated 7.1, as Atlético won 1-0 at Espanyol on Baena's 89th-minute goal.",upd:"2026-10-18"},
+  10: {team:"Atlético Madrid",lg:"LaLiga",st:"new",la:5,ls:4,g:3,a:2,r:7.8,note:"David started and was replaced by Lookman at half-time (6.2) as Atlético drew 1-1 at Stuttgart in the Champions League.",upd:"2026-10-21"},
   11: {team:"Birmingham City",lg:"Championship",la:7,ls:7,r:7.78,g:4,a:3,st:"new",note:"Millar scored twice, in the 27th and 49th minutes, and was rated 9.0 before coming off in the 71st as Birmingham beat QPR 3-0.",upd:"2026-10-18"},
-  12: {team:"Villarreal",lg:"LaLiga",la:5,ls:1,r:6.2,note:"Oluwaseyi started and came off in the 66th minute (6.5) as Villarreal drew 0-0 with Elche.",upd:"2026-10-18"},
+  12: {team:"Villarreal",lg:"LaLiga",la:5,ls:1,r:6.2,note:"Oluwaseyi came on at half-time and scored in the 87th minute (7.1) in Villarreal's 4-3 Champions League loss at Liverpool.",upd:"2026-10-21"},
   13: {team:"Marseille",lg:"Ligue 1",la:3,ls:0,r:6.06,st:"inj",eta:"2027",ret:"FotMob's Marseille injury list (Oct 18) now gives early January 2027 for the hip injury; Jesse Marsch said in late Sept he is unlikely to play again in 2026 (Yahoo Sports, TSN).",note:"Cornelius (hip) remains out; he was not in the squad for the 5-2 win at Angers on Oct 18.",upd:"2026-10-19"},
   14: {team:"LAFC",lg:"MLS",la:18,ls:9,r:6.65,a:3,note:"Shaffelburg started and came off in the 66th minute (6.4) as LAFC drew 1-1 at New York City FC.",upd:"2026-10-18"},
   15: {team:"Nice",lg:"Ligue 1",st:"inj",eta:"Nov",ret:"FotMob's Nice injury list (Oct 18) has a leg injury with an early-November 2026 return. Second surgery on the left tibia was announced Aug 26 after playing through pain at the World Cup.",note:"Moïse Bombito (leg) was again not in the Nice squad as they lost 2-1 at Lyon on Oct 18.",upd:"2026-10-19"},
   16: {team:"Orlando City",lg:"MLS",la:29,ls:29,r:6.81,note:"Crépeau played all 90, rated 8.0, as Orlando City beat D.C. United 4-1.",upd:"2026-10-18"},
-  17: {team:"Villarreal",lg:"LaLiga",la:7,ls:4,r:6.91,a:1,note:"Buchanan (hamstring) missed Villarreal's 0-0 draw with Elche.",upd:"2026-10-18",st:"inj",eta:"Nov",ret:"FotMob lists a hamstring injury with an early-November 2026 return; Villarreal's coach called it a small muscular problem with no timetable before the Oct 10 trip to Real Madrid (FotMob, Comuniate, Oct 10)."},
+  17: {team:"Villarreal",lg:"LaLiga",la:7,ls:4,r:6.91,a:1,note:"Buchanan is back from his hamstring problem: he started and came off in the 60th minute (6.6) in Villarreal's 4-3 Champions League loss at Liverpool.",upd:"2026-10-21"},
   18: {team:"Dundee",lg:"Scottish Premiership",la:8,ls:8,r:7.18,note:"Goodman played all 90, rated 7.7, and conceded twice as Dundee drew 2-2 at home to Rangers.",upd:"2026-10-18"},
   19: {team:"Bayern Munich",lg:"Bundesliga",la:5,ls:4,r:8.02,a:2,note:"Davies was not in the listed matchday squad as Bayern beat RB Leipzig 6-1.",upd:"2026-10-18"},
   20: {team:"Norwich City",lg:"Championship",st:"inj",eta:"2027",ret:"Likely out for most or all of 2026-27 — Norwich confirmed a right ACL rupture from the Aug 1 Osasuna friendly, followed by surgery; no return date given, and ACL recoveries usually run nine months or more.",note:"Ali Ahmed (torn ACL) was not in the Norwich squad as they lost 1-0 at home to Portsmouth.",upd:"2026-10-18"},
@@ -585,7 +586,7 @@ const CLUB = {
   22: {team:"Toronto FC",lg:"MLS",la:23,ls:23,r:6.86,note:"Laryea was not in the listed matchday squad as Toronto FC won 2-0 at the New York Red Bulls.",upd:"2026-10-18"},
   23: {team:"Toulouse",lg:"Ligue 1",st:"new",la:4,ls:2,note:"Sigur played all 90, rated 7.4, as Toulouse won 3-0 at Le Mans.",upd:"2026-10-17"},
   24: {team:"Brighton",lg:"Premier League",la:2,ls:0,r:5.86,note:"Promise David was an unused sub as Brighton beat Crystal Palace 5-0 on Oct 18.",upd:"2026-10-19"},
-  25: {team:"Villarreal",lg:"LaLiga",la:6,ls:3,r:6.87,note:"Saliba came on in the 66th minute (6.2) as Villarreal drew 0-0 with Elche.",upd:"2026-10-18"},
+  25: {team:"Villarreal",lg:"LaLiga",la:6,ls:3,r:6.87,note:"Saliba started and was replaced at half-time (6.9) in Villarreal's 4-3 Champions League loss at Liverpool.",upd:"2026-10-21"},
   26: {team:"Bolton Wanderers",lg:"Championship",la:6,ls:0,r:6.4,note:"Nelson was not in the listed matchday squad for Bolton's 0-0 draw at Southampton.",upd:"2026-10-18"}
 };
 SQUAD.forEach(p => { p.club = CLUB[p.n] || {}; });
@@ -616,36 +617,15 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-16",et:"14:45",home:"Frosinone",away:"Sassuolo",comp:"Serie A",score:"4-2",note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 4-2 at Frosinone (Raimondo hat-trick; Berardi and Thorstvedt scored for Sassuolo)."},
-  {date:"2026-10-16",et:"14:45",home:"Le Mans",away:"Toulouse",comp:"Ligue 1",score:"0-3",note:"Jacen Russell-Rowe scored in the 46th minute (8.0), was booked and came off in the 76th, and Niko Sigur played all 90 (7.4) as Toulouse won 3-0 at Le Mans (Dønnum, Tengstedt also scored)."},
-  {date:"2026-10-17",et:"07:30",home:"Middlesbrough",away:"Cardiff City",comp:"Championship",score:"2-2",note:"Alfie Jones (calf) was again out of the Middlesbrough squad as they drew 2-2 at home to Cardiff (Conway and Lankshear scored after trailing 2-0)."},
-  {date:"2026-10-17",et:"08:00",home:"Espanyol",away:"Atlético Madrid",comp:"LaLiga",score:"0-1",note:"Jonathan David played all 90 (7.1) as Atlético won 1-0 at Espanyol on Álex Baena's 89th-minute goal."},
-  {date:"2026-10-17",et:"10:00",home:"Kilmarnock",away:"Motherwell",comp:"Scottish Premiership",score:"3-2",note:"Kilmarnock won 3-2 (Kiltie 2, John-Jules); Jamie Knight-Lebel was not among Motherwell's listed players."},
-  {date:"2026-10-17",et:"10:00",home:"Swansea City",away:"West Ham United",comp:"Championship",score:"0-1",note:"Stephen Eustáquio came on in the 56th minute (6.1) as Swansea lost 1-0 at home to West Ham on Mukasa's 34th-minute goal."},
-  {date:"2026-10-17",et:"10:00",home:"Norwich City",away:"Portsmouth",comp:"Championship",score:"0-1",note:"Ali Ahmed (torn ACL) was out as Norwich lost 1-0 at home to Portsmouth."},
-  {date:"2026-10-17",et:"10:00",home:"Birmingham City",away:"Queens Park Rangers",comp:"Championship",score:"3-0",note:"Liam Millar scored twice (27', 49'), rated 9.0, and came off in the 71st as Birmingham beat QPR 3-0 (Gray, 90+1')."},
-  {date:"2026-10-17",et:"10:00",home:"Southampton",away:"Bolton Wanderers",comp:"Championship",score:"0-0",note:"Cyle Larin started and was replaced in the 41st minute (5.9) in a 0-0 draw; Theo Bair came on for Bolton in the 73rd (6.2) and was booked, and Nelson was not in the listed Bolton squad."},
-  {date:"2026-10-17",et:"10:00",home:"Plymouth Argyle",away:"Huddersfield Town",comp:"League One",score:"0-2",note:"Aribim Pepple started and played 90 (6.0) as Plymouth lost 2-0 at home to Huddersfield."},
-  {date:"2026-10-17",et:"10:15",home:"Villarreal",away:"Elche",comp:"LaLiga",score:"0-0",note:"Tani Oluwaseyi started and came off in the 66th minute (6.5); Nathan Saliba came on then (6.2) in a 0-0 draw. Tajon Buchanan (hamstring) was out."},
-  {date:"2026-10-17",et:"12:30",home:"Bayern Munich",away:"RB Leipzig",comp:"Bundesliga",score:"6-1",note:"Bayern won 6-1 (Díaz hat-trick, Pavlović, Olise, Kane); Alphonso Davies was not in the listed matchday squad."},
-  {date:"2026-10-17",et:"15:00",home:"Dundee",away:"Rangers",comp:"Scottish Premiership",score:"2-2",note:"Owen Goodman played all 90 (7.7) and conceded twice in a 2-2 draw (Fink, Jones scored for Dundee)."},
-  {date:"2026-10-17",et:"19:30",home:"New York Red Bulls",away:"Toronto FC",comp:"MLS",score:"0-2",note:"Jonathan Osorio played all 90 (8.3) and assisted Sallói's 82nd-minute goal as Toronto FC won 2-0 (Che own goal, 4'); Luka Gavran kept a clean sheet (8.0), Richie Laryea was not in the listed squad, and Jahkeele Marshall-Rutty came on for the Red Bulls in the 60th (6.2)."},
-  {date:"2026-10-17",et:"19:30",home:"Atlanta United",away:"Inter Miami",comp:"MLS",score:"1-3",note:"Dayne St. Clair played all 90 (7.0) as Inter Miami won 3-1 at Atlanta (Berterame, Messi 2; Picault pen); Jayden Hibbert did not play for Atlanta."},
-  {date:"2026-10-17",et:"19:30",home:"New York City FC",away:"LAFC",comp:"MLS",score:"1-1",note:"Mathieu Choinière came on in the 58th minute (6.3) and Jacob Shaffelburg started and came off in the 66th (6.4) as LAFC drew 1-1 at NYCFC (Walta scored)."},
-  {date:"2026-10-17",et:"19:30",home:"Orlando City",away:"D.C. United",comp:"MLS",score:"4-1",note:"Maxime Crépeau played all 90 (8.0) as Orlando City won 4-1 (Griezmann 2, Ojeda, Pašalić)."},
-  {date:"2026-10-17",et:"20:30",home:"Sporting KC",away:"Real Salt Lake",comp:"MLS",score:"1-3",note:"Luc de Fougerolles started, was booked and came off in the 84th (7.5) as Real Salt Lake won 3-1 at Sporting KC; Zorhan Bassong started and came off in the 73rd (6.6)."},
-  {date:"2026-10-17",et:"20:30",home:"Austin FC",away:"Vancouver Whitecaps",comp:"MLS",score:"1-2",note:"Ralph Priso came on in the 65th minute (6.3) as Vancouver won 2-1 at Austin; Sam Adekugbe and Jeevan Badwal (hamstrings) were out."},
-  {date:"2026-10-17",et:"22:30",home:"Portland Timbers",away:"Colorado Rapids",comp:"MLS",score:"0-0",note:"Joel Waterman (7.3), James Pantemis (7.1) and Kamal Miller (7.1) all played the full 90 as Portland drew 0-0 with Colorado."},
-  {date:"2026-10-17",et:null,home:"Chivas",away:"Tigres",comp:"Liga MX",score:"1-1",note:"Marcelo Flores (ACL) was listed as injured as Tigres drew 1-1 at Chivas, with Juan Brunetta sent off before half-time."},
   {date:"2026-10-18",et:"09:00",home:"Bournemouth",away:"Sunderland",comp:"Premier League",score:"2-0",note:"Bournemouth beat 10-man Sunderland 2-0 (Tavernier 6', Evanilson 48'); Daniel Jebbison was not among the players who featured."},
   {date:"2026-10-18",et:"09:00",home:"Brighton",away:"Crystal Palace",comp:"Premier League",score:"5-0",note:"Brighton beat Crystal Palace 5-0 (Canvot own goal, Gómez, Ayari, Kostoulas, Hinshelwood); Promise David did not come off the bench."},
   {date:"2026-10-18",et:"09:00",home:"Angers",away:"Marseille",comp:"Ligue 1",score:"2-5",note:"Derek Cornelius (hip) was out of the Marseille squad as they won 5-2 at Angers."},
   {date:"2026-10-18",et:"10:00",home:"Celtic",away:"Hearts",comp:"Scottish Premiership",score:"7-1",note:"Alistair Johnston (hamstring) was out of the Celtic squad as they thrashed Hearts 7-1."},
   {date:"2026-10-18",et:"14:45",home:"Lyon",away:"Nice",comp:"Ligue 1",score:"2-1",note:"Moïse Bombito (leg) was out of the Nice squad as they lost 2-1 at Lyon (Wahi scored for Nice)."},
-  {date:"2026-10-20",et:"14:45",home:"Stevenage",away:"Plymouth Argyle",comp:"League One",score:null},
-  {date:"2026-10-20",et:"15:00",home:"VfB Stuttgart",away:"Atlético Madrid",comp:"Champions League",score:null},
-  {date:"2026-10-20",et:"15:00",home:"Liverpool",away:"Villarreal",comp:"Champions League",score:null},
-  {date:"2026-10-20",et:"23:00",home:"Tigres",away:"León",comp:"Liga MX",score:null},
+  {date:"2026-10-20",et:"14:45",home:"Stevenage",away:"Plymouth Argyle",comp:"League One",score:"3-0",note:"Aribim Pepple started and played 90 (6.0) as Plymouth lost 3-0 at Stevenage (Mellon, Magennis, Patterson)."},
+  {date:"2026-10-20",et:"15:00",home:"VfB Stuttgart",away:"Atlético Madrid",comp:"Champions League",score:"1-1",note:"Jonathan David started and was replaced by Lookman at half-time (6.2) as Atlético drew 1-1 at Stuttgart (Leweling; Álvarez, 47'); Hjulmand was sent off in the 64th."},
+  {date:"2026-10-20",et:"15:00",home:"Liverpool",away:"Villarreal",comp:"Champions League",score:"4-3",note:"Tani Oluwaseyi came on at half-time and scored in the 87th minute (7.1); Tajon Buchanan, back from injury, started and came off in the 60th (6.6) and Nathan Saliba started and came off at half-time (6.9) as Villarreal lost 4-3 at Anfield."},
+  {date:"2026-10-20",et:"23:00",home:"Tigres",away:"León",comp:"Liga MX",score:"0-2",note:"Marcelo Flores (ACL) was out as Tigres lost 2-0 at home to León (Díaz, Cambindo)."},
   {date:"2026-10-21",et:"15:00",home:"Bayern Munich",away:"Arsenal",comp:"Champions League",score:null},
   {date:"2026-10-22",et:"12:45",home:"Sturm Graz",away:"Marseille",comp:"Europa League",score:null},
   {date:"2026-10-22",et:"12:45",home:"Jablonec",away:"Brighton",comp:"Conference League",score:null},
@@ -693,12 +673,12 @@ const BUBBLE = [
   {name:"Jamie Knight-Lebel",pos:"D",team:"Motherwell",lg:"Scottish Premiership",la:4,ls:3,r:6.9,note:"Knight-Lebel was not among the Motherwell players listed as Motherwell lost 3-2 at Kilmarnock.",upd:"2026-10-18"},
   {name:"Kamal Miller",pos:"D",team:"Portland Timbers",lg:"MLS",la:25,ls:21,r:6.65,a:1,note:"Miller played the full 90, rated 7.1, as Portland drew 0-0 with Colorado.",upd:"2026-10-18"},
   {name:"Jahkeele Marshall-Rutty",pos:"D",team:"New York Red Bulls",lg:"MLS",la:26,ls:15,r:6.59,note:"Marshall-Rutty came on in the 60th minute, rated 6.2, as the New York Red Bulls lost 2-0 at home to Toronto FC.",upd:"2026-10-18"},
-  {name:"Marcelo Flores",pos:"F",team:"Tigres",lg:"Liga MX",st:"inj",eta:"2027",ret:"Likely spring 2027 at the earliest — tore his ACL at the end of May, which cost him the World Cup.",note:"Flores (ACL) was listed as injured and did not play as Tigres drew 1-1 at Chivas.",upd:"2026-10-18"},
+  {name:"Marcelo Flores",pos:"F",team:"Tigres",lg:"Liga MX",st:"inj",eta:"2027",ret:"Likely spring 2027 at the earliest — tore his ACL at the end of May, which cost him the World Cup.",note:"Flores (ACL) was out as Tigres lost 2-0 at home to León.",upd:"2026-10-21"},
   {name:"Junior Hoilett",pos:"F",team:"Without a club",lg:"",note:"Still unattached."},
   {name:"Jacen Russell-Rowe",pos:"F",team:"Toulouse",lg:"Ligue 1",la:7,ls:6,r:6.63,g:2,note:"Russell-Rowe scored in the 46th minute, rated 8.0, and came off in the 76th as Toulouse won 3-0 at Le Mans; Sigur played all 90.",upd:"2026-10-17"},
   {name:"Daniel Jebbison",pos:"F",team:"Bournemouth",lg:"Premier League",la:3,ls:0,r:6.31,note:"Jebbison was not among the players who featured as Bournemouth beat Sunderland 2-0 on Oct 18.",upd:"2026-10-19"},
   {name:"Theo Bair",pos:"F",team:"Bolton Wanderers",lg:"Championship",la:6,ls:1,r:6.41,st:"new",a:1,note:"Bair came on in the 73rd minute (6.2) and was booked as Bolton drew 0-0 at Southampton.",upd:"2026-10-18",g:1},
-  {name:"Aribim Pepple",pos:"F",team:"Plymouth Argyle",lg:"League One",la:9,ls:8,r:6.57,g:3,note:"Pepple started and played 90 minutes, rated 6.0, as Plymouth lost 2-0 at home to Huddersfield.",upd:"2026-10-18"},
+  {name:"Aribim Pepple",pos:"F",team:"Plymouth Argyle",lg:"League One",la:10,ls:9,r:6.57,g:3,note:"Pepple started and played 90 minutes, rated 6.0, as Plymouth lost 3-0 at Stevenage.",upd:"2026-10-21"},
   {name:"Jeevan Badwal",pos:"M",team:"Vancouver Whitecaps",lg:"MLS",la:21,ls:16,r:6.97,g:1,a:2,st:"inj",eta:"Nov",ret:"FotMob's Vancouver injury list (Oct 10) has a hamstring injury with a mid-November 2026 return. Left the Sept 15 Canada camp with the injury before a senior debut (TSN, Yahoo Canada, Sept 25).",note:"Badwal (hamstring) was out of the Vancouver squad for the 2-1 win at Austin FC.",upd:"2026-10-18"},
   {name:"Samuel Piette",pos:"M",team:"CF Montréal",lg:"MLS",la:18,ls:12,r:6.81,st:"new",note:"Piette came on in the 72nd minute, rated 5.9, as CF Montréal lost 2-1 at Toronto FC on two stoppage-time goals.",upd:"2026-10-11"},
   {name:"Richard Chukwu",pos:"D",team:"Toronto FC II",lg:"MLS Next Pro",la:9,ls:7,r:6.58,a:1,st:"new",note:"Chukwu got his first senior call-up at 18 in the Sept 15 squad; his club football is still with the reserve team, not in MLS.",upd:"2026-09-22"},
@@ -872,6 +852,7 @@ const GAMELOG = {
     {"date":"2026-08-08","opp":"Colchester United","ha":"A","comp":"EFL Cup","score":"0-2","status":"Sub","mins":28,"g":1,"a":0,"yc":0,"rc":0,"rating":7.5}
   ],
   10: [
+    {"date":"2026-10-20","opp":"VfB Stuttgart","ha":"A","comp":"Champions League","score":"1-1","status":"Started","mins":46,"g":0,"a":0,"rating":6.2,"src":"https://www.fotmob.com/en-GB/matches/atletico-madrid-vs-vfb-stuttgart/3d6gui#6106397"},
     {"date":"2026-10-17","opp":"Espanyol","ha":"A","comp":"LaLiga","score":"0-1","status":"Started","mins":90,"g":0,"a":0,"yc":0,"rc":0,"rating":7.1,"src":"https://www.fotmob.com/en-GB/matches/espanyol-vs-atletico-madrid/2thy9u#5868094"},
     {"date":"2026-10-13","opp":"Manchester United","ha":"H","comp":"Champions League","score":"2-0","status":"Sub","g":0,"a":1,"yc":0,"rc":0,"rating":5.6,"src":"https://www.fotmob.com/en-GB/matches/atletico-madrid-vs-manchester-united/3d2krr#6106267"},
     {"date":"2026-10-10","opp":"Deportivo Alavés","ha":"A","comp":"LaLiga","score":"1-2","status":"Started","mins":46,"g":0,"a":1,"yc":0,"rc":0,"rating":7.1,"src":"https://www.fotmob.com/en-GB/matches/deportivo-alaves-vs-atletico-madrid/38dxso#5868081"},
@@ -894,6 +875,7 @@ const GAMELOG = {
     {"date":"2026-08-22","opp":"Manchester United","ha":"H","comp":"Premier League","score":"2-0","status":"Sub","mins":19,"g":0,"a":0,"yc":1,"rc":0,"club":"Hull City","rating":6.1,"src":"https://www.fotmob.com/en-GB/matches/hull-city-vs-manchester-united/2yngir"}
   ],
   12: [
+    {"date":"2026-10-20","opp":"Liverpool","ha":"A","comp":"Champions League","score":"4-3","status":"Sub","g":1,"a":0,"rating":7.1,"src":"https://www.fotmob.com/en-GB/matches/liverpool-vs-villarreal/2xuaza#6106248"},
     {"date":"2026-10-17","opp":"Elche","ha":"H","comp":"LaLiga","score":"0-0","status":"Started","mins":66,"g":0,"a":0,"yc":0,"rc":0,"rating":6.5,"src":"https://www.fotmob.com/en-GB/matches/villarreal-vs-elche/3gsai9#5868100"},
     {"date":"2026-10-13","opp":"Napoli","ha":"H","comp":"Champions League","score":"3-1","status":"Sub","g":1,"a":0,"yc":0,"rc":0,"rating":7.3,"src":"https://www.fotmob.com/en-GB/matches/napoli-vs-villarreal/3c1he3#6106328"},
     {"date":"2026-10-10","opp":"Real Madrid","ha":"A","comp":"LaLiga","score":"1-0","status":"Unused"},
@@ -976,6 +958,7 @@ const GAMELOG = {
     {"date":"2026-02-21","opp":"New York Red Bulls","ha":"H","comp":"MLS","score":"1-2","status":"Started","mins":90,"yc":0,"rc":0,"sv":11,"ga":2,"rating":9.4,"src":"https://www.fotmob.com/en-GB/match/5070998"}
   ],
   17: [
+    {"date":"2026-10-20","opp":"Liverpool","ha":"A","comp":"Champions League","score":"4-3","status":"Started","mins":60,"g":0,"a":0,"rating":6.6,"src":"https://www.fotmob.com/en-GB/matches/liverpool-vs-villarreal/2xuaza#6106248"},
     {"date":"2026-10-17","opp":"Elche","ha":"H","comp":"LaLiga","score":"0-0","status":"Not in squad","mins":0},
     {"date":"2026-10-13","opp":"Napoli","ha":"H","comp":"Champions League","score":"3-1","status":"Not in squad","mins":0},
     {"date":"2026-10-10","opp":"Real Madrid","ha":"A","comp":"LaLiga","score":"1-0","status":"Not in squad","mins":0},
@@ -1092,6 +1075,7 @@ const GAMELOG = {
     {"date":"2026-08-23","opp":"Aston Villa","ha":"H","comp":"Premier League","score":"4-0","status":"Unused","mins":0,"g":0,"a":0,"yc":0,"rc":0}
   ],
   25: [
+    {"date":"2026-10-20","opp":"Liverpool","ha":"A","comp":"Champions League","score":"4-3","status":"Started","mins":46,"g":0,"a":0,"rating":6.9,"src":"https://www.fotmob.com/en-GB/matches/liverpool-vs-villarreal/2xuaza#6106248"},
     {"date":"2026-10-17","opp":"Elche","ha":"H","comp":"LaLiga","score":"0-0","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":6.2,"src":"https://www.fotmob.com/en-GB/matches/villarreal-vs-elche/3gsai9#5868100"},
     {"date":"2026-10-13","opp":"Napoli","ha":"H","comp":"Champions League","score":"3-1","status":"Started","mins":90,"g":0,"a":0,"yc":1,"rc":0,"rating":7.6,"src":"https://www.fotmob.com/en-GB/matches/napoli-vs-villarreal/3c1he3#6106328"},
     {"date":"2026-10-10","opp":"Real Madrid","ha":"A","comp":"LaLiga","score":"1-0","status":"Sub","g":0,"a":0,"rating":6.1,"src":"https://www.fotmob.com/en-GB/matches/real-madrid-vs-villarreal/2xnfqu#5868089"},
