@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-25",            // date of the most recent successful sync (ET)
+  last: "2026-10-26",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 23,                    // how many players changed in that sync
+  changed: 10,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-10-25",text:"Niko Sigur played all 90 minutes (6.6) and was booked as Toulouse drew 0-0 with Troyes, with Jacen Russell-Rowe (5.9) replaced in the 84th minute. Mathieu Choinière came on at half-time (7.1) as LAFC fought back from 2-0 down to draw 2-2 with LA Galaxy, Alphonso Davies came on in the 74th minute (6.2) in Bayern's 3-1 win at Freiburg, and Jamie Knight-Lebel replaced Martin Moormann in the 61st minute (6.5) as Motherwell lost 2-0 to Hearts. Promise David and Daniel Jebbison were not involved for Brighton and Bournemouth, while Alistair Johnston (Celtic) and Derek Cornelius (Marseille) stayed out injured."},
   {date:"2026-10-24",text:"Luc de Fougerolles was the standout, playing the full game (8.2) as Real Salt Lake beat St. Louis City 3-0, while Aribim Pepple scored a 74th-minute penalty (7.9) in Plymouth Argyle's 3-2 win at Cambridge United. Tajon Buchanan lasted 87 minutes (7.3) in Villarreal's 2-1 win at Valencia, Liam Millar was replaced in the 70th minute (6.7) in Birmingham's 1-0 loss at Cardiff, and Stephen Eustáquio played the full game (6.4) in Swansea's 5-0 defeat at QPR. Toronto FC lost 4-2 at Columbus with Jonathan Osorio (7.1) and Richie Laryea (5.9) both playing 90, Dayne St. Clair (7.5) conceded twice in Inter Miami's 2-0 loss at the Red Bulls, and Jeevan Badwal returned from injury as a half-time sub in Vancouver's 1-0 loss at Colorado. Cyle Larin and Jonathan David did not feature for Southampton and Atlético, and Ali Ahmed and Ismaël Koné were again out injured."},
   {date:"2026-10-23",text:"Theo Bair was the only Canadian to play, starting up front and scoring in the 45+2 minute (7.0) before making way at half-time in Bolton Wanderers' 5-1 home loss to Middlesbrough (Lankshear twice, Morris, Cozier-Duberry and a Brunt own goal). Jayden Nelson was not in the Bolton squad, and Alfie Jones (calf) was again out for Middlesbrough. Moïse Bombito (leg) stayed out of the Nice squad that won 2-1 at Brest, with Wahi and Diop scoring."},
   {date:"2026-10-22",text:"Promise David was the only Canadian to play on a Europa and Conference League night, coming on in the 68th minute (5.9) as Brighton drew 0-0 at Jablonec in the Conference League. Alistair Johnston (hamstring) was out of the Celtic squad for a 2-1 home loss to Celta Vigo in the Europa League, and Derek Cornelius (hip) missed Marseille's 1-0 defeat at Sturm Graz. Bournemouth beat 10-man Milan 3-0 in the Europa League, but Daniel Jebbison's involvement could not be confirmed."},
@@ -562,29 +563,29 @@ const DAILY = [
    la/ls = season league appearances/starts; r = FotMob season rating; st = "inj" | "new" | null. */
 const CLUB = {
   1: {team:"Inter Miami",lg:"MLS",la:25,ls:25,r:6.83,note:"St. Clair played all 90, rated 7.5, and conceded twice (a Casemiro own goal and a Forsberg stoppage-time goal) as Inter Miami lost 2-0 at the New York Red Bulls.",upd:"2026-10-25"},
-  2: {team:"Celtic",lg:"Scottish Premiership",la:2,ls:2,r:7.26,st:"inj",eta:"Oct",ret:"FotMob's Celtic injury list (Oct 11) has a hamstring problem with a mid-October 2026 return; he was not in the squad for the 2-0 win at Motherwell and Benfica (Oct 15) looks tight. Earlier: O'Neill had him eyed for the Oct 11 game. Hurt v Kilmarnock on Aug 9.",note:"Alistair Johnston (hamstring) was again out of the Celtic squad as they lost 2-1 at home to Celta Vigo in the Europa League on Oct 22.",upd:"2026-10-23"},
+  2: {team:"Celtic",lg:"Scottish Premiership",la:2,ls:2,r:7.26,st:"inj",eta:"Oct",ret:"FotMob's Celtic injury list (Oct 11) has a hamstring problem with a mid-October 2026 return; he was not in the squad for the 2-0 win at Motherwell and Benfica (Oct 15) looks tight. Earlier: O'Neill had him eyed for the Oct 11 game. Hurt v Kilmarnock on Aug 9.",note:"Alistair Johnston (hamstring) was again out of the Celtic squad as they won 2-1 at Hibernian on Oct 25.",upd:"2026-10-26"},
   3: {team:"Middlesbrough",lg:"Championship",la:5,ls:2,r:6.93,st:"inj",eta:"late Oct",ret:"FotMob's Middlesbrough injury list (Oct 10) has a calf injury, expected back late October 2026; he missed the Oct 10 win over Wolves too. Earlier: Kim Hellberg (the72.co.uk, Sept 15) targeted a return after the international break.",note:"Jones (calf) was again out of the Middlesbrough squad as they won 5-1 at Bolton on Oct 23.",upd:"2026-10-24"},
   4: {team:"Real Salt Lake",lg:"MLS",st:"new",note:"De Fougerolles played the full game, rated 8.2, as Real Salt Lake beat St. Louis City 3-0.",upd:"2026-10-25",la:4,ls:3,g:1,a:1,r:8.13},
   5: {team:"Portland Timbers",lg:"MLS",la:22,ls:17,r:6.83,st:"new",note:"Waterman played the full 90, rated 6.7, as Portland beat Charlotte 3-2.",upd:"2026-10-25"},
-  6: {team:"LAFC",lg:"MLS",la:30,ls:19,r:7.03,g:2,a:3,note:"Choinière came on in the 58th minute (6.3) as LAFC drew 1-1 at New York City FC.",upd:"2026-10-18"},
+  6: {team:"LAFC",lg:"MLS",la:31,ls:19,r:7.03,g:2,a:3,note:"Choinière came on at half-time and was rated 7.1 as LAFC drew 2-2 with LA Galaxy, scoring twice after going 2-0 down.",upd:"2026-10-26"},
   7: {team:"Swansea City",lg:"Championship",la:8,ls:5,r:7.23,a:1,note:"Eustáquio started and played the full game (6.4) as Swansea were beaten 5-0 at QPR.",upd:"2026-10-25"},
   8: {team:"Sassuolo",lg:"Serie A",st:"inj",eta:"Nov 2026",ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver.",note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 2-0 at Como on Oct 24.",upd:"2026-10-25"},
   9: {team:"Southampton",lg:"Championship",la:11,ls:10,r:7.3,g:8,note:"Larin started and was replaced in the 41st minute (5.9) as Southampton drew 0-0 with Bolton.",upd:"2026-10-18"},
   10: {team:"Atlético Madrid",lg:"LaLiga",st:"new",la:5,ls:4,g:3,a:2,r:7.8,note:"David started and was replaced by Lookman at half-time (6.2) as Atlético drew 1-1 at Stuttgart in the Champions League.",upd:"2026-10-21"},
   11: {team:"Birmingham City",lg:"Championship",la:8,ls:8,r:7.78,g:4,a:3,st:"new",note:"Millar started and came off in the 70th minute (6.7) as Birmingham lost 1-0 at Cardiff.",upd:"2026-10-25"},
   12: {team:"Villarreal",lg:"LaLiga",la:5,ls:1,r:6.2,note:"Oluwaseyi came on at half-time and scored in the 87th minute (7.1) in Villarreal's 4-3 Champions League loss at Liverpool.",upd:"2026-10-21"},
-  13: {team:"Marseille",lg:"Ligue 1",la:3,ls:0,r:6.06,st:"inj",eta:"2027",ret:"FotMob's Marseille injury list (Oct 18) now gives early January 2027 for the hip injury; Jesse Marsch said in late Sept he is unlikely to play again in 2026 (Yahoo Sports, TSN).",note:"Cornelius (hip) remains out; he was not in the squad for the 1-0 Europa League loss at Sturm Graz on Oct 22.",upd:"2026-10-23"},
-  14: {team:"LAFC",lg:"MLS",la:18,ls:9,r:6.65,a:3,note:"Shaffelburg started and came off in the 66th minute (6.4) as LAFC drew 1-1 at New York City FC.",upd:"2026-10-18"},
+  13: {team:"Marseille",lg:"Ligue 1",la:3,ls:0,r:6.06,st:"inj",eta:"2027",ret:"FotMob's Marseille injury list (Oct 18) now gives early January 2027 for the hip injury; Jesse Marsch said in late Sept he is unlikely to play again in 2026 (Yahoo Sports, TSN).",note:"Cornelius (hip) remains out; he was not in the squad for the 4-3 win over Le Havre on Oct 25.",upd:"2026-10-26"},
+  14: {team:"LAFC",lg:"MLS",la:18,ls:9,r:6.65,a:3,note:"Shaffelburg was not in the LAFC matchday squad as they drew 2-2 with LA Galaxy.",upd:"2026-10-26"},
   15: {team:"Nice",lg:"Ligue 1",st:"inj",eta:"Nov",ret:"FotMob's Nice injury list (Oct 18) has a leg injury with an early-November 2026 return. Second surgery on the left tibia was announced Aug 26 after playing through pain at the World Cup.",note:"Moïse Bombito (leg) was again not in the Nice squad as they won 2-1 at Brest on Oct 23.",upd:"2026-10-24"},
   16: {team:"Orlando City",lg:"MLS",la:30,ls:30,r:6.81,note:"Crépeau played all 90, rated 7.6, and conceded twice as Orlando City drew 2-2 with New York City FC.",upd:"2026-10-25"},
   17: {team:"Villarreal",lg:"LaLiga",la:8,ls:5,r:6.91,a:1,note:"Buchanan started and came off in the 87th minute (7.3) as Villarreal won 2-1 at Valencia.",upd:"2026-10-25"},
   18: {team:"Dundee",lg:"Scottish Premiership",la:9,ls:9,r:7.18,note:"Goodman played all 90, rated 5.8, and conceded twice as Dundee lost 2-1 at St. Mirren.",upd:"2026-10-25"},
-  19: {team:"Bayern Munich",lg:"Bundesliga",la:5,ls:4,r:8.02,a:2,note:"Davies scored in the 35th minute and played 85 (8.0) as Bayern drew 2-2 with Arsenal in the Champions League.",upd:"2026-10-22"},
+  19: {team:"Bayern Munich",lg:"Bundesliga",la:6,ls:4,r:8.02,a:2,note:"Davies came on in the 74th minute (6.2) as Bayern won 3-1 at Freiburg.",upd:"2026-10-26"},
   20: {team:"Norwich City",lg:"Championship",st:"inj",eta:"2027",ret:"Likely out for most or all of 2026-27 — Norwich confirmed a right ACL rupture from the Aug 1 Osasuna friendly, followed by surgery; no return date given, and ACL recoveries usually run nine months or more.",note:"Ali Ahmed (torn ACL) was not in the Norwich squad as they won 3-1 at Charlton.",upd:"2026-10-25"},
   21: {team:"Toronto FC",lg:"MLS",la:22,ls:21,r:6.87,a:4,note:"Osorio played all 90, rated 7.1, as Toronto FC lost 4-2 at Columbus.",upd:"2026-10-25"},
   22: {team:"Toronto FC",lg:"MLS",la:24,ls:24,r:6.86,note:"Laryea played all 90, rated 5.9, as Toronto FC lost 4-2 at Columbus.",upd:"2026-10-25"},
-  23: {team:"Toulouse",lg:"Ligue 1",st:"new",la:4,ls:2,note:"Sigur played all 90, rated 7.4, as Toulouse won 3-0 at Le Mans.",upd:"2026-10-17"},
-  24: {team:"Brighton",lg:"Premier League",la:2,ls:0,r:5.86,note:"Promise David came off the bench in the 68th minute (5.9) in Brighton's 0-0 Conference League draw at Jablonec on Oct 22.",upd:"2026-10-23"},
+  23: {team:"Toulouse",lg:"Ligue 1",st:"new",la:5,ls:3,note:"Sigur played all 90 (6.6) and was booked in Toulouse's 0-0 draw with Troyes.",upd:"2026-10-26"},
+  24: {team:"Brighton",lg:"Premier League",la:2,ls:0,r:5.86,note:"Promise David was an unused substitute as Brighton lost 2-0 at Liverpool on Oct 25.",upd:"2026-10-26"},
   25: {team:"Villarreal",lg:"LaLiga",la:6,ls:3,r:6.87,note:"Saliba started and was replaced at half-time (6.9) in Villarreal's 4-3 Champions League loss at Liverpool.",upd:"2026-10-21"},
   26: {team:"Bolton Wanderers",lg:"Championship",la:6,ls:0,r:6.4,note:"Nelson was not in the Bolton squad for their 5-1 home loss to Middlesbrough on Oct 23.",upd:"2026-10-24"}
 };
@@ -616,10 +617,6 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-22",et:"12:45",home:"Sturm Graz",away:"Marseille",comp:"Europa League",score:"1-0",note:"Derek Cornelius (hip) was again out of the Marseille squad as they lost 1-0 at Sturm Graz (Diakité, 13')."},
-  {date:"2026-10-22",et:"12:45",home:"Jablonec",away:"Brighton",comp:"Conference League",score:"0-0",note:"Promise David came on in the 68th minute (5.9) as Brighton held Jablonec to a 0-0 draw."},
-  {date:"2026-10-22",et:"15:00",home:"Bournemouth",away:"Milan",comp:"Europa League",score:"3-0",note:"Bournemouth beat 10-man Milan 3-0 (Kluivert pen, Tavernier pen, Adli o.g.); Daniel Jebbison was not in the lineup FotMob lists and his involvement could not be confirmed."},
-  {date:"2026-10-22",et:"15:00",home:"Celtic",away:"Celta Vigo",comp:"Europa League",score:"1-2",note:"Alistair Johnston (hamstring) was not in the Celtic squad as they lost 1-2 at home to Celta Vigo (Baur; Rodríguez twice)."},
   {date:"2026-10-23",et:"14:45",home:"Brest",away:"Nice",comp:"Ligue 1",score:"1-2",note:"Moïse Bombito (leg) was again out of the Nice squad as they won 2-1 at Brest (Ajorque; Wahi, Diop)."},
   {date:"2026-10-23",et:"15:00",home:"Bolton Wanderers",away:"Middlesbrough",comp:"Championship",score:"1-5",note:"Theo Bair started, scored in first-half stoppage time and came off at half-time (7.0) as Bolton lost 5-1 at home; Jayden Nelson was not in the squad and Alfie Jones (calf) was again out for Middlesbrough."},
   {date:"2026-10-24",et:"07:30",home:"Charlton Athletic",away:"Norwich City",comp:"Championship",score:"1-3",note:"Ali Ahmed (torn ACL) was not in the Norwich squad as they won 3-1 at Charlton."},
@@ -640,14 +637,14 @@ const MATCHES = [
   {date:"2026-10-24",et:"21:30",home:"Real Salt Lake",away:"St. Louis City",comp:"MLS",score:"3-0",note:"Luc de Fougerolles played the full game, rated 8.2, as Real Salt Lake beat St. Louis City 3-0."},
   {date:"2026-10-24",et:"22:30",home:"Portland Timbers",away:"Charlotte FC",comp:"MLS",score:"3-2",note:"Joel Waterman (6.7), Kamal Miller (7.1) and keeper James Pantemis (6.1, two conceded) all played the full game as Portland won 3-2."},
   {date:"2026-10-24",et:"23:00",home:"Pumas",away:"Tigres",comp:"Liga MX",score:"1-1",note:"Marcelo Flores (ACL) remained out as Tigres drew 1-1 at Pumas."},
-  {date:"2026-10-25",et:"08:00",home:"Hibernian",away:"Celtic",comp:"Scottish Premiership",score:null},
-  {date:"2026-10-25",et:"10:00",home:"Manchester United",away:"Bournemouth",comp:"Premier League",score:null},
-  {date:"2026-10-25",et:"10:00",home:"Liverpool",away:"Brighton",comp:"Premier League",score:null},
-  {date:"2026-10-25",et:"10:00",home:"Motherwell",away:"Hearts",comp:"Scottish Premiership",score:null},
-  {date:"2026-10-25",et:"12:15",home:"Toulouse",away:"Troyes",comp:"Ligue 1",score:null},
-  {date:"2026-10-25",et:"12:15",home:"Marseille",away:"Le Havre",comp:"Ligue 1",score:null},
-  {date:"2026-10-25",et:"12:30",home:"Freiburg",away:"Bayern Munich",comp:"Bundesliga",score:null},
-  {date:"2026-10-25",et:"21:00",home:"LAFC",away:"LA Galaxy",comp:"MLS",score:null},
+  {date:"2026-10-25",et:"08:00",home:"Hibernian",away:"Celtic",comp:"Scottish Premiership",score:"1-2",note:"Alistair Johnston (hamstring) was again out of the Celtic squad as they won 2-1 at Hibernian."},
+  {date:"2026-10-25",et:"10:00",home:"Manchester United",away:"Bournemouth",comp:"Premier League",score:"0-3",note:"Bournemouth won 3-0 at Old Trafford (Rayan, Tavernier, Evanilson); Daniel Jebbison was not in the squad."},
+  {date:"2026-10-25",et:"10:00",home:"Liverpool",away:"Brighton",comp:"Premier League",score:"2-0",note:"Promise David was an unused substitute as Brighton lost 2-0 at Liverpool (Groß own goal, Isak)."},
+  {date:"2026-10-25",et:"10:00",home:"Motherwell",away:"Hearts",comp:"Scottish Premiership",score:"0-2",note:"Jamie Knight-Lebel came on in the 61st minute (6.5) as Motherwell lost 2-0 at home to Hearts."},
+  {date:"2026-10-25",et:"12:15",home:"Toulouse",away:"Troyes",comp:"Ligue 1",score:"0-0",note:"Niko Sigur played all 90 (6.6) and was booked, and Jacen Russell-Rowe came off in the 84th minute (5.9) in a 0-0 draw."},
+  {date:"2026-10-25",et:"12:15",home:"Marseille",away:"Le Havre",comp:"Ligue 1",score:"4-3",note:"Derek Cornelius (hip) remains out as Marseille beat Le Havre 4-3."},
+  {date:"2026-10-25",et:"12:30",home:"Freiburg",away:"Bayern Munich",comp:"Bundesliga",score:"1-3",note:"Alphonso Davies came on in the 74th minute (6.2) as Bayern won 3-1 at Freiburg (Upamecano, Gnabry, Olise)."},
+  {date:"2026-10-25",et:"21:00",home:"LAFC",away:"LA Galaxy",comp:"MLS",score:"2-2",note:"Mathieu Choinière came on at half-time (7.1) as LAFC came from 2-0 down to draw 2-2 with LA Galaxy; Jacob Shaffelburg was not in the squad."},
   {date:"2026-10-27",et:"13:30",home:"Sassuolo",away:"Lazio",comp:"Serie A",score:null},
   {date:"2026-10-27",et:"16:00",home:"CD Manacor",away:"Villarreal",comp:"Copa del Rey",score:null},
   {date:"2026-10-28",et:"15:30",home:"Manchester City",away:"Brighton",comp:"EFL Cup",score:null},
@@ -702,13 +699,13 @@ const BUBBLE = [
   {name:"Zorhan Bassong",pos:"D",team:"Sporting KC",lg:"MLS",la:19,ls:14,r:6.48,note:"Bassong started and came off in the 73rd minute (6.5) as Sporting KC lost 2-1 at home to Austin FC.",upd:"2026-10-25"},
   {name:"Sam Adekugbe",pos:"D",team:"Vancouver Whitecaps",lg:"MLS",la:7,ls:0,r:6.48,note:"Adekugbe (hamstring) was out of the Vancouver squad for the 1-0 loss at Colorado.",upd:"2026-10-25",st:"inj",eta:"Nov",ret:"FotMob's Vancouver injury list (Oct 10) has a hamstring injury with an early-November 2026 return."},
   {name:"Ralph Priso",pos:"D",team:"Vancouver Whitecaps",lg:"MLS",la:15,ls:11,r:7.12,g:1,note:"Priso started and came off in the 87th minute (6.6) as Vancouver lost 1-0 at Colorado.",upd:"2026-10-25"},
-  {name:"Jamie Knight-Lebel",pos:"D",team:"Motherwell",lg:"Scottish Premiership",la:4,ls:3,r:6.9,note:"Knight-Lebel was not among the Motherwell players listed as Motherwell lost 3-2 at Kilmarnock.",upd:"2026-10-18"},
+  {name:"Jamie Knight-Lebel",pos:"D",team:"Motherwell",lg:"Scottish Premiership",la:5,ls:3,r:6.9,note:"Knight-Lebel came on in the 61st minute (6.5) as Motherwell lost 2-0 at home to Hearts.",upd:"2026-10-26"},
   {name:"Kamal Miller",pos:"D",team:"Portland Timbers",lg:"MLS",la:26,ls:22,r:6.65,a:1,note:"Miller played the full 90, rated 7.1, as Portland beat Charlotte 3-2.",upd:"2026-10-25"},
   {name:"Jahkeele Marshall-Rutty",pos:"D",team:"New York Red Bulls",lg:"MLS",la:27,ls:15,r:6.59,note:"Marshall-Rutty came off the bench in the 85th minute as the New York Red Bulls beat Inter Miami 2-0.",upd:"2026-10-25"},
   {name:"Marcelo Flores",pos:"F",team:"Tigres",lg:"Liga MX",st:"inj",eta:"2027",ret:"Likely spring 2027 at the earliest — tore his ACL at the end of May, which cost him the World Cup.",note:"Flores (ACL) was out as Tigres drew 1-1 at Pumas.",upd:"2026-10-25"},
   {name:"Junior Hoilett",pos:"F",team:"Without a club",lg:"",note:"Still unattached."},
-  {name:"Jacen Russell-Rowe",pos:"F",team:"Toulouse",lg:"Ligue 1",la:7,ls:6,r:6.63,g:2,note:"Russell-Rowe scored in the 46th minute, rated 8.0, and came off in the 76th as Toulouse won 3-0 at Le Mans; Sigur played all 90.",upd:"2026-10-17"},
-  {name:"Daniel Jebbison",pos:"F",team:"Bournemouth",lg:"Premier League",la:3,ls:0,r:6.31,note:"Jebbison was not among the players who featured as Bournemouth beat Sunderland 2-0 on Oct 18.",upd:"2026-10-19"},
+  {name:"Jacen Russell-Rowe",pos:"F",team:"Toulouse",lg:"Ligue 1",la:8,ls:7,r:6.63,g:2,note:"Russell-Rowe started and came off in the 84th minute (5.9) in Toulouse's 0-0 draw with Troyes.",upd:"2026-10-26"},
+  {name:"Daniel Jebbison",pos:"F",team:"Bournemouth",lg:"Premier League",la:3,ls:0,r:6.31,note:"Jebbison was not in the squad as Bournemouth won 3-0 at Manchester United on Oct 25.",upd:"2026-10-26"},
   {name:"Theo Bair",pos:"F",team:"Bolton Wanderers",lg:"Championship",la:7,ls:2,r:6.41,st:"new",a:1,note:"Bair started, scored in first-half stoppage time and was replaced at half-time (7.0) as Bolton lost 5-1 at home to Middlesbrough.",upd:"2026-10-24",g:2},
   {name:"Aribim Pepple",pos:"F",team:"Plymouth Argyle",lg:"League One",la:11,ls:10,r:6.57,g:4,note:"Pepple scored a 74th-minute penalty and played 90 minutes, rated 7.9, as Plymouth won 3-2 at Cambridge United.",upd:"2026-10-25"},
   {name:"Jeevan Badwal",pos:"M",team:"Vancouver Whitecaps",lg:"MLS",la:22,ls:16,r:6.97,g:1,a:2,note:"Badwal is back from his hamstring injury: he came on at half-time (6.1) as Vancouver lost 1-0 at Colorado.",upd:"2026-10-25"},
@@ -757,6 +754,7 @@ const GAMELOG = {
     {"date":"2026-02-21","opp":"LAFC","ha":"A","comp":"MLS","score":"3-0","status":"Started","mins":90,"yc":0,"rc":0,"sv":2,"ga":3,"rating":4.6,"src":"https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-inter-miami-cf/lbjvj8kg#5070996"}
   ],
   2: [
+    {"date":"2026-10-25","opp":"Hibernian","ha":"A","comp":"Scottish Premiership","score":"1-2","status":"Not in squad","mins":0},
     {"date":"2026-10-22","opp":"Celta Vigo","ha":"H","comp":"Europa League","score":"1-2","status":"Not in squad","mins":0},
     {"date":"2026-10-18","opp":"Hearts","ha":"H","comp":"Scottish Premiership","score":"7-1","status":"Not in squad","mins":0},
     {"date":"2026-10-15","opp":"Benfica","ha":"A","comp":"Europa League","score":"4-1","status":"Not in squad","mins":0},
@@ -826,6 +824,7 @@ const GAMELOG = {
     {"date":"2026-02-21","opp":"Houston Dynamo","ha":"A","comp":"MLS","score":"2-1","status":"Started","mins":90,"g":0,"a":0,"yc":1,"rc":0,"rating":6.5,"src":"https://www.fotmob.com/en-GB/matches/chicago-fire-fc-vs-houston-dynamo-fc/1ry9r7#5070995","club":"Chicago Fire"}
   ],
   6: [
+    {"date":"2026-10-25","opp":"LA Galaxy","ha":"H","comp":"MLS","score":"2-2","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":7.1,"src":"https://www.fotmob.com/en-GB/matches/la-galaxy-vs-los-angeles-fc/4vfdm25v#5071455"},
     {"date":"2026-10-17","opp":"New York City FC","ha":"A","comp":"MLS","score":"1-1","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":6.3,"src":"https://www.fotmob.com/en-GB/matches/new-york-city-fc-vs-los-angeles-fc/cqxxlvy1#5071429"},
 {date:"2026-10-14",opp:"Austin FC",ha:"H",comp:"MLS",score:"3-1",status:"Sub",g:0,a:0,yc:0,rc:0,rating:6.1,src:"https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-austin-fc/rrntq1xp#5071421"},    {"date":"2026-10-10","opp":"Vancouver Whitecaps","ha":"A","comp":"MLS","score":"1-1","status":"Started","mins":46,"g":0,"a":0,"yc":1,"rc":0,"rating":6.5,"src":"https://www.fotmob.com/en-GB/matches/vancouver-whitecaps-vs-los-angeles-fc/8t3ytgca#5071408"},
     {"date":"2026-09-26","opp":"FC Dallas","ha":"A","comp":"MLS","score":"1-0","status":"Not in squad","mins":0},
@@ -929,6 +928,7 @@ const GAMELOG = {
     {"date":"2026-08-16","opp":"Racing Santander","ha":"A","comp":"LaLiga","score":"2-2","status":"Unused","mins":0,"g":0,"a":0,"yc":0,"rc":0}
   ],
   13: [
+    {"date":"2026-10-25","opp":"Le Havre","ha":"H","comp":"Ligue 1","score":"4-3","status":"Not in squad","mins":0},
     {"date":"2026-10-22","opp":"Sturm Graz","ha":"A","comp":"Europa League","score":"1-0","status":"Not in squad","mins":0},
     {"date":"2026-10-18","opp":"Angers","ha":"A","comp":"Ligue 1","score":"2-5","status":"Not in squad","mins":0},
     {"date":"2026-10-15","opp":"Olympiacos","ha":"H","comp":"Europa League","score":"0-1","status":"Not in squad","mins":0},
@@ -941,6 +941,7 @@ const GAMELOG = {
     {"date":"2026-08-21","opp":"Strasbourg","ha":"H","comp":"Ligue 1","score":"4-0","status":"Sub","mins":7,"g":0,"a":0,"yc":0,"rc":0,"rs":"unrated"}
   ],
   14: [
+    {"date":"2026-10-25","opp":"LA Galaxy","ha":"H","comp":"MLS","score":"2-2","status":"Not in squad","mins":0},
     {"date":"2026-10-17","opp":"New York City FC","ha":"A","comp":"MLS","score":"1-1","status":"Started","mins":66,"g":0,"a":0,"yc":0,"rc":0,"rating":6.4,"src":"https://www.fotmob.com/en-GB/matches/new-york-city-fc-vs-los-angeles-fc/cqxxlvy1#5071429"},
 {date:"2026-10-14",opp:"Austin FC",ha:"H",comp:"MLS",score:"3-1",status:"Sub",g:0,a:0,yc:0,rc:0,rating:7.4,src:"https://www.fotmob.com/en-GB/matches/los-angeles-fc-vs-austin-fc/rrntq1xp#5071421"},    {"date":"2026-10-10","opp":"Vancouver Whitecaps","ha":"A","comp":"MLS","score":"1-1","status":"Started","mins":63,"g":0,"a":0,"yc":0,"rc":0,"rating":6.7,"src":"https://www.fotmob.com/en-GB/matches/vancouver-whitecaps-vs-los-angeles-fc/8t3ytgca#5071408"},
     {"date":"2026-09-26","opp":"FC Dallas","ha":"A","comp":"MLS","score":"1-0","status":"Not in squad","mins":0},
@@ -1029,6 +1030,7 @@ const GAMELOG = {
     {"date":"2026-08-03","opp":"Celtic","ha":"A","comp":"Premiership","score":"1-0","status":"Started","mins":90,"yc":0,"rc":0,"rating":7,"ga":1}
   ],
   19: [
+    {"date":"2026-10-25","opp":"Freiburg","ha":"A","comp":"Bundesliga","score":"1-3","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":6.2,"src":"https://www.fotmob.com/en-GB/matches/freiburg-vs-bayern-munchen/2qet4e#5881200"},
     {date:"2026-10-21",opp:"Arsenal",ha:"H",comp:"Champions League",score:"2-2",status:"Started",mins:85,g:1,a:0,rating:8.0,src:"https://www.fotmob.com/en-GB/matches/bayern-munchen-vs-arsenal/36xjup#6106238"},
     {"date":"2026-10-17","opp":"RB Leipzig","ha":"H","comp":"Bundesliga","score":"6-1","status":"Not in squad","mins":0},
     {"date":"2026-10-13","opp":"Viking","ha":"A","comp":"Champions League","score":"3-3","status":"Sub","g":0,"a":0,"yc":0,"rc":0,"rating":6.9,"src":"https://www.fotmob.com/en-GB/matches/viking-vs-bayern-munchen/2rpq5e#6106417"},
@@ -1104,6 +1106,7 @@ const GAMELOG = {
     {"date":"2026-02-21","opp":"FC Dallas","ha":"A","comp":"MLS","score":"3-2","status":"Started","g":0,"a":0,"yc":0,"rc":0,"rating":6,"src":"https://www.fotmob.com/en-GB/matches/fc-dallas-vs-toronto-fc/wnzx6x#5070993"}
   ],
   23: [
+    {"date":"2026-10-25","opp":"Troyes","ha":"H","comp":"Ligue 1","score":"0-0","status":"Started","mins":90,"g":0,"a":0,"yc":1,"rc":0,"rating":6.6,"src":"https://www.fotmob.com/en-GB/matches/toulouse-vs-troyes/3d9xft#5802971"},
     {"date":"2026-10-16","opp":"Le Mans","ha":"A","comp":"Ligue 1","score":"0-3","status":"Started","mins":90,"g":0,"a":0,"rating":7.4,"src":"https://www.fotmob.com/en-GB/matches/le-mans-vs-toulouse/2v95dh#5802957"},
     {"date":"2026-10-10","opp":"Monaco","ha":"A","comp":"Ligue 1","score":"2-2","status":"Sub","g":0,"a":0,"rating":6.4,"src":"https://www.fotmob.com/en-GB/matches/monaco-vs-toulouse/38d3b8#5802950"},
     {"date":"2026-09-19","opp":"Le Havre","ha":"H","comp":"Ligue 1","score":"3-2","status":"Started","mins":90,"g":0,"a":0,"yc":0,"rc":0,"rating":7.6,"src":"https://www.fotmob.com/en-GB/matches/le-havre-vs-toulouse/37dzsx#5802944"},
@@ -1113,6 +1116,7 @@ const GAMELOG = {
     {"date":"2026-08-09","opp":"NK Istra 1961","ha":"H","comp":"HNL","score":"2-2","status":"Started","mins":80,"g":0,"a":0,"yc":0,"rc":0,"rating":7.4,"club":"Hajduk Split"}
   ],
   24: [
+    {"date":"2026-10-25","opp":"Liverpool","ha":"A","comp":"Premier League","score":"2-0","status":"Unused","mins":0},
     {"date":"2026-10-22","opp":"Jablonec","ha":"A","comp":"Conference League","score":"0-0","status":"Sub","mins":22,"rating":5.9,"src":"https://www.fotmob.com/en-GB/matches/jablonec-vs-brighton-hove-albion/2o1xp1#6112526"},
     {"date":"2026-10-18","opp":"Crystal Palace","ha":"H","comp":"Premier League","score":"5-0","status":"Unused","mins":0},
     {"date":"2026-10-15","opp":"Kauno Žalgiris","ha":"H","comp":"Conference League","score":"4-0","status":"Sub","mins":33,"rating":6.7,"src":"https://www.fotmob.com/en-GB/matches/brighton-hove-albion-vs-fk-kauno-zalgiris/1adk9iqg#6112422"},
