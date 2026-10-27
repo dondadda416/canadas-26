@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-10-26",            // date of the most recent successful sync (ET)
+  last: "2026-10-27",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 10,                    // how many players changed in that sync
+  changed: 0,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -556,7 +556,6 @@ const DAILY = [
   {date:"2026-10-06",text:"Aribim Pepple was the day's standout, coming off the bench to score in the 75th minute (7.0) as Plymouth Argyle drew 2-2 at Newport County in the EFL Trophy and went through 5-4 on penalties. Sam Adekugbe came on in the 73rd minute for a 6.6 rating as Vancouver Whitecaps lost 3-1 at Chicago Fire, with Jeevan Badwal still out injured and Ralph Priso away with Canada, who lost 1-0 to the USA in St. Paul."},
   {date:"2026-10-03",text:"Jacob Shaffelburg was the day's standout, scoring twice (19' and 35') as Canada beat Peru 2-0 at Stade Saputo in Montréal, with Liam Millar providing the crosses for both goals and Daniel Jebbison flicking on the first. In League One, bubble forward Aribim Pepple scored in the 52nd minute as Plymouth Argyle won 2-0 at Leyton Orient. Most club football was paused for the international break."},
   {date:"2026-10-01",text:"Zorhan Bassong was the only Canadian in action, coming off the bench in the 76th minute for a 6.4 rating as Sporting KC lost 2-1 at Seattle Sounders, who scored twice after Luiz had put Kansas City ahead."},
-  {date:"2026-09-30",text:"A one-match midweek night with a Canadian tie: bubble defender Jahkeele Marshall-Rutty was not in the New York Red Bulls squad as they lost 0-3 at home to St. Louis City (Navarro, 5', Becher, 88', and Ostrák, 90+1'). No other Canadians were involved."},
 ];
 
 /* Club form, week of Sept 1-7 (r/CanadaSoccer weekly summary; ratings via FotMob).
@@ -687,7 +686,8 @@ const MATCHES = [
   {date:"2026-11-01",et:"16:30",home:"Vancouver Whitecaps",away:"Seattle Sounders",comp:"MLS",score:null},
   {date:"2026-11-01",et:"19:00",home:"New England Revolution",away:"Inter Miami",comp:"MLS",score:null},
   {date:"2026-11-01",et:"20:30",home:"LAFC",away:"Minnesota United",comp:"MLS",score:null},
-  {date:"2026-11-01",et:"21:30",home:"Portland Timbers",away:"Houston Dynamo",comp:"MLS",score:null}
+  {date:"2026-11-01",et:"21:30",home:"Portland Timbers",away:"Houston Dynamo",comp:"MLS",score:null},
+  {date:"2026-11-02",et:"12:30",home:"Sassuolo",away:"Fiorentina",comp:"Serie A",score:null}
 ];
 
 /* On the bubble: Canadians outside the 26 tracked in the same weekly post. */
