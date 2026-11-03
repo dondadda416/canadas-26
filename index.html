@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-11-02",            // date of the most recent successful sync (ET)
+  last: "2026-11-03",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 14,                    // how many players changed in that sync
+  changed: 1,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-11-02",text:"No Canadian played on Monday. Ismaël Koné (leg injury) was again out of the Sassuolo squad as they lost 4-2 at home to Fiorentina."},
   {date:"2026-11-01",text:"Luka Gavran was rated 7.5, the best of the Canadians, in goal for Toronto FC, but they lost 3-1 at Atlanta United; Richie Laryea (6.7) and Jonathan Osorio (6.5) also played all 90. Joel Waterman played all 90 (7.4) and James Pantemis (6.0) was in goal as Portland won 3-1 at Houston, Dayne St. Clair (6.9) helped Inter Miami win 2-1 at New England, and Ralph Priso came on in the 74th minute (6.0) in Vancouver's 5-1 win over Seattle. Mathieu Choinière (6.5, off in the 82nd) and Jacob Shaffelburg (6.3, on in the 74th) were in LAFC's 3-1 home loss to Minnesota, Niko Sigur (6.3) and Jacen Russell-Rowe (7.0, off in the 57th) started in Toulouse's 2-0 loss at Marseille, and Jahkeele Marshall-Rutty played all 90 (6.3) as the Red Bulls lost 3-2 at Nashville. Alistair Johnston (hamstring) was out of Celtic's 2-0 loss at Falkirk and Derek Cornelius (hip) missed Marseille's win."},
   {date:"2026-10-31",text:"Stephen Eustáquio was the standout, scoring in the 11th minute and rating 8.3 before coming off in the 72nd as Swansea City won 4-0 at Blackburn. Liam Millar played all 90 (7.6) in Birmingham City's 3-1 win at Lincoln City, Jonathan David came on in the 67th minute (6.4) as Atlético Madrid won 2-0 at Levante, and Alphonso Davies played all 90 (6.9) in Bayern Munich's 2-2 draw with Dortmund. Luc de Fougerolles (6.9) played all 90 in Real Salt Lake's 2-1 loss at San Jose, Maxime Crépeau (6.3) conceded four in Orlando City's 4-0 defeat at Charlotte, and Aribim Pepple started in Plymouth's 0-0 draw with Reading (5.7). Alfie Jones (calf) and Ali Ahmed (ACL) were again out, and Promise David, Cyle Larin and Jayden Nelson did not feature."},
   {date:"2026-10-30",text:"Tajon Buchanan started and was replaced in the 80th minute (5.8), with Tani Oluwaseyi coming on for the final ten minutes (5.8), as Villarreal lost 1-0 at home to Espanyol, who scored through Leandro Cabrera in the 60th minute. Nathan Saliba (muscle) was again out of the squad. It was the only match involving a Canadian club on the day."},
@@ -568,7 +569,7 @@ const CLUB = {
   5: {"team":"Portland Timbers","lg":"MLS","la":24,"ls":19,"r":6.83,"st":"new","note":"Waterman played the full 90, rated 7.4, as Portland won 3-1 at Houston.","upd":"2026-11-02"},
   6: {"team":"LAFC","lg":"MLS","la":32,"ls":20,"r":7.03,"g":2,"a":3,"note":"Choinière started and came off in the 82nd minute (6.5) as LAFC lost 3-1 at home to Minnesota United.","upd":"2026-11-02"},
   7: {team:"Swansea City",lg:"Championship",la:9,ls:6,r:7.23,g:1,a:1,note:"Eustáquio scored in the 11th minute (8.3) and came off in the 72nd as Swansea won 4-0 at Blackburn.",upd:"2026-11-01"},
-  8: {team:"Sassuolo",lg:"Serie A",st:"inj",eta:"Nov 2026",ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver. FotMob's Sassuolo injury list (Oct 28) shows early November 2026.",note:"Ismaël Koné (leg injury) was not in the Sassuolo squad as they lost 6-2 at home to Lazio on Oct 27.",upd:"2026-10-28"},
+  8: {team:"Sassuolo",lg:"Serie A",st:"inj",eta:"Nov 2026",ret:"A November 2026 return looks possible, but Italian outlets (sassuolonews.net, fantacalcio.it) caution it could slip to December or even into 2027 if the recovery isn't smooth. Broke his leg v Qatar at the World Cup (June 18) and had surgery in Vancouver. FotMob's Sassuolo injury list (Oct 28) shows early November 2026; on Nov 2 it still listed him as doubtful.",note:"Ismaël Koné (leg injury) was again not in the Sassuolo squad as they lost 4-2 at home to Fiorentina on Nov 2.",upd:"2026-11-03"},
   9: {team:"Southampton",lg:"Championship",la:11,ls:10,r:7.3,g:8,note:"Larin did not feature as Southampton beat QPR 4-1 on Oct 31.",upd:"2026-11-01"},
   10: {team:"Atlético Madrid",lg:"LaLiga",st:"new",la:6,ls:4,g:3,a:2,r:7.8,note:"David came on in the 67th minute (6.4) as Atlético won 2-0 at Levante.",upd:"2026-11-01"},
   11: {team:"Birmingham City",lg:"Championship",la:9,ls:9,r:7.78,g:4,a:3,st:"new",note:"Millar played all 90 (7.6) as Birmingham won 3-1 at Lincoln City.",upd:"2026-11-01"},
@@ -616,8 +617,6 @@ const NEXT_MATCHES = [
    note = what the Canadians did in it (filled in after the match). Clubs are matched to players by
    CLUB.team / BUBBLE.team, so spell them the same way. Maintained daily by the updater. */
 const MATCHES = [
-  {date:"2026-10-30",et:"14:00",home:"Nice",away:"Rennes",comp:"Ligue 1",score:"5-2",note:"Nice beat Rennes 5-2; Moïse Bombito (leg) was not in the squad."},
-  {date:"2026-10-30",et:"16:00",home:"Villarreal",away:"Espanyol",comp:"LaLiga",score:"0-1",note:"Tajon Buchanan started and came off in the 80th minute (5.8), replaced by Tani Oluwaseyi (5.8) for the last ten minutes, as Villarreal lost 1-0 at home to Espanyol; Nathan Saliba (muscle) was out."},
   {date:"2026-10-31",et:"08:30",home:"Lincoln City",away:"Birmingham City",comp:"Championship",score:"1-3",note:"Liam Millar played all 90 (7.6) as Birmingham won 3-1 at Lincoln City; Priske scored twice."},
   {date:"2026-10-31",et:"08:30",home:"Norwich City",away:"Watford",comp:"Championship",score:"3-2",note:"Norwich beat Watford 3-2; Ali Ahmed (torn ACL) remains out."},
   {date:"2026-10-31",et:"08:30",home:"Plymouth Argyle",away:"Reading",comp:"League One",score:"0-0",note:"Aribim Pepple started (5.7) as Plymouth drew 0-0 with Reading."},
@@ -642,7 +641,7 @@ const MATCHES = [
   {date:"2026-11-01",et:"19:00",home:"New England Revolution",away:"Inter Miami",comp:"MLS",score:"1-2",note:"Dayne St. Clair played all 90 (6.9) and conceded once as Inter Miami won 2-1 at New England."},
   {date:"2026-11-01",et:"20:30",home:"LAFC",away:"Minnesota United",comp:"MLS",score:"1-3",note:"Mathieu Choinière was replaced in the 82nd minute (6.5) and Jacob Shaffelburg came on in the 74th (6.3) as LAFC lost 3-1 at home."},
   {date:"2026-11-01",et:"21:45",home:"Portland Timbers",away:"Houston Dynamo",comp:"MLS",score:"3-1",note:"Joel Waterman (7.4) and James Pantemis (6.0) played all 90 as Portland won 3-1."},
-  {date:"2026-11-02",et:"12:30",home:"Sassuolo",away:"Fiorentina",comp:"Serie A",score:null},
+  {date:"2026-11-02",et:"12:30",home:"Sassuolo",away:"Fiorentina",comp:"Serie A",score:"2-4",note:"Sassuolo lost 2-4 at home to Fiorentina; Ismaël Koné (leg injury) was not in the squad."},
   {date:"2026-11-03",et:"14:45",home:"Derby County",away:"Norwich City",comp:"Championship",score:null},
   {date:"2026-11-03",et:"14:45",home:"Charlton Athletic",away:"Bolton Wanderers",comp:"Championship",score:null},
   {date:"2026-11-03",et:"14:45",home:"Portsmouth",away:"Swansea City",comp:"Championship",score:null},
@@ -872,6 +871,7 @@ const GAMELOG = {
     {"date":"2026-08-29","opp":"Derby County","ha":"A","comp":"Championship","score":"0-3","status":"Sub","mins":25,"g":0,"a":1,"yc":0,"rc":0,"rating":7.7}
   ],
   8: [
+    {"date":"2026-11-02","opp":"Fiorentina","ha":"H","comp":"Serie A","score":"2-4","status":"Not in squad"},
     {"date":"2026-10-27","opp":"Lazio","ha":"H","comp":"Serie A","score":"2-6","status":"Not in squad","mins":0},
     {"date":"2026-10-24","opp":"Como","ha":"A","comp":"Serie A","score":"2-0","status":"Not in squad","mins":0},
     {"date":"2026-10-16","opp":"Frosinone","ha":"A","comp":"Serie A","score":"4-2","status":"Not in squad","mins":0},
