@@ -532,9 +532,9 @@ const SQUAD = [
 /* Sync record. The daily updater rewrites this block and stamps upd:"YYYY-MM-DD" on any
    CLUB or BUBBLE entry it changed. A player is highlighted while upd === SYNC.last. */
 const SYNC = {
-  last: "2026-11-04",            // date of the most recent successful sync (ET)
+  last: "2026-11-05",            // date of the most recent successful sync (ET)
   source: "Sept 1–7 weekly summary",   // which r/CanadaSoccer post the club data reflects
-  changed: 10,                    // how many players changed in that sync
+  changed: 1,                    // how many players changed in that sync
   schedule: "Checked nightly at 1:15 a.m. Eastern"
 };
 
@@ -542,6 +542,7 @@ const SYNC = {
    Written from that day's MATCHES notes and GAMELOG ratings; the updater prepends a new
    entry each night a Canadian played. Only the newest 14 are shown. */
 const DAILY = [
+  {date:"2026-11-04",text:"No Canadian played on Wednesday. Alfie Jones (injured) was again out of the Middlesbrough squad as they lost 2-0 at Wrexham, the only match involving a Canadian club on the day."},
   {date:"2026-11-03",text:"Alphonso Davies was the best of the Canadians, starting and coming off in the 79th minute (7.9) as Bayern Munich won 2-0 at Atlético Madrid in the Champions League; Jonathan David came on in the 74th minute (5.9) for Atlético. Tajon Buchanan played all 90 (7.0) and Tani Oluwaseyi came on in the 63rd minute (6.3) as Villarreal lost 6-0 at home to PSG, and Liam Millar (7.1) started in Birmingham City's 3-0 win over Millwall before coming off in the 73rd. Nathan Saliba (muscle), Cyle Larin (injury) and Ali Ahmed (ACL) were out, and Stephen Eustáquio and Jayden Nelson did not feature for Swansea and Bolton."},
   {date:"2026-11-02",text:"No Canadian played on Monday. Ismaël Koné (leg injury) was again out of the Sassuolo squad as they lost 4-2 at home to Fiorentina."},
   {date:"2026-11-01",text:"Luka Gavran was rated 7.5, the best of the Canadians, in goal for Toronto FC, but they lost 3-1 at Atlanta United; Richie Laryea (6.7) and Jonathan Osorio (6.5) also played all 90. Joel Waterman played all 90 (7.4) and James Pantemis (6.0) was in goal as Portland won 3-1 at Houston, Dayne St. Clair (6.9) helped Inter Miami win 2-1 at New England, and Ralph Priso came on in the 74th minute (6.0) in Vancouver's 5-1 win over Seattle. Mathieu Choinière (6.5, off in the 82nd) and Jacob Shaffelburg (6.3, on in the 74th) were in LAFC's 3-1 home loss to Minnesota, Niko Sigur (6.3) and Jacen Russell-Rowe (7.0, off in the 57th) started in Toulouse's 2-0 loss at Marseille, and Jahkeele Marshall-Rutty played all 90 (6.3) as the Red Bulls lost 3-2 at Nashville. Alistair Johnston (hamstring) was out of Celtic's 2-0 loss at Falkirk and Derek Cornelius (hip) missed Marseille's win."},
@@ -563,7 +564,7 @@ const DAILY = [
 const CLUB = {
   1: {"team":"Inter Miami","lg":"MLS","la":27,"ls":27,"r":6.83,"note":"St. Clair played all 90, rated 6.9, and conceded once as Inter Miami won 2-1 at New England.","upd":"2026-11-02"},
   2: {"team":"Celtic","lg":"Scottish Premiership","la":2,"ls":2,"r":7.26,"st":"inj","eta":"Nov","ret":"FotMob's Celtic injury list (Nov 1) still shows a hamstring problem with a mid-November 2026 return; he missed the 2-0 loss at Falkirk.","note":"Alistair Johnston (hamstring) was again out of the Celtic squad as they lost 2-0 at Falkirk on Nov 1.","upd":"2026-11-02"},
-  3: {team:"Middlesbrough",lg:"Championship",la:5,ls:2,r:6.93,st:"inj",eta:"late Oct",ret:"FotMob's Middlesbrough injury list (Oct 10) has a calf injury, expected back late October 2026; he missed the Oct 10 win over Wolves too. Earlier: Kim Hellberg (the72.co.uk, Sept 15) targeted a return after the international break.",note:"Jones (calf) was again out of the lineup as Middlesbrough beat Charlton 3-0 on Oct 31.",upd:"2026-11-01"},
+  3: {team:"Middlesbrough",lg:"Championship",la:5,ls:2,r:6.93,st:"inj",eta:"late Oct",ret:"FotMob's Middlesbrough injury list (Oct 10) has a calf injury, expected back late October 2026; he missed the Oct 10 win over Wolves too. Earlier: Kim Hellberg (the72.co.uk, Sept 15) targeted a return after the international break.",note:"Jones (calf) was again out of the lineup as Middlesbrough beat Charlton 3-0 on Oct 31.",upd:"2026-11-05"},
   4: {team:"Real Salt Lake",lg:"MLS",st:"new",note:"De Fougerolles played the full 90 (6.9) as Real Salt Lake lost 2-1 at San Jose.",upd:"2026-11-01",la:6,ls:5,g:1,a:1,r:8.13},
   5: {"team":"Portland Timbers","lg":"MLS","la":24,"ls":19,"r":6.83,"st":"new","note":"Waterman played the full 90, rated 7.4, as Portland won 3-1 at Houston.","upd":"2026-11-02"},
   6: {"team":"LAFC","lg":"MLS","la":32,"ls":20,"r":7.03,"g":2,"a":3,"note":"Choinière started and came off in the 82nd minute (6.5) as LAFC lost 3-1 at home to Minnesota United.","upd":"2026-11-02"},
@@ -632,7 +633,7 @@ const MATCHES = [
   {date:"2026-11-03",et:"15:00",home:"Atlético Madrid",away:"Bayern Munich",comp:"Champions League",score:"0-2",note:"Alphonso Davies started and came off in the 79th minute (7.9) as Bayern won 2-0 at Atlético; Jonathan David came on in the 74th (5.9)."},
   {date:"2026-11-03",et:"15:00",home:"Birmingham City",away:"Millwall",comp:"Championship",score:"3-0",note:"Liam Millar started and came off in the 73rd minute (7.1) as Birmingham beat Millwall 3-0."},
   {date:"2026-11-03",et:"15:00",home:"West Bromwich Albion",away:"Southampton",comp:"Championship",score:"1-1",note:"Southampton drew 1-1 at West Brom; Cyle Larin (injury) was not in the squad."},
-  {date:"2026-11-04",et:"14:45",home:"Wrexham",away:"Middlesbrough",comp:"Championship",score:null},
+  {date:"2026-11-04",et:"14:45",home:"Wrexham",away:"Middlesbrough",comp:"Championship",score:"2-0",note:"Middlesbrough lost 2-0 at Wrexham; Alfie Jones was not in the squad."},
   {date:"2026-11-05",et:"12:45",home:"Sparta Prague",away:"Bournemouth",comp:"Europa League",score:null},
   {date:"2026-11-05",et:"15:00",home:"Celtic",away:"Beşiktaş",comp:"Europa League",score:null},
   {date:"2026-11-05",et:"15:00",home:"Getafe",away:"Brighton",comp:"Conference League",score:null},
@@ -745,6 +746,7 @@ const GAMELOG = {
     {"date":"2026-08-03","opp":"Dundee","ha":"H","comp":"Premiership","score":"1-0","status":"Started","g":0,"a":0,"yc":0,"rc":0,"mins":90,"rating":7.8,"src":"https://www.fotmob.com/en-GB/matches/dundee-fc-vs-celtic/2qpqba#5793903"}
   ],
   3: [
+    {"date":"2026-11-04","opp":"Wrexham","ha":"A","comp":"Championship","score":"2-0","status":"Not in squad","mins":0},
     {"date":"2026-10-31","opp":"Charlton Athletic","ha":"H","comp":"Championship","score":"3-0","status":"Not in squad","mins":0},
     {"date":"2026-10-23","opp":"Bolton Wanderers","ha":"A","comp":"Championship","score":"1-5","status":"Not in squad","mins":0},
     {"date":"2026-10-17","opp":"Cardiff City","ha":"H","comp":"Championship","score":"2-2","status":"Not in squad","mins":0},
